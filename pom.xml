@@ -10,9 +10,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.qttd</groupId>
-	<artifactId>JV31_Spring_Boot_Book_API</artifactId>
+	<artifactId>HotelManagementSystem</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>HotelManagement</name>
+	<name>HotelManagementSystem</name>
 	<description>Hotel Management</description>
 
 	<properties>
@@ -52,7 +52,6 @@
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>

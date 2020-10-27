@@ -26,7 +26,7 @@ public class ConvenientEntity extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "convenient_id")
-    private int applicationId;
+    private int convenientId;
 
     @Column(name = "convenient_name")
     private String convenientName;
