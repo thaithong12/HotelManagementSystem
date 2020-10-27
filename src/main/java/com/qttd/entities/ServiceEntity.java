@@ -1,18 +1,9 @@
 package com.qttd.entities;
 
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+
+import com.qttd.enums.ApiStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -27,7 +18,7 @@ import lombok.NoArgsConstructor;
 public class ServiceEntity extends BaseEntity {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "service_id")
 	private int serviceId;
 	
@@ -37,10 +28,11 @@ public class ServiceEntity extends BaseEntity {
 	private int quantity;
 	
 	private String description;
+
+	@Enumerated(EnumType.STRING)
+	private ApiStatus status;
 	
-	private boolean status;
-	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "serviceEntity")
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "serviceEntity")
 	List<ImageEntity> imageEntities;
 	
 	@ManyToMany
