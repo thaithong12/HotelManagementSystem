@@ -5,7 +5,9 @@ import org.springframework.stereotype.Repository;
 
 import com.qttd.entities.ConvenientEntity;
 
+import java.util.List;
+
 @Repository
 public interface ConvenientRepository extends CrudRepository<ConvenientEntity, Integer>{
-
+    public List<ConvenientEntity> findByConvenientName(String name);
 }
