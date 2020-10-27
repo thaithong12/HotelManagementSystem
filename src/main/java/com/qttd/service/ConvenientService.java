@@ -18,4 +18,15 @@ public class ConvenientService {
 		return (List<ConvenientEntity>) convenientRepository.findAll();
 	}
 
+	public void saveData(ConvenientEntity c) {
+		convenientRepository.save(c);
+	}
+
+	public void deleteData(ConvenientEntity c) {
+		convenientRepository.delete(c);
+	}
+
+	public List<ConvenientEntity> findByName(String name) {
+		return convenientRepository.findByConvenientName(name);
+	}
 }
