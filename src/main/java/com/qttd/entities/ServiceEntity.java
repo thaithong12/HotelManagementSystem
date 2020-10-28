@@ -3,7 +3,7 @@ package com.qttd.entities;
 import java.util.List;
 import javax.persistence.*;
 
-import com.qttd.enums.ApiStatus;
+import com.qttd.enums.CommonStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,6 +21,9 @@ public class ServiceEntity extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "service_id")
 	private int serviceId;
+
+	@Column(name = "service_name")
+	private String serviceName;
 	
 	@Column(name = "unit_price")
 	private double unitPrice;
@@ -30,7 +33,7 @@ public class ServiceEntity extends BaseEntity {
 	private String description;
 
 	@Enumerated(EnumType.STRING)
-	private ApiStatus status;
+	private CommonStatus status;
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "serviceEntity")
 	List<ImageEntity> imageEntities;
