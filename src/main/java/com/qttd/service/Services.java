@@ -20,4 +20,16 @@ public class Services {
     public void deleteData(ServiceEntity convenientEntity) {
         serviceRepository.delete(convenientEntity);
     }
+
+    public List<ServiceEntity> findByNameService(String name ) {
+        return serviceRepository.findByServiceName(name);
+    }
+
+    public void saveData(ServiceEntity entity) {
+        serviceRepository.save(entity);
+    }
+
+    public void saveAllData(List<ServiceEntity> entities) {
+        serviceRepository.saveAll(entities);
+    }
 }

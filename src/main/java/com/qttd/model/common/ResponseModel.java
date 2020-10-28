@@ -1,4 +1,4 @@
-package com.qttd.common;
+package com.qttd.model.common;
 
 import com.qttd.enums.ApiStatus;
 import lombok.AllArgsConstructor;

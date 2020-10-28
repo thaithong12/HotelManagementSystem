@@ -41,9 +41,6 @@ public class AccountEntity extends PersonalInformation implements Serializable {
 
 	private String avatar;
 
-	@Column(name = "account_status")
-	private AccountStatus accountStatus;
-
 	@Enumerated(EnumType.STRING)
 	private AccountStatus status = AccountStatus.BLOCK;
 
