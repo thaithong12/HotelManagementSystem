@@ -29,15 +29,22 @@ public class ServiceAPI {
         ResponseModel<ListServiceResponseModel> responseModel = new ResponseModel<>();
 
         List<ServiceEntity> listData = services.getAllServices();
+        
         if(!CollectionUtils.isEmpty(listData)) {
+        	
             responseModel.setMessage("GET SUCCESS");
             responseModel.setStatus(ApiStatus.SUCCESS);
+            
             ListServiceResponseModel model = new ListServiceResponseModel();
-            ServiceResponseModel serviceResponseModel = new ServiceResponseModel();
+            
+            ServiceResponseModel serviceResponseModel;
 
             List<ServiceResponseModel> listReturn = new ArrayList<ServiceResponseModel>();
-            listData.forEach(item -> {
-                serviceResponseModel.setServiceId(item.getServiceId());
+            
+            for(ServiceEntity item : listData) {
+            	serviceResponseModel = new ServiceResponseModel();
+            	
+            	serviceResponseModel.setServiceId(item.getServiceId());
                 serviceResponseModel.setUnitPrice(item.getUnitPrice());
                 serviceResponseModel.setDescription(item.getDescription());
                 serviceResponseModel.setStatus(item.getStatus());
@@ -51,7 +58,7 @@ public class ServiceAPI {
                     serviceResponseModel.setImages(listImageReturn);
                 }
                 listReturn.add(serviceResponseModel);
-            });
+            }
             model.setData(listReturn);
             responseModel.setResponse(model);
         } else {
