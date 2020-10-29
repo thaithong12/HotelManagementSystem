@@ -34,16 +34,22 @@ public class ConvenientAPI {
 		if(!CollectionUtils.isEmpty(listData)) {
 			responseModel.setMessage("GET SUCCESS");
 			responseModel.setStatus(ApiStatus.SUCCESS);
+			
 			ListConvenientResponseModel model = new ListConvenientResponseModel();
-			ConvenientResponseModel convenientResponseModel = new ConvenientResponseModel();
+			
+			ConvenientResponseModel convenientResponseModel;
 			
 			List<ConvenientResponseModel> listReturn = new ArrayList<ConvenientResponseModel>();
-			listData.forEach(item -> {
-				convenientResponseModel.setConvenientId(item.getConvenientId());
-				convenientResponseModel.setConvenientName(item.getConvenientName());
+			
+			for(ConvenientEntity cv : listData) {
+				convenientResponseModel = new ConvenientResponseModel();
+				
+				convenientResponseModel.setConvenientId(cv.getConvenientId());
+				convenientResponseModel.setConvenientName(cv.getConvenientName());
 				convenientResponseModel.setStatus(ApiStatus.SUCCESS);
 				listReturn.add(convenientResponseModel);
-			});
+			}
+			
 			model.setData(listReturn);
 			responseModel.setResponse(model);
 		} else {
