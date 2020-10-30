@@ -17,11 +17,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderEntity extends PersonalInformation {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "order_id")
-	private int orderId;
-	
 	private Date checkIn;
 	
 	private Date checkOut;

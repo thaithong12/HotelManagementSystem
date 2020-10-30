@@ -10,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ConvenientRequestModel {
-    private int convenientId;
+    private long convenientId;
     private String convenientName;
 }
 

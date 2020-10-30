@@ -1,9 +1,9 @@
 package com.qttd.repositories;
 
-import com.qttd.entities.ImageEntity;
+import com.qttd.entities.TokenEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ImageRepository extends CrudRepository<ImageEntity,Long> {
+public interface TokenRepository extends CrudRepository<TokenEntity, Long> {
 }

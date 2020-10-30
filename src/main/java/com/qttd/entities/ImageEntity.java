@@ -13,11 +13,6 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ImageEntity extends BaseEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "image_id")
-	private int imageId;
-
 	@Column(name = "image_url")
 	private String imageUrl;
 

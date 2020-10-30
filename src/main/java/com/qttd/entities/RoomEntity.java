@@ -15,11 +15,6 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RoomEntity extends BaseEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "room_id")
-    private int roomId;
-
     @Column(name = "room_number")
     private String roomNumber;
 
