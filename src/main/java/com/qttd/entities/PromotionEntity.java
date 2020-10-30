@@ -15,6 +15,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "promotion")
@@ -28,9 +29,11 @@ public class PromotionEntity extends BaseEntity {
 	private String description;
 	
 	@Column(name = "s_date")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date sDate;
 	
 	@Column(name = "e_date")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date eDate;
 	
 	private String code; 
