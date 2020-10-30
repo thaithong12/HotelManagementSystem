@@ -16,12 +16,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ServiceEntity extends BaseEntity {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "service_id")
-	private int serviceId;
-
 	@Column(name = "service_name")
 	private String serviceName;
 	

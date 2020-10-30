@@ -23,11 +23,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PromotionEntity extends BaseEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "promotion_id")
-	private int promotionId;
-	
 	private double discount;
 	
 	private String description;

@@ -16,21 +16,17 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public abstract class BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @CreatedDate
     private Date createdAt;
 
-    @Column(name = "created_by")
-    @CreatedBy
-    private String createdBy;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updated_at")
     @LastModifiedDate
     private Date updatedAt;
 
-    @Column(name = "updated_by")
-    @LastModifiedBy
-    private String updatedBy;
+    private Long createdBy;
+
+    private Long updatedBy;
 }

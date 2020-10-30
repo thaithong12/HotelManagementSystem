@@ -29,13 +29,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class AccountEntity extends PersonalInformation implements Serializable {
-	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "account_id")
-	private int accountId;
+public class AccountEntity extends PersonalInformation{
 
 	private String password;
 

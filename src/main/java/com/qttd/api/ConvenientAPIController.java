@@ -20,7 +20,7 @@ import com.qttd.service.ConvenientService;
 @RestController
 @CrossOrigin
 @RequestMapping("/api/conveniences")
-public class ConvenientAPI {
+public class ConvenientAPIController {
 	
 	@Autowired
 	private ConvenientService convenientService;
@@ -44,7 +44,7 @@ public class ConvenientAPI {
 			for(ConvenientEntity cv : listData) {
 				convenientResponseModel = new ConvenientResponseModel();
 				
-				convenientResponseModel.setConvenientId(cv.getConvenientId());
+				convenientResponseModel.setConvenientId(cv.getId());
 				convenientResponseModel.setConvenientName(cv.getConvenientName());
 				convenientResponseModel.setStatus(ApiStatus.SUCCESS);
 				listReturn.add(convenientResponseModel);
@@ -70,7 +70,7 @@ public class ConvenientAPI {
 		List<ConvenientEntity> listData = convenientService.getAllConvenients();
 		if (!CollectionUtils.isEmpty(listData)) {
 				ConvenientEntity convenientEntity = listData.stream()
-						.filter(item-> item.getConvenientId() == convenientModel.getConvenientId())
+						.filter(item-> item.getId() == convenientModel.getConvenientId())
 						.findFirst().orElse(null);
 				if (!ObjectUtils.isEmpty(convenientEntity)) {
 					convenientService.deleteData(convenientEntity);
@@ -104,7 +104,7 @@ public class ConvenientAPI {
 
 						SetResponseModel(listReturn, i, ApiStatus.SUCCESS);
 					} else {
-						entity = listData.stream().filter(k -> k.getConvenientId() == item.getConvenientId())
+						entity = listData.stream().filter(k -> k.getId() == item.getConvenientId())
 								.findFirst()
 								.orElse(null);
 						if (entity != null) {
