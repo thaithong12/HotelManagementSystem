@@ -11,6 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -33,9 +36,11 @@ public class PromotionEntity extends BaseEntity {
 	private String description;
 	
 	@Column(name = "s_date")
+	@DateTimeFormat(pattern = "yyyy-mm-dd")
 	private Date sDate;
 	
 	@Column(name = "e_date")
+	@DateTimeFormat(pattern = "yyyy-mm-dd")
 	private Date eDate;
 	
 	private String code; 
