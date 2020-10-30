@@ -30,8 +30,8 @@ public class ConvenientAPIController {
 		ResponseModel<ListConvenientResponseModel> responseModel = new ResponseModel<>();
 		
 		List<ConvenientEntity> listData = convenientService.getAllConvenients();
-		
 		if(!CollectionUtils.isEmpty(listData)) {
+<<<<<<< HEAD:src/main/java/com/qttd/api/ConvenientAPIController.java
 			responseModel.setMessage("GET SUCCESS");
 			responseModel.setStatus(ApiStatus.SUCCESS);
 			
@@ -57,6 +57,34 @@ public class ConvenientAPIController {
 			responseModel.setStatus(ApiStatus.ERROR);
 			responseModel.setResponse(null);
 		}
+=======
+			   responseModel.setMessage("GET SUCCESS");
+			   responseModel.setStatus(ApiStatus.SUCCESS);
+			   
+			   ListConvenientResponseModel model = new ListConvenientResponseModel();
+			   
+			   ConvenientResponseModel convenientResponseModel;
+			   
+			   List<ConvenientResponseModel> listReturn = new ArrayList<ConvenientResponseModel>();
+			   
+			   for(ConvenientEntity cv : listData) {
+			      convenientResponseModel = new ConvenientResponseModel();
+			      
+			      convenientResponseModel.setConvenientId(cv.getConvenientId());
+			      convenientResponseModel.setConvenientName(cv.getConvenientName());
+			      convenientResponseModel.setStatus(ApiStatus.SUCCESS);
+			      listReturn.add(convenientResponseModel);
+			   }
+			   
+			   model.setData(listReturn);
+			   responseModel.setResponse(model);
+			} else {
+			   responseModel.setMessage("LIST IS NULL");
+			   responseModel.setStatus(ApiStatus.ERROR);
+			   responseModel.setResponse(null);
+			}
+		
+>>>>>>> c5b98881c6c08bac1a127de793c117b14dd9b80d:src/main/java/com/qttd/api/ConvenientAPI.java
 		return responseModel;
 	}
 
@@ -74,7 +102,7 @@ public class ConvenientAPIController {
 						.findFirst().orElse(null);
 				if (!ObjectUtils.isEmpty(convenientEntity)) {
 					convenientService.deleteData(convenientEntity);
-					responseModel.setMessage("DELETE SUCCESS");
+					responseModel.setMessage("DELETE SUCESS");
 					responseModel.setStatus(ApiStatus.SUCCESS);
 				}
 		}
