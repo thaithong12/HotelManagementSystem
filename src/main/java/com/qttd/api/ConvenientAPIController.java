@@ -6,6 +6,7 @@ import java.util.List;
 import com.qttd.model.request.ConvenientRequestModel;
 import com.qttd.model.request.ListConvenientRequestModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ import com.qttd.service.ConvenientService;
 @RestController
 @CrossOrigin
 @RequestMapping("/api/conveniences")
+@PreAuthorize("hasAnyAuthority('ROLE_MANAGER')")
 public class ConvenientAPIController {
 	
 	@Autowired
