@@ -13,4 +13,3 @@ public class ConvenientRequestModel {
     private long convenientId;
     private String convenientName;
 }
-
