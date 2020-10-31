@@ -23,11 +23,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ConvenientEntity extends BaseEntity{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "convenient_id")
-    private int convenientId;
-
     @Column(name = "convenient_name")
     private String convenientName;
       

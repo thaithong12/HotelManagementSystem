@@ -13,7 +13,7 @@ public class ConvenientResponseModel {
 	
 	private int index;
 	
-	private int convenientId;
+	private long convenientId;
 	
 	private String convenientName;
 	
