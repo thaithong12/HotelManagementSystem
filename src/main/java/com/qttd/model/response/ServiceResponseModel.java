@@ -3,18 +3,16 @@ package com.qttd.model.response;
 import com.qttd.enums.ApiStatus;
 import com.qttd.enums.CommonStatus;
 import com.qttd.model.request.ImageRequestModel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import javax.persistence.*;
 import java.util.List;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 public class ServiceResponseModel {
 
-    private int serviceId;
+    private long serviceId;
 
     private int index;
 

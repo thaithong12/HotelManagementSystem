@@ -59,7 +59,7 @@ public class PromotionAPI {
 			};*/
 			for(PromotionEntity item : listData) {
 				PromotionResponseModel promotionResponseModel = new PromotionResponseModel();
-				promotionResponseModel.setPromotionId(item.getPromotionId());
+				promotionResponseModel.setPromotionId(item.getId());
 				promotionResponseModel.setDiscount(item.getDiscount());
 				promotionResponseModel.setDescription(item.getDescription());
 				promotionResponseModel.setSDate(item.getSDate());
@@ -89,7 +89,7 @@ public class PromotionAPI {
 		List<PromotionEntity> listData = promotionService.getAllPromotion();
 		if (!CollectionUtils.isEmpty(listData)) {
 				PromotionEntity promotionEntity = listData.stream()
-						.filter(item-> item.getPromotionId() == promotionModel.getPromotionId())
+						.filter(item-> item.getId() == promotionModel.getPromotionId())
 						.findFirst().orElse(null);
 				if (!ObjectUtils.isEmpty(promotionEntity)) {
 					promotionService.deleteData(promotionEntity);
@@ -124,7 +124,7 @@ public class PromotionAPI {
 						SetResponseModel(listReturn, i, ApiStatus.SUCCESS);
 					} else {
 						
-						entity = listData.stream().filter(k -> k.getPromotionId() == item.getPromotionId())
+						entity = listData.stream().filter(k -> k.getId() == item.getPromotionId())
 								.findFirst()
 								.orElse(null);
 						if (entity != null) {
@@ -136,7 +136,7 @@ public class PromotionAPI {
 						}
 					}
 				} else {
-					entity = listData.stream().filter(k -> k.getPromotionId() == item.getPromotionId())
+					entity = listData.stream().filter(k -> k.getId() == item.getPromotionId())
 							.findFirst()
 							.orElse(null);
 					if (entity != null) {
@@ -162,7 +162,7 @@ public class PromotionAPI {
     }
 	private void SetAttrPromotion(PromotionEntity entity, PromotionRequestModel item) {
 		
-		entity.setPromotionId(item.getPromotionId());
+		entity.setId(item.getPromotionId());
 		if(item.getDiscount() != 0.0)
 		  entity.setDiscount(item.getDiscount());
 		if(item.getDescription() != null)

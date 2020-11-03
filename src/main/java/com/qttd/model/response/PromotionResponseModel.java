@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PromotionResponseModel {
 	private int index;
-	private int promotionId;
+	private long promotionId;
 	
 	private double discount;
 	

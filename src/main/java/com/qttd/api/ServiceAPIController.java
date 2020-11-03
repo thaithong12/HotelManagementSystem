@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @CrossOrigin
 @RequestMapping("api/services")
-public class ServiceAPI {
+public class ServiceAPIController {
     @Autowired
     Services services;
 
@@ -29,15 +29,22 @@ public class ServiceAPI {
         ResponseModel<ListServiceResponseModel> responseModel = new ResponseModel<>();
 
         List<ServiceEntity> listData = services.getAllServices();
+        
         if(!CollectionUtils.isEmpty(listData)) {
+        	
             responseModel.setMessage("GET SUCCESS");
             responseModel.setStatus(ApiStatus.SUCCESS);
+            
             ListServiceResponseModel model = new ListServiceResponseModel();
-            ServiceResponseModel serviceResponseModel = new ServiceResponseModel();
+            
+            ServiceResponseModel serviceResponseModel;
 
             List<ServiceResponseModel> listReturn = new ArrayList<ServiceResponseModel>();
-            listData.forEach(item -> {
-                serviceResponseModel.setServiceId(item.getServiceId());
+            
+            for(ServiceEntity item : listData) {
+            	serviceResponseModel = new ServiceResponseModel();
+            	
+            	serviceResponseModel.setServiceId((item.getId()));
                 serviceResponseModel.setUnitPrice(item.getUnitPrice());
                 serviceResponseModel.setDescription(item.getDescription());
                 serviceResponseModel.setStatus(item.getStatus());
@@ -51,7 +58,7 @@ public class ServiceAPI {
                     serviceResponseModel.setImages(listImageReturn);
                 }
                 listReturn.add(serviceResponseModel);
-            });
+            }
             model.setData(listReturn);
             responseModel.setResponse(model);
         } else {
@@ -72,7 +79,7 @@ public class ServiceAPI {
         List<ServiceEntity> listData = services.getAllServices();
         if (!CollectionUtils.isEmpty(listData)) {
             ServiceEntity convenientEntity = listData.stream()
-                    .filter(item-> item.getServiceId() == requestModel.getServiceId())
+                    .filter(item-> item.getId() == requestModel.getServiceId())
                     .findFirst().orElse(null);
             if (!ObjectUtils.isEmpty(convenientEntity)) {
                 services.deleteData(convenientEntity);
@@ -109,7 +116,7 @@ public class ServiceAPI {
                         SetResponseModel(listReturn, i, item, ApiStatus.SUCCESS);
                     } else {
                         entity = listData.stream()
-                                .filter(k -> k.getServiceId() == item.getServiceId())
+                                .filter(k -> k.getId() == item.getServiceId())
                                 .findFirst()
                                 .orElse(null);
                         if (entity != null) {

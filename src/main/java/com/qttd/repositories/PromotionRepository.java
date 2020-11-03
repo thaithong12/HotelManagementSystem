@@ -8,8 +8,8 @@ import java.util.Date;
 import java.util.List;
 @Repository
 
-	public interface PromotionRepository extends CrudRepository<PromotionEntity, Integer>{
-	    public List<PromotionEntity> findByPromotionId(int promotionId);
+	public interface PromotionRepository extends CrudRepository<PromotionEntity, Long>{
+	    public PromotionEntity findById(long promotionId);
 	    public List<PromotionEntity> findByCode(String code);
 	    public List<PromotionEntity> findByDiscount(double discount);
 	    public List<PromotionEntity> findBySDate(Date sDate);

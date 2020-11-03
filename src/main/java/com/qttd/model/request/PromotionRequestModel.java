@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PromotionRequestModel {
-private int promotionId;
+private long promotionId;
 	
 	private double discount;
 	
