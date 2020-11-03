@@ -39,6 +39,7 @@ public class AccountService {
             userPrincipal.setUsername(ac.getEmail());
             userPrincipal.setPassword(ac.getPassword());
             userPrincipal.setAuthorities(authorities);
+            userPrincipal.setStatus(ac.getStatus());
         }
         return userPrincipal;
     }

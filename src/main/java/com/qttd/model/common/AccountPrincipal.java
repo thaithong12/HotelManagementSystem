@@ -1,5 +1,6 @@
 package com.qttd.model.common;
 
+import com.qttd.enums.AccountStatus;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,6 +12,7 @@ public class AccountPrincipal implements UserDetails {
     private Long userId;
     private String username;
     private String password;
+    private AccountStatus status;
     private Collection authorities;
 
     @Override
