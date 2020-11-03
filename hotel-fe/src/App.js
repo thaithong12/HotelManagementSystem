@@ -9,6 +9,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import Login from "./Login";
 
 
 
@@ -34,11 +35,13 @@ function Page(){
       <header>
         
         <Link to="/Dashboard">Dashboard</Link>
+        <Link to={'/login'}>Login</Link>
       </header>
       <main>
       <Switch>
         <Route exact path="/" component={Home}/>
         <Route path="/Dashboard" component={Dashboard}/>
+        <Route path="/login" component={Login}/>
       </Switch> 
       </main>
       <footer>
