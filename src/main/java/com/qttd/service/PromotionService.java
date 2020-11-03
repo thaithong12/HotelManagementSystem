@@ -1,4 +1,5 @@
 package com.qttd.service;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,26 @@ public class PromotionService {
 	public void deleteData(PromotionEntity p) {
 		promotionRepository.delete(p);
 	}
-
+     
+	public List<PromotionEntity> findByPromotionId(int promotionId) {
+		return promotionRepository.findByPromotionId(promotionId);
+	} 
 	public List<PromotionEntity> findByCode(String code) {
 		return promotionRepository.findByCode(code);
+	}
+	public List<PromotionEntity> findByDiscount(double discount) {
+		return promotionRepository.findByDiscount(discount);
+	}
+	public List<PromotionEntity> findBySDate(Date sDate) {
+		return promotionRepository.findBySDate(sDate);
+	}
+	public List<PromotionEntity> findByEDate(Date eDate) {
+		return promotionRepository.findByEDate(eDate);
+	}
+	public List<PromotionEntity> findByDescription(String description) {
+		return promotionRepository.findByDescription(description);
+	}
+	public List<PromotionEntity> findByImage(String image) {
+		return promotionRepository.findByImage(image);
 	}
 }

@@ -4,9 +4,16 @@ import org.springframework.stereotype.Repository;
 
 import com.qttd.entities.PromotionEntity;
 
+import java.util.Date;
 import java.util.List;
 @Repository
 
 	public interface PromotionRepository extends CrudRepository<PromotionEntity, Integer>{
+	    public List<PromotionEntity> findByPromotionId(int promotionId);
 	    public List<PromotionEntity> findByCode(String code);
+	    public List<PromotionEntity> findByDiscount(double discount);
+	    public List<PromotionEntity> findBySDate(Date sDate);
+	    public List<PromotionEntity> findByEDate(Date eDate);
+	    public List<PromotionEntity> findByDescription(String description);
+	    public List<PromotionEntity> findByImage(String image);
 }

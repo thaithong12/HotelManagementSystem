@@ -40,10 +40,12 @@ public class PromotionAPI {
 			responseModel.setMessage("GET SUCCESS");
 			responseModel.setStatus(ApiStatus.SUCCESS);
 			ListPromotionResponseModel model = new ListPromotionResponseModel();
-			PromotionResponseModel promotionResponseModel = new PromotionResponseModel();
+			//PromotionResponseModel promotionResponseModel = new PromotionResponseModel();
 			
 			List<PromotionResponseModel> listReturn = new ArrayList<PromotionResponseModel>();
-			listData.forEach(item -> {
+			/*for(int i=0; i<listData.size();i ++) {
+				PromotionEntity item = listData.get(i);
+				//promotionResponseModel.setIndex(i);
 				promotionResponseModel.setPromotionId(item.getPromotionId());
 				promotionResponseModel.setDiscount(item.getDiscount());
 				promotionResponseModel.setDescription(item.getDescription());
@@ -54,7 +56,20 @@ public class PromotionAPI {
 				promotionResponseModel.setStatusApi(ApiStatus.SUCCESS);
 				
 				listReturn.add(promotionResponseModel);
-			});
+			};*/
+			for(PromotionEntity item : listData) {
+				PromotionResponseModel promotionResponseModel = new PromotionResponseModel();
+				promotionResponseModel.setPromotionId(item.getPromotionId());
+				promotionResponseModel.setDiscount(item.getDiscount());
+				promotionResponseModel.setDescription(item.getDescription());
+				promotionResponseModel.setSDate(item.getSDate());
+				promotionResponseModel.setEDate(item.getEDate());
+				promotionResponseModel.setCode(item.getCode());
+				promotionResponseModel.setImage(item.getImage());
+				promotionResponseModel.setStatusApi(ApiStatus.SUCCESS);
+				
+				listReturn.add(promotionResponseModel);
+			}
 			model.setData(listReturn);
 			responseModel.setResponse(model);
 		} else {
@@ -78,7 +93,7 @@ public class PromotionAPI {
 						.findFirst().orElse(null);
 				if (!ObjectUtils.isEmpty(promotionEntity)) {
 					promotionService.deleteData(promotionEntity);
-					responseModel.setMessage("DELETE SUCESS");
+					responseModel.setMessage("DELETE SUCCESS");
 					responseModel.setStatus(ApiStatus.SUCCESS);
 				}
 		}
@@ -99,15 +114,16 @@ public class PromotionAPI {
 			PromotionEntity entity;
 			for(int i = 0; i < listRequest.getData().size() ; i++ ) {
 				PromotionRequestModel item = listRequest.getData().get(i);
-				if (validateExistName(item.getCode()) == false) {
-					if (item.getPromotionId() == 0) {
+				
+				if (validateExist(item.getCode()) == false) {
+					 if (item.getPromotionId() == 0) {
 						entity = new PromotionEntity();
 						SetAttrPromotion(entity, item);
 						//entity.setCode(item.getCode());
 						promotionService.saveData(entity);
-
 						SetResponseModel(listReturn, i, ApiStatus.SUCCESS);
 					} else {
+						
 						entity = listData.stream().filter(k -> k.getPromotionId() == item.getPromotionId())
 								.findFirst()
 								.orElse(null);
@@ -120,7 +136,16 @@ public class PromotionAPI {
 						}
 					}
 				} else {
-					SetResponseModel(listReturn, i, ApiStatus.ERROR);
+					entity = listData.stream().filter(k -> k.getPromotionId() == item.getPromotionId())
+							.findFirst()
+							.orElse(null);
+					if (entity != null) {
+						SetAttrPromotion(entity, item);
+						promotionService.saveData(entity);
+						SetResponseModel(listReturn, i, ApiStatus.SUCCESS);
+					} else {
+						SetResponseModel(listReturn, i, ApiStatus.ERROR);
+					}
 				}
 			}
 			ListPromotionResponseModel model = new ListPromotionResponseModel();
@@ -130,30 +155,58 @@ public class PromotionAPI {
 		return responseModel;
 	}
 	private void SetResponseModel(List<PromotionResponseModel> listReturn, int i, ApiStatus status) {
-        PromotionResponseModel promotionResponseModel;
-        promotionResponseModel = new PromotionResponseModel();
+        PromotionResponseModel promotionResponseModel = new PromotionResponseModel();
         promotionResponseModel.setIndex(i);
         promotionResponseModel.setStatusApi(status);
         listReturn.add(promotionResponseModel);
     }
 	private void SetAttrPromotion(PromotionEntity entity, PromotionRequestModel item) {
 		
-		entity.setDiscount(item.getDiscount());
-		entity.setDescription(item.getDescription());
-		entity.setSDate(item.getSDate());
-		entity.setEDate(item.getEDate());
-		entity.setCode(item.getCode());
-		entity.setImage(item.getImage());
+		entity.setPromotionId(item.getPromotionId());
+		if(item.getDiscount() != 0.0)
+		  entity.setDiscount(item.getDiscount());
+		if(item.getDescription() != null)
+		  entity.setDescription(item.getDescription());
+		if(item.getSDate() != null)
+          entity.setSDate(item.getSDate());
+		if(item.getEDate() != null)
+		  entity.setEDate(item.getEDate());
+		if(item.getCode() != null)
+		  entity.setCode(item.getCode());
+		if(item.getImage() != null)
+		  entity.setImage(item.getImage());
 		
     }
 	
-	private boolean validateExistName(String code ) {
-		List<PromotionEntity> datas = promotionService.findByCode(code);
-		if (!CollectionUtils.isEmpty(datas)){
-			if (datas.size() > 0) {
-				return  true;
-			}
+	private boolean validateExist(String code) {
+		int dem = 0;
+		List<PromotionEntity> fc = promotionService.findByCode(code);
+//		List<PromotionEntity> fde = promotionService.findByDescription(item.getDescription());
+//		List<PromotionEntity> fdi = promotionService.findByDiscount(item.getDiscount());
+//		List<PromotionEntity> fe = promotionService.findByEDate(item.getEDate());
+//		List<PromotionEntity> fs = promotionService.findBySDate(item.getSDate());
+//		List<PromotionEntity> fi = promotionService.findByImage(item.getImage());
+		if (!CollectionUtils.isEmpty(fc)){
+			if (fc.size() > 0) 
+				return true;
 		}
+//		if (!CollectionUtils.isEmpty(fde) && item.getDescription()!= null){
+//			if (fde.size() > 0) dem++;
+//		}
+//		if (!CollectionUtils.isEmpty(fdi)){
+//			if (fdi.size() > 0) dem++;
+//		}
+//		if (!CollectionUtils.isEmpty(fe) && item.getEDate()!= null){
+//			if (fe.size() > 0) dem++;
+//		}
+//		if (!CollectionUtils.isEmpty(fs) && item.getSDate()!= null){
+//			if (fs.size() > 0) dem++;
+//		}
+//		if (!CollectionUtils.isEmpty(fi) && item.getImage()!= null){
+//			if (fi.size() > 0) dem++;
+//		}
+//		if (dem == 6)
+//			return true;
 		return  false;
 	}
 }
