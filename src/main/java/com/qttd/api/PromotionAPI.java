@@ -179,7 +179,7 @@ public class PromotionAPI {
     }
 	
 	private boolean validateExist(String code) {
-		int dem = 0;
+		//int dem = 0;
 		List<PromotionEntity> fc = promotionService.findByCode(code);
 //		List<PromotionEntity> fde = promotionService.findByDescription(item.getDescription());
 //		List<PromotionEntity> fdi = promotionService.findByDiscount(item.getDiscount());

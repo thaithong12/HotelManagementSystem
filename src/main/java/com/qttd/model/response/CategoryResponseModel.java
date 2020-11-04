@@ -10,12 +10,14 @@ import com.qttd.entities.ImageEntity;
 import com.qttd.entities.ReviewEntity;
 import com.qttd.entities.RoomEntity;
 import com.qttd.enums.ApiStatus;
+import com.qttd.model.request.ImageRequestModel;
+import com.qttd.model.request.ReviewRequestModel;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class CategoryResponseModel {
-	private int categoryId;
+	private long categoryId;
 	
 	private int index;
 	
@@ -23,7 +25,7 @@ public class CategoryResponseModel {
 	
 	private String description;
 	
-	private Double price;
+	private double price;
 	
 	private int numberOfRoom;
 	
@@ -31,9 +33,10 @@ public class CategoryResponseModel {
 	
 	private ApiStatus statusApi;
 	
-	private List<ImageEntity> imageEntities;
+	List<ImageRequestModel> images;
+	List<ReviewRequestModel> reviews;
 	
 	private List<RoomEntity> roomEntities;
 	
-	private List<ReviewEntity> reviewEntities;
+	
 }

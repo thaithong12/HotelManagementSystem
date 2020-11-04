@@ -131,10 +131,20 @@ public class ServiceAPIController {
                         }
                     }
                 } else {
-                    serviceResponseModel = new ServiceResponseModel();
-                    serviceResponseModel.setIndex(i);
-                    serviceResponseModel.setStatusApi(ApiStatus.ERROR);
-                    listReturn.add(serviceResponseModel);
+                	entity = listData.stream()
+                            .filter(k -> k.getId() == item.getServiceId())
+                            .findFirst()
+                            .orElse(null);
+                    if (entity != null) {
+                        SetAttrService(entity, item);
+                        services.saveData(entity);
+                        SetResponseModel(listReturn, i, item, ApiStatus.SUCCESS);
+                    } else {
+                        serviceResponseModel = new ServiceResponseModel();
+                        serviceResponseModel.setIndex(i);
+                        serviceResponseModel.setStatusApi(ApiStatus.ERROR);
+                        listReturn.add(serviceResponseModel);
+                    }
                 }
             }
             ListServiceResponseModel model = new ListServiceResponseModel();

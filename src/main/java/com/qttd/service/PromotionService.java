@@ -26,7 +26,7 @@ public class PromotionService {
 		promotionRepository.delete(p);
 	}
      
-	public PromotionEntity findByPromotionId(int promotionId) {
+	public PromotionEntity findByPromotionId(long promotionId) {
 		return promotionRepository.findById(promotionId);
 	} 
 	public List<PromotionEntity> findByCode(String code) {
