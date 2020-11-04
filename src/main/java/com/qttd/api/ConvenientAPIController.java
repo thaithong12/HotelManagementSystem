@@ -6,7 +6,11 @@ import java.util.List;
 import com.qttd.model.request.ConvenientRequestModel;
 import com.qttd.model.request.ListConvenientRequestModel;
 import org.springframework.beans.factory.annotation.Autowired;
+
+//import org.springframework.security.access.prepost.PreAuthorize;
+
 import org.springframework.security.access.prepost.PreAuthorize;
+
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +25,6 @@ import com.qttd.service.ConvenientService;
 @RestController
 @CrossOrigin
 @RequestMapping("/api/conveniences")
-@PreAuthorize("hasAnyAuthority('ROLE_MANAGER')")
 public class ConvenientAPIController {
 	
 	@Autowired
@@ -32,8 +35,12 @@ public class ConvenientAPIController {
 		ResponseModel<ListConvenientResponseModel> responseModel = new ResponseModel<>();
 		
 		List<ConvenientEntity> listData = convenientService.getAllConvenients();
+
 		
 		if(!CollectionUtils.isEmpty(listData)) {
+
+		if(!CollectionUtils.isEmpty(listData)) {
+
 			responseModel.setMessage("GET SUCCESS");
 			responseModel.setStatus(ApiStatus.SUCCESS);
 			
@@ -46,7 +53,11 @@ public class ConvenientAPIController {
 			for(ConvenientEntity cv : listData) {
 				convenientResponseModel = new ConvenientResponseModel();
 				
+
 				convenientResponseModel.setConvenientId(cv.getId());
+
+				convenientResponseModel.setConvenientId(cv.getId());
+
 				convenientResponseModel.setConvenientName(cv.getConvenientName());
 				convenientResponseModel.setStatus(ApiStatus.SUCCESS);
 				listReturn.add(convenientResponseModel);
@@ -59,6 +70,33 @@ public class ConvenientAPIController {
 			responseModel.setStatus(ApiStatus.ERROR);
 			responseModel.setResponse(null);
 		}
+
+			   responseModel.setMessage("GET SUCCESS");
+			   responseModel.setStatus(ApiStatus.SUCCESS);
+			   
+			   ListConvenientResponseModel model = new ListConvenientResponseModel();
+			   
+			   ConvenientResponseModel convenientResponseModel;
+			   
+			   List<ConvenientResponseModel> listReturn = new ArrayList<ConvenientResponseModel>();
+			   
+			   for(ConvenientEntity cv : listData) {
+			      convenientResponseModel = new ConvenientResponseModel();
+			      
+			      convenientResponseModel.setConvenientId(cv.getId());
+			      convenientResponseModel.setConvenientName(cv.getConvenientName());
+			      convenientResponseModel.setStatus(ApiStatus.SUCCESS);
+			      listReturn.add(convenientResponseModel);
+			   }
+			   
+			   model.setData(listReturn);
+			   responseModel.setResponse(model);
+			} else {
+			   responseModel.setMessage("LIST IS NULL");
+			   responseModel.setStatus(ApiStatus.ERROR);
+			   responseModel.setResponse(null);
+			}
+
 		return responseModel;
 	}
 
@@ -72,6 +110,8 @@ public class ConvenientAPIController {
 		List<ConvenientEntity> listData = convenientService.getAllConvenients();
 		if (!CollectionUtils.isEmpty(listData)) {
 				ConvenientEntity convenientEntity = listData.stream()
+
+						.filter(item-> item.getId() == convenientModel.getConvenientId())
 						.filter(item-> item.getId() == convenientModel.getConvenientId())
 						.findFirst().orElse(null);
 				if (!ObjectUtils.isEmpty(convenientEntity)) {
@@ -106,6 +146,7 @@ public class ConvenientAPIController {
 
 						SetResponseModel(listReturn, i, ApiStatus.SUCCESS);
 					} else {
+
 						entity = listData.stream().filter(k -> k.getId() == item.getConvenientId())
 								.findFirst()
 								.orElse(null);
@@ -147,3 +188,4 @@ public class ConvenientAPIController {
 		return  false;
 	}
 }
+
