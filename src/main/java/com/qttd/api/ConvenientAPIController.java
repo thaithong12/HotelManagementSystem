@@ -21,7 +21,6 @@ import com.qttd.service.ConvenientService;
 @RestController
 @CrossOrigin
 @RequestMapping("/api/conveniences")
-@PreAuthorize("hasAnyAuthority('ROLE_MANAGER')")
 public class ConvenientAPIController {
 	
 	@Autowired
