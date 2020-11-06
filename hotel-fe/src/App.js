@@ -39,7 +39,7 @@ function Page(){
       </header>
       <main>
       <Switch>
-        <Route exact path="/" component={Home}/>
+        <Route exact={'/'} path="/" component={Home}/>
         <Route path="/Dashboard" component={Dashboard}/>
         <Route path="/login" component={Login}/>
       </Switch> 
