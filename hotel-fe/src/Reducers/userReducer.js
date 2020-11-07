@@ -13,10 +13,7 @@ export default function userReducer(state = initialState, action) {
     case LOGOUT_ACCOUNT:
 
     case LOGIN_ACCOUNT:
-      LoginAccount(action.payload.email, action.payload.password);
-      let newState = {
 
-      }
     default: return state;
   }
 }

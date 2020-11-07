@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -28,6 +29,10 @@ public class TokenService {
         tokenEntity.setToken(UUID.randomUUID().toString());
         tokenEntity.setAccountEntity(ac);
         return tokenRepository.save(tokenEntity);
+    }
+
+    public List<TokenEntity> findAll() {
+        return (List<TokenEntity>) tokenRepository.findAll();
     }
 
     private Date generateExpirationDate() {
