@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -25,7 +26,7 @@ public class AccountService {
         return ac.getStatus();
     }
 
-    public AccountPrincipal findByEmail(String email) {
+    public AccountPrincipal getAccountPricipalByEmail(String email) {
         AccountEntity ac = accountRepository.findByEmail(email);
 
         AccountPrincipal userPrincipal = new AccountPrincipal();
@@ -42,6 +43,14 @@ public class AccountService {
             userPrincipal.setStatus(ac.getStatus());
         }
         return userPrincipal;
+    }
+
+    public AccountEntity findByEmail(String email) {
+        return accountRepository.findByEmail(email);
+    }
+
+    public List<AccountEntity> findAll() {
+        return (List<AccountEntity>) accountRepository.findAll();
     }
 
     public Optional<AccountEntity> findOne(long id) {
