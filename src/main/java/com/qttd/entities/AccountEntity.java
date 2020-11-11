@@ -1,15 +1,13 @@
 package com.qttd.entities;
 
-import java.io.Serializable;
-import java.util.List;
-import javax.persistence.*;
-
 import com.qttd.enums.AccountStatus;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "account")
@@ -32,7 +30,7 @@ public class AccountEntity extends PersonalInformation{
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "accountEntity")
 	private List<OrderEntity> orderEntities;
 	
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
 	@JoinTable(name = "acc_role_relationship", 
 		joinColumns = @JoinColumn(name = "acc_id"), 
 		inverseJoinColumns = @JoinColumn(name = "acc_role_id"))
