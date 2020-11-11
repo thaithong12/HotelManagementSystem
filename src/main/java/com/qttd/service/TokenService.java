@@ -35,6 +35,14 @@ public class TokenService {
         return (List<TokenEntity>) tokenRepository.findAll();
     }
 
+    public void removeToken(TokenEntity tk) {
+        tokenRepository.delete(tk);
+    }
+
+    public TokenEntity findByAccountEntity(AccountEntity ac){
+        return tokenRepository.findByAccountEntity(ac);
+    }
+
     private Date generateExpirationDate() {
         return new Date(System.currentTimeMillis() + 864000000);
     }

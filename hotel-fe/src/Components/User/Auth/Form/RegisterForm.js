@@ -2,20 +2,65 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import {Link} from "react-router-dom";
-import React from "react";
+import React, {useRef, useState} from "react";
 import useStyles from "../Style";
 import Typography from "@material-ui/core/Typography";
+import {useDispatch} from "react-redux";
+import {register} from "../../../../Actions/userActions";
+import Alert from "@material-ui/lab/Alert";
 
 
 export default function RegisterForm() {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const email = useRef(' ');
+  const password = useRef(' ');
+  const fullName = useRef('')
+  const rePassword = useRef('');
+  const phoneNumber = useRef(' ');
 
+  let [itemErr , setErr] = useState({isErr: false , msg: ''});
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    setErr({isErr: false, msg: ''})
+    if (validatesData()) {
+      return;
+    } else {
+      const obj = {
+        email: email.current.value,
+        password: password.current.value,
+        customerName: fullName.current.value,
+        phoneNumber: phoneNumber.current.value
+      }
+      dispatch(register(obj));
+    }
+  }
+
+  function validatesData() {
+    let check = false;
+    // validate password
+    if (password.current.value !== rePassword.current.value) {
+      check = true;
+      setErr({isErr: true, msg: 'Password and RePassword not same'})
+    }
+    // validate blank
+    if (email.current.value === '' || password.current.value === '' || rePassword.current.value === ''
+      || fullName.current.value === '' || phoneNumber.current.value === '' ) {
+      check = true;
+      setErr({isErr: true, msg: 'Not Blank'})
+    }
+    return check;
+  }
   return (
     <>
       <Typography component="h1" variant="h5">
         Sign Up
       </Typography>
-      <form className={classes.form} noValidate>
+      {
+        itemErr.isErr? <Alert severity="error">{itemErr.msg}</Alert>: ''
+      }
+      <form className={classes.form} noValidate onSubmit={handleSubmit}>
         <TextField
           variant="outlined"
           margin="normal"
@@ -24,17 +69,17 @@ export default function RegisterForm() {
           name="f_name"
           label="Full Name"
           type="text"
-          id="password"
+          id="password" inputRef={fullName}
         />
         <TextField
           variant="outlined"
           margin="normal"
           required
           fullWidth
-          name="f_name"
+          name="phone"
           label="Phone Number"
           type="text"
-          id="password"
+          id="password" inputRef={phoneNumber}
         />
         <TextField
           variant="outlined"
@@ -44,7 +89,7 @@ export default function RegisterForm() {
           id="email"
           label="Email Address"
           name="email"
-          autoFocus
+          autoFocus inputRef={email}
         />
         <TextField
           variant="outlined"
@@ -54,7 +99,7 @@ export default function RegisterForm() {
           name="password"
           label="Password"
           type="password"
-          id="password"
+          id="password"  inputRef={password}
         />
         <TextField
           variant="outlined"
@@ -64,7 +109,7 @@ export default function RegisterForm() {
           name="re_password"
           label="Re-Password"
           type="password"
-          id="password"
+          id="password" inputRef={rePassword}
         />
         <Button
           type="submit"

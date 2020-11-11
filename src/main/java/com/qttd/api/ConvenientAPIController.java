@@ -1,26 +1,20 @@
 package com.qttd.api;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.qttd.entities.ConvenientEntity;
+import com.qttd.enums.ApiStatus;
+import com.qttd.model.common.ResponseModel;
 import com.qttd.model.request.ConvenientRequestModel;
 import com.qttd.model.request.ListConvenientRequestModel;
+import com.qttd.model.response.ConvenientResponseModel;
+import com.qttd.model.response.ListConvenientResponseModel;
+import com.qttd.service.ConvenientService;
 import org.springframework.beans.factory.annotation.Autowired;
-
-//import org.springframework.security.access.prepost.PreAuthorize;
-
-import org.springframework.security.access.prepost.PreAuthorize;
-
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
-import com.qttd.model.common.ResponseModel;
-import com.qttd.entities.ConvenientEntity;
-import com.qttd.enums.ApiStatus;
-import com.qttd.model.response.ConvenientResponseModel;
-import com.qttd.model.response.ListConvenientResponseModel;
-import com.qttd.service.ConvenientService;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @CrossOrigin
