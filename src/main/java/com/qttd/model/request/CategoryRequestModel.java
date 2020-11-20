@@ -15,15 +15,15 @@ import com.qttd.entities.RoomEntity;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CategoryRequestModel {
-	private int categoryId;
+	private long categoryId;
 	private int index;
 	private String categoryName;
 	private String description;
 	private double price;
 	private int numberOfRoom;
 	private int maximumPeopleOfRoom;
-	private List<ImageEntity> imageEntities;
-	private List<RoomEntity> roomEntities;
-	//private List<ConvenientEntity> convenientEntities;
-	private List<ReviewEntity> reviewEntities;
+	List<ImageRequestModel> imageEntities;
+	//private List<RoomEntity> roomEntities;
+	private List<ConvenientRequestModel> convenientEntities;
+	List<ReviewRequestModel> reviewEntities;
 }

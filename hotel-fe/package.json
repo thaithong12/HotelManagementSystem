@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.0",
     "connected-react-router": "^6.8.0",
+    "fg-loadcss": "^3.1.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-material-toast": "^16.1.7",
