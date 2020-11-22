@@ -182,3 +182,27 @@ body {
   }
   
   
+  .form-container {
+    position: absolute;
+    height: 504px;
+    width: 486px;
+    top: 21%;
+    left: 50%;
+    margin-left: -230px;
+    margin-top: -37px;
+    background-color: rgb(228, 228, 228);
+}
+
+.big-content{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 1.625;
+  color: #666;
+  margin-left: 300px;
+}
+
+.add-icon-area{
+  margin-bottom: 9px;
+  margin-left: 20px;
+}
