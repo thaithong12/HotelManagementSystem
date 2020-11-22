@@ -69,7 +69,10 @@ public class RoomAPI {
             	roomResponseModel.setRoomStatus(item.getRoomStatus());
                 roomResponseModel.setStatusApi(ApiStatus.SUCCESS);    	
                 if(!ObjectUtils.isEmpty(item.getCategoryEntity()))
+                {
+                  roomResponseModel.setCategoryId(item.getCategoryEntity().getId());	
                   roomResponseModel.setCategoryName(item.getCategoryEntity().getCategoryName());
+                }
                 //roomResponseModel.setCategoryEntity(item.getCategoryEntity());                
                 listReturn.add(roomResponseModel);
             }
@@ -167,8 +170,7 @@ public class RoomAPI {
 		entity.setRoomStatus(item.getRoomStatus());
 		if(ObjectUtils.isEmpty(categoryService.findById(item.getCategoryId())))
 		{
-			CategoryEntity categoryEntity= categoryService.findById(item.getCategoryId());
-		    categoryEntity = new CategoryEntity();
+			CategoryEntity categoryEntity = new CategoryEntity();
 			categoryEntity.setId(item.getCategoryId());
 		}
 		else

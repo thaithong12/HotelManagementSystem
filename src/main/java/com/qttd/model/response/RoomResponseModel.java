@@ -22,6 +22,7 @@ public class RoomResponseModel {
 	 private RoomStatus roomStatus;
 	 @Enumerated(EnumType.STRING)
 	 private ApiStatus statusApi;
+	 private long categoryId;
 	 private String categoryName;
 	 private CategoryEntity categoryEntity;
 	//private List<OrderEntity> orderEntities;
