@@ -92,7 +92,7 @@ export default function ManageCategories() {
           <SlideBar/>
           <div className="page-container">
               <Header/>
-              <div className="main-content">
+              <div className="form-container">
                 
               <div className="big-content">ROOM CATEGORIES MANAGEMENT</div>
 

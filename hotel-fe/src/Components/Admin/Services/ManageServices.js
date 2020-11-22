@@ -89,7 +89,7 @@ export default function ManageServices() {
           <SlideBar/>
           <div className="page-container">
               <Header/>
-              <div className="main-content">
+              <div className="form-container">
                 
               <div className="big-content">SERVICES MANAGEMENT</div>
 
