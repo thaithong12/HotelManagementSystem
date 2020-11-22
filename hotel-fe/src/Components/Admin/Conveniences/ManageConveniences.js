@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getServices, deleteServices, addOrUpdateServices } from '../../../Actions/serviceAction';
+import { getConveniences, deleteConveniences, addOrUpdateConveniences } from '../../../Actions/convenienceAction';
 import Header from '../Header';
 import SlideBar from '../SlideBar';
 
@@ -24,17 +24,13 @@ import Modal from 'react-modal';
 
 
 
-export default function ManageServices() {
+export default function ManageConveniences() {
     const dispatch = useDispatch();
-    const servicesData = useSelector(state => state.services.services);
+    const conveniencesData = useSelector(state => state.conveniences.conveniences);
     
     const [data, setData] = useState();
-    const [serviceId, setServiceId] = useState(0);
-    const [serviceName, setServiceName] = useState('');
-    const [description, setDescription] = useState('');
-    const [quantity, setQuantity] = useState(null);
-    const [unitPrice, setUnitPrice] = useState(null);
-    const [image, setImage] = useState('');
+    const [convenientId, setConvenientId] = useState(0);
+    const [convenientName, setConvenientName] = useState('');
     const [open1, setOpen1] = React.useState(false);
     const [temp, setTemp] = useState();
     const [title, setTitle] = useState();
@@ -59,26 +55,21 @@ export default function ManageServices() {
     }, []);
 
     useEffect(() => {
-      dispatch(getServices());
-      setData(servicesData);
+      dispatch(getConveniences());
+      setData(conveniencesData);
     }, []);
     
-    const onSubmit = (serviceId, serviceName, description, quantity, unitPrice, image) => {
+    const onSubmit = (convenientId, convenientName) => {
         var item = {
-        serviceId : serviceId,
-        serviceName : serviceName, 
-        description : description,
-        quantity : quantity,
-        unitPrice : unitPrice,
-        image : image
+        convenientId : convenientId,
+        convenientName : convenientName
         }
-        
         var request = [item];
-        if(serviceName==""){
-          dispatch(getServices());
+        if(convenientName==""){
+          dispatch(getConveniences());
         }
         else{
-          dispatch(addOrUpdateServices(request));
+          dispatch(addOrUpdateConveniences(request));
         }
     }
 
@@ -91,19 +82,15 @@ export default function ManageServices() {
               <Header/>
               <div className="main-content">
                 
-              <div className="big-content">SERVICES MANAGEMENT</div>
+              <div className="big-content">CONVENIENCES MANAGEMENT</div>
 
               <div className="add-icon-area">
                 <Icon className="fa fa-plus-circle" color="primary" style={{ fontSize: 35 }} 
                 onClick={() => {
                   setModalIsOpen(true);
                   setTitle("ADD FORM");
-                  setServiceId(0);
-                  setServiceName('');
-                  setDescription('');
-                  setQuantity(null);
-                  setUnitPrice(null);
-                  setImage('')}}/>
+                  setConvenientId(0);
+                  setConvenientName('')}}/>
               </div>
 
               <div>
@@ -124,52 +111,15 @@ export default function ManageServices() {
                             <h2>{title}</h2>
                             <div className="row">
                                 <div className="label">
-                                    <label>Service name</label>
+                                    <label>Convenience name</label>
                                 </div>
                                 <div className="content">
-                                    <input type="text" defaultValue={serviceName} onChange={e =>setServiceName(e.target.value)} />
+                                    <input type="text" defaultValue={convenientName} onChange={e =>setConvenientName(e.target.value)} />
                                 </div>
                             </div>
-
-                            <div className="row">
-                                <div className="label">
-                                    <label>Description</label>
-                                </div>
-                                <div className="content">
-                                    <input type="text" defaultValue={description} onChange={e =>setDescription(e.target.value)}/>
-                                </div>
-                            </div>
-
-                            <div className="row">
-                                <div className="label">
-                                    <label>Quantity</label>
-                                </div>
-                                <div className="content">
-                                    <input type="text" defaultValue={quantity} onChange={e =>setQuantity(e.target.value)} />
-                                </div>
-                            </div>
-
-                            <div className="row">
-                                <div className="label">
-                                    <label>Price</label>
-                                </div>
-                                <div className="content">
-                                    <input type="text"  defaultValue={unitPrice} onChange={e =>setUnitPrice(e.target.value)} />
-                                </div>
-                            </div>
-
-                            <div className="row">
-                                <div className="label">
-                                    <label>Image</label>
-                                </div>
-                                <div className="content">
-                                    <input type="file"  defaultValue={image} onChange={e =>setImage(e.target.value)} />
-                                </div>
-                            </div>
-
                             
                             <div class="row">
-                                <input type="submit" value="Submit" onClick={()=>{setModalIsOpen(false);onSubmit(serviceId,serviceName,description,quantity,unitPrice,image)}} />
+                                <input type="submit" value="Submit" onClick={()=>{setModalIsOpen(false);onSubmit(convenientId,convenientName)}} />
                             </div>
                         </div>
                     </div>
@@ -181,14 +131,14 @@ export default function ManageServices() {
               <Dialog open={open1} onClose={handleClose1} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
                   <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                      Are you sure to delete this service?
+                      Are you sure to delete this convenience?
                     </DialogContentText>
                   </DialogContent>
                   <DialogActions>
                     <Button onClick={handleClose1} color="primary">
                       No
                     </Button>
-                    <Button onClick={()=>{dispatch(deleteServices(temp));handleClose1()}} color="primary" autoFocus>
+                    <Button onClick={()=>{dispatch(deleteConveniences(temp));handleClose1()}} color="primary" autoFocus>
                       Yes
                     </Button>
                   </DialogActions>
@@ -196,37 +146,24 @@ export default function ManageServices() {
               </div>
               <TableContainer component={Paper}>
               <Table className={classes.table} aria-label="customized table">
-                <TableHead >
+                <TableHead>
                   <TableRow>
                       <StyledTableCell>ID</StyledTableCell>
                       <StyledTableCell>Name</StyledTableCell>
-                      <StyledTableCell>Description</StyledTableCell>
-                      <StyledTableCell>Quantity</StyledTableCell>
-                      <StyledTableCell>Price</StyledTableCell>
-                      <StyledTableCell>Image</StyledTableCell>
                       <StyledTableCell align="right">Action</StyledTableCell>
                       <StyledTableCell align="right"></StyledTableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>        
-                  {servicesData.map( (row, index) => (
-                    <StyledTableRow key={index}>
-                        <StyledTableCell align="left" component="th" scope="row">{index+1}</StyledTableCell>
-                        <StyledTableCell align="left">{row.serviceName}</StyledTableCell>
-
-                        <StyledTableCell align="left">{row.description}</StyledTableCell>
-                        <StyledTableCell align="left">{row.quantity}</StyledTableCell>
-                        <StyledTableCell align="left">{row.unitPrice}</StyledTableCell>
-                        <StyledTableCell align="left">{row.image}</StyledTableCell>
+                  {conveniencesData.map( (row, index) => (
+                    <StyledTableRow key={index+1}>
+                        <StyledTableCell align="left" component="th" scope="row">{index}</StyledTableCell>
+                        <StyledTableCell align="left">{row.convenientName}</StyledTableCell>
                         <StyledTableCell align="right" >
                           <Button variant="contained" color="primary" 
                           onClick={()=>{setModalIsOpen(true);
-                          setServiceId(row.serviceId);
-                          setServiceName(row.serviceName);
-                          setDescription(row.description);
-                          setQuantity(row.quantity);
-                          setUnitPrice(row.unitPrice);
-                          setUnitPrice(row.image);
+                          setConvenientId(row.convenientId);
+                          setConvenientName(row.convenientName);
                           setTitle("EDIT FORM")}}>EDIT</Button>
                           </StyledTableCell>
                         <StyledTableCell align="left" ><Button variant="contained" color="secondary" onClick={()=>{handleClickOpen1();setTemp(row)}}>DELETE</Button></StyledTableCell>
