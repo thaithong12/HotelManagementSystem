@@ -4,7 +4,9 @@ import roomReducer from "./roomReducer";
 
 const rootReducer = combineReducers({
   user: userReducer,
-  rooms: roomReducer
+  rooms: roomReducer,
+  services: serviceReducer,
+  conveniences: convenienceReducer
 })
 
 export default rootReducer;
