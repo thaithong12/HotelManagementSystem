@@ -6,7 +6,8 @@ const rootReducer = combineReducers({
   user: userReducer,
   rooms: roomReducer,
   services: serviceReducer,
-  conveniences: convenienceReducer
+  conveniences: convenienceReducer,
+  categories: roomCategoryReducer
 })
 
 export default rootReducer;
