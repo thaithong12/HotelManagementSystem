@@ -21,6 +21,7 @@ public class RoomRequestModel {
 	private String roomNumber;
 	@Enumerated(EnumType.STRING)
     private RoomStatus roomStatus;
-	private CategoryRequestModel categoryEntity;
+	private long categoryId;
+	//private CategoryRequestModel categoryEntity;
 	//private List<OrderEntity> orderEntities;
 }

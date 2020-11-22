@@ -165,16 +165,17 @@ public class RoomAPI {
 		entity.setId(item.getRoomId());
 		entity.setRoomNumber(item.getRoomNumber());
 		entity.setRoomStatus(item.getRoomStatus());
-		if(!ObjectUtils.isEmpty(item.getCategoryEntity())) {
-			CategoryEntity categoryEntity= categoryService.findById(item.getCategoryEntity().getCategoryId());
-			if(!ObjectUtils.isEmpty(categoryEntity))
-			{
-				categoryEntity = new CategoryEntity();
-				categoryEntity.setId(item.getCategoryEntity().getCategoryId());
-				categoryEntity.setCategoryName(item.getCategoryEntity().getCategoryName());
-			}
-			entity.setCategoryEntity(categoryEntity);
+		if(ObjectUtils.isEmpty(categoryService.findById(item.getCategoryId())))
+		{
+			CategoryEntity categoryEntity= categoryService.findById(item.getCategoryId());
+		    categoryEntity = new CategoryEntity();
+			categoryEntity.setId(item.getCategoryId());
 		}
+		else
+		{  
+			CategoryEntity categoryEntity= categoryService.findById(item.getCategoryId());	
+		    entity.setCategoryEntity(categoryEntity);
+	    }
 		
 	}
 	private void SetResponseModel(List<RoomResponseModel> listReturn, int i, ApiStatus status) {
