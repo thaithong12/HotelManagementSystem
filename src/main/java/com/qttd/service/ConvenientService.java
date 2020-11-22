@@ -184,4 +184,8 @@ public class ConvenientService {
 		convenientResponseModel.setStatus(status);
 		listReturn.add(convenientResponseModel);
 	}
+
+	public ConvenientEntity findById(long id) {
+		return convenientRepository.findById(id).get();
+	}
 }
