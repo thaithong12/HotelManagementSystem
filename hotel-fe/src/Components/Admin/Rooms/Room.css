@@ -61,7 +61,6 @@ button {
     justify-content: flex-end;
 }
 
-
 .modal-close-button {
     font-size: 1.4rem;
     font-weight: 700;
@@ -104,9 +103,6 @@ input[type=submit] {
     width: 100px;
 }
 
-
-
-
 .label {
     float: left;
     width: 25%;
@@ -120,7 +116,6 @@ input[type=submit] {
     margin-top: 6px;
 }
 
-
 .row:after {
     content: "";
     display: table;
@@ -130,3 +125,14 @@ input[type=submit] {
 .text-err {
     color: red;
 }
+
+.status-suc {
+    background-color: #08f308;
+    padding: 6px;
+}
+
+.status-err {
+    background-color: #f3cb08;
+    padding: 6px;
+}
+

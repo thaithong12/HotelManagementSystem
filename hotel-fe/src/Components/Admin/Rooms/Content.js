@@ -5,7 +5,6 @@ import {
   IconButton, Table,
   TableBody, TableContainer, TableHead, TableRow, TableCell, Button
 } from "@material-ui/core";
-import {StyledTableCell, StyledTableRow, useStyles} from "../../../style";
 import './Room.css'
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
@@ -30,6 +29,7 @@ export default function Content() {
   const [useCase, setCase] = useState('');
   const roomNumber = useRef();
   const categoryRoom = useRef();
+  const statusRoom = useRef();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -37,6 +37,11 @@ export default function Content() {
     if(useCase == 'ADD ROOM') {
       itemExecute.categoryId = categoryRoom.current.value;
       itemExecute.roomNumber = roomNumber.current.value
+    }
+    if(useCase == 'UPDATE ROOM') {
+      itemExecute.categoryId = categoryRoom.current.value;
+      itemExecute.roomNumber = roomNumber.current.value;
+      itemExecute.roomStatus = statusRoom.current.value;
     }
     let err = {};
     if (itemExecute.roomNumber == '') {
@@ -63,7 +68,10 @@ export default function Content() {
 
   const handleEdit = (id) => {
     const obj = rooms.filter(item => item.roomId == id)[0];
-    console.log(obj);
+    setItem({categoryId: obj.categoryId, roomId: obj.roomId,
+      roomStatus: obj.roomStatus, roomNumber: obj.roomNumber});
+    console.log(itemExecute)
+    setModalAddOrUpdate(true);
   }
 
   const clearMsg = () => {
@@ -77,7 +85,6 @@ export default function Content() {
   useEffect(() => {
     dispatch(getAllRooms());
   }, []);
-  const classes = useStyles();
   return (
     <div className="main-content">
       <h2 className={'text-center'}>Manage Rooms Page</h2>
@@ -86,11 +93,12 @@ export default function Content() {
         <IconButton fontSize={'medium'} onClick={() => {
           setCase('ADD ROOM');
           setModalAddOrUpdate(true);
+          setItem(initItemExecute);
         }}>
           <AddCircle/>
         </IconButton>
         <TableContainer component={Paper}>
-          <Table className={classes.table} aria-label="customized table">
+          <Table aria-label="customized table">
             <TableHead>
               <TableRow>
                 <TableCell>#</TableCell>
@@ -106,7 +114,7 @@ export default function Content() {
                   <TableCell align="left" component="th" scope="row">{index + 1}</TableCell>
                   <TableCell align="left">{row.roomNumber}</TableCell>
                   <TableCell align="left">{row.categoryName}</TableCell>
-                  <TableCell align="left"><span>{row.roomStatus}</span></TableCell>
+                  <TableCell align="left"><span className={row.roomStatus == 'AVAILABLE'? 'status-suc': 'status-err'}>{row.roomStatus}</span></TableCell>
                   <TableCell align="left">
                     <IconButton aria-label="delete" onClick={(e) => {handleEdit(row.roomId);setCase('UPDATE ROOM')}}>
                       <EditIcon fontSize="small"/>
@@ -142,7 +150,7 @@ export default function Content() {
                   <label>Room Number</label>
                 </div>
                 <div className="content">
-                  <input type="text" ref={roomNumber}/>
+                  <input type="text" ref={roomNumber} defaultValue={itemExecute.roomNumber}/>
                 </div>
                 <div className={'text-err'}>{itemError.isErr  ? itemError.msgRoom: ''}</div>
               </div>
@@ -158,12 +166,28 @@ export default function Content() {
                         }}
                 >
                   <option aria-label="None" value=""/>
-                  <option value={1}>Ten</option>
-                  <option value={1}>Twenty</option>
-                  <option value={1}>Thirty</option>
+                  <option value={1} selected={itemExecute.categoryId == 1}>Ten</option>
+                  <option value={2} selected={itemExecute.categoryId == 2}>Twenty</option>
+                  <option value={3} selected={itemExecute.categoryId == 3}>Thirty</option>
                 </Select>
                 <div className={'text-err'}>{itemError.isErr ? itemError.msgCate : ''}</div>
               </div>
+              {useCase === 'UPDATE ROOM' ? <div className="row">
+                <div className="label">
+                  <label>Status Room</label>
+                </div>
+                <Select className={'content'}
+                        native inputRef={statusRoom}
+                        inputProps={{
+                          name: 'age',
+                          id: 'age-native-simple',
+                        }}
+                >
+                  <option aria-label="None" value=""/>
+                  <option value={'AVAILABLE'} selected={itemExecute.roomStatus == 'AVAILABLE'}>AVAILABLE</option>
+                  <option value={'BOOKED'} selected={itemExecute.roomStatus == 'BOOKED'}>BOOKED</option>
+                </Select>
+              </div> : ''}
               <div class="row">
                 <input type="submit" value="Submit" onClick={(e) => handleSubmit(e)}/>
               </div>
