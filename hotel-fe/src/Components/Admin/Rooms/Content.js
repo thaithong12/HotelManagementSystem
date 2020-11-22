@@ -5,7 +5,6 @@ import {
   IconButton, Table,
   TableBody, TableContainer, TableHead, TableRow, TableCell, Button
 } from "@material-ui/core";
-import {StyledTableCell, StyledTableRow, useStyles} from "../../../style";
 import './Room.css'
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
@@ -86,7 +85,6 @@ export default function Content() {
   useEffect(() => {
     dispatch(getAllRooms());
   }, []);
-  const classes = useStyles();
   return (
     <div className="main-content">
       <h2 className={'text-center'}>Manage Rooms Page</h2>
@@ -100,7 +98,7 @@ export default function Content() {
           <AddCircle/>
         </IconButton>
         <TableContainer component={Paper}>
-          <Table className={classes.table} aria-label="customized table">
+          <Table aria-label="customized table">
             <TableHead>
               <TableRow>
                 <TableCell>#</TableCell>
