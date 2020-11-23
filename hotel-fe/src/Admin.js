@@ -7,6 +7,7 @@ import ManagePromotions from './Components/Admin/Promotions/ManagePromotions';
 import ManageCategories from './Components/Admin/RoomCategories/ManageCategories';
 import ManageRooms from './Components/Admin/Rooms/ManageRooms';
 import ManageServices from './Components/Admin/Services/ManageServices';
+import ManageConveniences from './Components/Admin/Conveniences/ManageConveniences';
 import {
   BrowserRouter as Router,
   Switch,
@@ -35,6 +36,7 @@ function Page(){
         <Route path="/dashboard/categories" component={ManageCategories}/>
         <Route path="/dashboard/rooms" component={ManageRooms}/>
         <Route path="/dashboard/services" component={ManageServices}/>
+        <Route path="/dashboard/conveniences" component={ManageConveniences}/>
       </Switch> 
       
       
