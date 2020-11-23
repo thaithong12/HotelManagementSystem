@@ -5,9 +5,10 @@ import {
     Route,
     Link
   } from "react-router-dom";
-
+import { useDispatch, useSelector } from 'react-redux';
+import {getPromotions} from '../../Actions/promotionActions'
 export default function SlideBar() {
-    
+    const dispatch = useDispatch();
     return (
         <aside className="menu-sidebar">
         <div className="logo">
@@ -33,7 +34,7 @@ export default function SlideBar() {
                         <Link to="/dashboard/bookings">Bookings</Link>
                     </li>
                     <li>
-                        <Link to="/dashboard/promotions">Promotions</Link>
+                        <Link to="/dashboard/promotions" >Promotions</Link>
                     </li>
                     <li>
                         <Link to="/dashboard/services">Services</Link>
@@ -47,3 +48,4 @@ export default function SlideBar() {
     )
     
 }
+// onClick={() => {dispatch(getPromotions())}}
