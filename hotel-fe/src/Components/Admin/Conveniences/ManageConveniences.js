@@ -4,6 +4,8 @@ import { getConveniences, deleteConveniences, addOrUpdateConveniences } from '..
 import Header from '../Header';
 import SlideBar from '../SlideBar';
 
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 import AddCircle from "@material-ui/icons/AddCircle";
 import IconButton from "@material-ui/core/IconButton";
 import {StyledTableCell,StyledTableRow,useStyles} from '../css.js';
@@ -90,7 +92,7 @@ export default function ManageConveniences() {
               className="form">
               <div>
                 <div className="modal-overlay"/>
-                    <div className="modal-wrapper">
+                    <div className="modal-wrapperr">
                         <div className="modal">
                             <div className="modal-header">
                               <button type="button" className="modal-close-button"   onClick={() =>setModalIsOpen(false)}>
@@ -149,14 +151,19 @@ export default function ManageConveniences() {
                     <StyledTableRow key={index+1}>
                         <StyledTableCell align="left" component="th" scope="row">{index}</StyledTableCell>
                         <StyledTableCell align="left">{row.convenientName}</StyledTableCell>
-                        <StyledTableCell align="right" >
-                          <Button variant="contained" color="primary" 
-                          onClick={()=>{setModalIsOpen(true);
-                          setConvenientId(row.convenientId);
-                          setConvenientName(row.convenientName);
-                          setTitle("EDIT FORM")}}>EDIT</Button>
-                          </StyledTableCell>
-                        <StyledTableCell align="left" ><Button variant="contained" color="secondary" onClick={()=>{handleClickOpen1();setTemp(row)}}>DELETE</Button></StyledTableCell>
+                        <StyledTableCell align="right">
+                          <IconButton aria-label="edit" onClick={()=>{setModalIsOpen(true);
+                            setConvenientId(row.convenientId);
+                            setConvenientName(row.convenientName);
+                            setTitle("EDIT FORM")}}>
+                            <EditIcon fontSize="small"/>
+                          </IconButton>
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          <IconButton aria-label="delete" onClick={()=>{handleClickOpen1();setTemp(row)}}>
+                            <DeleteIcon fontSize="small"/>
+                          </IconButton>
+                        </StyledTableCell>
                     </StyledTableRow>
                   ))}
                 </TableBody>

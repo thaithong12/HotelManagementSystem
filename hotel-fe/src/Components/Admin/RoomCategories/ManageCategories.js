@@ -4,6 +4,8 @@ import { getCategories, deleteCategories, addOrUpdateCategories } from '../../..
 import Header from '../Header';
 import SlideBar from '../SlideBar';
 
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 import AddCircle from "@material-ui/icons/AddCircle";
 import IconButton from "@material-ui/core/IconButton";
 import {StyledTableCell,StyledTableRow,useStyles} from '../css.js';
@@ -108,7 +110,7 @@ export default function ManageCategories() {
               className="form">
               <div>
                 <div className="modal-overlay"/>
-                    <div className="modal-wrapper">
+                    <div className="modal-wrapperr">
                         <div className="modal">
                             <div className="modal-header">
                               <button type="button" className="modal-close-button"   onClick={() =>setModalIsOpen(false)}>
@@ -224,19 +226,24 @@ export default function ManageCategories() {
                         <StyledTableCell align="left">{row.numberOfRoom}</StyledTableCell>
                         <StyledTableCell align="left">{row.maximumPeopleOfRoom}</StyledTableCell>
                         <StyledTableCell align="left">{row.image}</StyledTableCell>
-                        <StyledTableCell align="right" >
-                          <Button variant="contained" color="primary" 
-                          onClick={()=>{setModalIsOpen(true);
-                          setCategoryId(row.categoryId);
-                          setCategoryName(row.categoryName);
-                          setDescription(row.description);
-                          setPrice(row.price);
-                          setNumberOfRoom(row.numberOfRoom);
-                          setMaximumPeopleOfRoom(row.maximumPeopleOfRoom);
-                          setImage(row.image);
-                          setTitle("EDIT FORM")}}>EDIT</Button>
-                          </StyledTableCell>
-                        <StyledTableCell align="left" ><Button variant="contained" color="secondary" onClick={()=>{handleClickOpen1();setTemp(row)}}>DELETE</Button></StyledTableCell>
+                        <StyledTableCell align="right">
+                          <IconButton aria-label="edit" onClick={()=>{setModalIsOpen(true);
+                            setCategoryId(row.categoryId);
+                            setCategoryName(row.categoryName);
+                            setDescription(row.description);
+                            setPrice(row.price);
+                            setNumberOfRoom(row.numberOfRoom);
+                            setMaximumPeopleOfRoom(row.maximumPeopleOfRoom);
+                            setImage(row.image);
+                            setTitle("EDIT FORM")}}>
+                            <EditIcon fontSize="small"/>
+                          </IconButton>
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          <IconButton aria-label="delete" onClick={()=>{handleClickOpen1();setTemp(row)}}>
+                            <DeleteIcon fontSize="small"/>
+                          </IconButton>
+                        </StyledTableCell>
                     </StyledTableRow>
                   ))}
                 </TableBody>
