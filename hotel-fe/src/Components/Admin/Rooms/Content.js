@@ -17,9 +17,11 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import {BLANK_MSG} from "../../../Constans/messageConstant";
+import {getCategories} from "../../../Actions/roomCategoryAction";
 
 export default function Content() {
   const rooms = useSelector(state => state.rooms);
+  const categoriesRooms = useSelector(state => state.categories.categories)
   const dispatch = useDispatch();
   const initItemExecute ={roomId: '',roomNumber: '',categoryId: '',roomStatus: 'AVAILABLE' };
   const [itemExecute, setItem] = useState(initItemExecute);
@@ -30,7 +32,7 @@ export default function Content() {
   const roomNumber = useRef();
   const categoryRoom = useRef();
   const statusRoom = useRef();
-
+  console.log(categoriesRooms)
   const handleSubmit = (e) => {
     e.preventDefault();
     clearMsg();
@@ -84,6 +86,7 @@ export default function Content() {
 
   useEffect(() => {
     dispatch(getAllRooms());
+    dispatch(getCategories())
   }, []);
   return (
     <div className="main-content">
@@ -124,7 +127,7 @@ export default function Content() {
                     </IconButton>
                   </TableCell>
                 </TableRow>
-              )) : (<div className={'text-center'}>Không có dữ liệu lúc này</div>)}
+              )) : (<tr className={'text-center'}><td colSpan={5}>Không có dữ liệu lúc này</td></tr>)}
             </TableBody>
           </Table>
         </TableContainer>
@@ -165,10 +168,10 @@ export default function Content() {
                           id: 'age-native-simple',
                         }}
                 >
-                  <option aria-label="None" value=""/>
-                  <option value={1} selected={itemExecute.categoryId == 1}>Ten</option>
-                  <option value={2} selected={itemExecute.categoryId == 2}>Twenty</option>
-                  <option value={3} selected={itemExecute.categoryId == 3}>Thirty</option>
+                  {(categoriesRooms && categoriesRooms.length > 0) ?
+                    categoriesRooms.map((row , index) => (
+                    <option value={row.categoryId} selected={itemExecute.categoryId == row.categoryName}>{row.categoryName}</option>
+                    )): <option aria-label="None" value=""/>}
                 </Select>
                 <div className={'text-err'}>{itemError.isErr ? itemError.msgCate : ''}</div>
               </div>
