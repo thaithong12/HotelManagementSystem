@@ -1,129 +1,126 @@
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 2;
-    width: 100vw;
-    height: 100vh;
-    background-color: #000;
-    opacity: .5;
-    
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  opacity: .5;
   
-  .modal-wrapper {
-    position: fixed;
-    top: 10px;
-    left: 0;
-    z-index: 5;
-    width: 100%;
-    height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-    
-  }
-  
-  .modal {
-    z-index: 100;
-    background: white;
-    position: relative;
-    margin: 1.75rem auto;
-    border-radius: 3px;
-    max-width: 500px;
-    padding: 2rem;
-  }
-  
-  .modal-header {
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-  
-  .modal-close-button {
-    font-size: 1.4rem;
-    font-weight: 700;
-    line-height: 1;
-    color: #000;
-    opacity: .3;
-    cursor: pointer;
-    border: none;
-    
-  }
-  h2{
-      text-align: center;
-  }
+}
 
-  .row input[type=text],input[type=date]{
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    resize: vertical;
-  }
+.modal-wrapper {
+  position: fixed;
+  top: 10px;
+  left: 0;
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
   
-  
-  label {
-    padding: 12px 12px 12px 0;
-    display: inline-block;
-  }
-  
-  
-  input[type=submit] {
-    background-color: #4CAF50;
-    color: white;
-    padding: 12px ;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-left: 200px;
-    margin-top: 40px;
-    width: 100px;
-  }
-  
- 
+}
+
+.modal {
+  z-index: 100;
+  background: white;
+  position: relative;
+  margin: 1.75rem auto;
+  border-radius: 3px;
+  max-width: 500px;
+  padding: 2rem;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: flex-end;
+}
 
 
-  .label {
-    float: left;
-    width: 25%;
-    margin-top: 6px;
-  }
+.modal-close-button {
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+  opacity: .3;
+  cursor: pointer;
+  border: none;
   
-  
-  .content {
-    float: left;
-    width: 75%;
-    margin-top: 6px;
-  }
-  
-  
-  .row:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
+}
+h2{
+    text-align: center;
+}
 
-  .form-container {
-    position: absolute;
-    height: 504px;
-    width: 486px;
-    top: 21%;
-    left: 50%;
-    margin-left: -230px;
-    margin-top: -37px;
-    background-color: rgb(228, 228, 228);
+.row input[type=text],input[type=date]{
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px ;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 200px;
+  margin-top: 40px;
+  width: 100px;
+}
+
+
+
+
+.label {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+
+.content {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.form-container {
+  padding-top: 70px;
+  min-height: 100vh;
+  margin-left: 51px;
+  margin-right: 51px;
+  margin-top: 14px;
 }
 
 .big-content{
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  font-weight: 400;
-  font-size: 26px;
-  line-height: 1.625;
-  color: #666;
-  margin-left: 300px;
+font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+font-weight: 400;
+font-size: 26px;
+line-height: 1.625;
+color: #666;
+margin-left: 300px;
 }
 
 .add-icon-area{
-  margin-bottom: 9px;
-  margin-left: 20px;
+margin-bottom: 9px;
+margin-left: 20px;
 }
