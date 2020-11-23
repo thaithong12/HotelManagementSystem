@@ -1,7 +1,9 @@
 import * as types from '../Constans/userConstants';
+import {END_POINT_LOGIN, END_POINT_REGISTER} from '../Constans/userConstants';
 import axios from 'axios'
 import {API_URL} from "../Constans/apiConstants";
-import {END_POINT_LOGIN} from "../Constans/userConstants";
+import ToastServive from 'react-material-toast';
+
 
 export const login = (userRequest = {email: '', password: ''}) => {
   return async (dispatch) => {
@@ -12,22 +14,51 @@ export const login = (userRequest = {email: '', password: ''}) => {
     return await axios.post(API_URL + END_POINT_LOGIN, user).then(res => {
       localStorage.setItem("Authorization", "Token " + res.data.jwttoken);
       dispatch(_login(res.data));
+
     }).catch(err => {
-      alert("Authentication failure");
+      const mute = err;
+      console.log(err);
     })
   }
 }
-export const _login = (user) => ({
+export const _login =(user) => ({
   type: types.LOGIN_ACCOUNT,
   user
 })
 
-export function logout() {
-  return {
+export function register(obj) {
+  const toast = ToastServive.new({
+    place:'topRight',
+    duration:2,
+    maxCount:20
+  });
+  const user = {...obj}
+  return async (dispatch) => {
+    return await axios.post(API_URL + END_POINT_REGISTER, user).then(res => {
+      toast.success('Register Success', () => {
+        console.log('closed')
+      });
 
+    }).catch(err => {
+      toast.error('Email Exists', () => {
+        console.log(err);
+      })
+    })
   }
 }
 
-export function register(obj) {
+export const _register = (user) => ({
+  type: types.END_POINT_REGISTER,
+  user
+})
 
+export function logout() {
+  return (dispatch) => {
+    localStorage.clear();
+    window.location.href('/');
+    dispatch(_logout());
+  }
 }
+export const _logout = () => ({
+  type: types.LOGOUT_ACCOUNT,
+})

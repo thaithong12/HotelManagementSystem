@@ -1,12 +1,13 @@
 package com.qttd.entities;
 
+import com.qttd.enums.Gender;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.MappedSuperclass;
-import com.qttd.enums.Gender;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @MappedSuperclass
 @Data

@@ -1,5 +1,6 @@
 package com.qttd.entities;
 
+<<<<<<< HEAD
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -16,11 +17,17 @@ import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+=======
+>>>>>>> 9b1e9354968a29cb4c34dd0c04668191cc0e7315
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "promotion")

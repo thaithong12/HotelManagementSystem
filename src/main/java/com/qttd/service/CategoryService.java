@@ -28,4 +28,9 @@ public class CategoryService {
 	public List<CategoryEntity> findByCategoryName(String name) {
 		return categoryRepository.findByCategoryName(name);
 	} 
+	
+	public CategoryEntity findById(long Id)
+	{
+		return categoryRepository.findById(Id).get();
+	}
 }

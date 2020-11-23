@@ -19,8 +19,7 @@ export  default function promotionReducer(state = initialState, action)  {
             return editState;
 
         case 'GET_PROMOTIONs':
-            // console.log("Den day r");
-            // console.log(action.promotions);
+            
             let newState = {...state,promotions: action.promotions }
             return newState;
         default:

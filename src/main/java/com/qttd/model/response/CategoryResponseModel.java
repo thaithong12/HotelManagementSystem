@@ -6,10 +6,8 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-import com.qttd.entities.ImageEntity;
-import com.qttd.entities.ReviewEntity;
-import com.qttd.entities.RoomEntity;
 import com.qttd.enums.ApiStatus;
+import com.qttd.model.request.ConvenientRequestModel;
 import com.qttd.model.request.ImageRequestModel;
 import com.qttd.model.request.ReviewRequestModel;
 
@@ -36,7 +34,7 @@ public class CategoryResponseModel {
 	List<ImageRequestModel> images;
 	List<ReviewRequestModel> reviews;
 	
-	private List<RoomEntity> roomEntities;
+	private List<ConvenientRequestModel> convenientEntities;
 	
 	
 }

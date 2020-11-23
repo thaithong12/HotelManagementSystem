@@ -1,13 +1,13 @@
 package com.qttd.entities;
 
-import java.util.List;
-import javax.persistence.*;
-
 import com.qttd.enums.CommonStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "service")

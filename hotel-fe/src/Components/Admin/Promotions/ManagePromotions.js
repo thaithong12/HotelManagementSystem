@@ -17,7 +17,6 @@ import EditIcon from '@material-ui/icons/Edit';
 import AddCircle from "@material-ui/icons/AddCircle";
 import IconButton from "@material-ui/core/IconButton";
 import Moment from 'react-moment';
-import DatePicker from 'react-datepicker';
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
 import Dialog from '@material-ui/core/Dialog';
@@ -25,26 +24,31 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import ReactDatePicker from 'react-datepicker';
 import TextField from '@material-ui/core/TextField';
-
+import {DATE_MSG} from "../../../Constans/messageConstant";
 export default function ManagePromotions() {
     const dispatch = useDispatch();
     
     //const [data, setData] = useState({ listData: []});
     const promotionsData = useSelector(state => state.promotions.promotions);
-
-    const [data, setData] = useState();
     const [promotionId , setPromotionId] = useState();
     const [code , setCode] = useState(null);
     const [description , setDescription] = useState(null);
     const [discount , setDiscount] = useState(0);
-    const [sdate , setSdate] = useState(new Date('2017-05-24'));
+    const [sdate , setSdate] = useState(new Date());
     const [edate , setEdate] = useState(new Date());
-    let [itemExecute ,  setItem] = useState({});
     const [title , setTitle] = useState();
     const [open1, setOpen1] = React.useState(false);
     const [temp, setTemp] = useState();
+    const [itemError, setItemErr] = useState({isErr: false ,msgRoom: '', msgCate: ''})
+
+    const clearMsg = () => {
+      setItemErr({
+        isErr: false,
+        msgPromo: ''
+      })
+    }
+  
     const handleClickOpen1 = () => {
       setOpen1(true);
     };
@@ -52,19 +56,14 @@ export default function ManagePromotions() {
       setOpen1(false);
     };
     useEffect(() => {
-        
-
         dispatch(getPromotions());
-        setData(promotionsData);
           
-          
-      
     }, []); 
     
     
     const onSubmit = (promotionId ,code , description , discount , sdate , edate ) => {
 
-
+        let err = {};
         var item = {
           
           promotionId : promotionId ,
@@ -79,7 +78,10 @@ export default function ManagePromotions() {
         var request = [item]
         if(code=="" || description=="" || discount == 0 || sdate == null || edate == null){
           dispatch(getPromotions());
-          alert('Nhập thiếu!')
+          alert('Have field blank!')
+        }else if(sdate >= edate ){
+          dispatch(getPromotions());
+          alert(DATE_MSG)
         }
         else{
           dispatch(addOrEditPromotion(request));
@@ -87,7 +89,7 @@ export default function ManagePromotions() {
         
         
     }
-    console.log(sdate);
+    
     const classes = useStyles();
     const [modalIsOpen, setModalIsOpen] = useState(false)
       return (
@@ -96,38 +98,20 @@ export default function ManagePromotions() {
         <div className="page-container">
             <Header/>
             <div className="main-content">
-            <div className="big-content">PROMOTION MANAGEMENT</div>
+            <h2>PROMOTION MANAGEMENT</h2>
             <div className="add-icon-area">
-              <IconButton fontSize={'medium'} onClick={() => {
-                setModalIsOpen(true);
-                setTitle("ADD FORM")
-                setPromotionId(0);
-                setCode('');
-                setDescription('');
-                setDiscount(0);
-                setSdate(null);
-                setEdate(null);
-              }}>
+              <IconButton fontSize={'medium'} onClick={() => {  setModalIsOpen(true);
+                                                                setTitle("ADD FORM")
+                                                                setPromotionId(0);
+                                                                setCode('');
+                                                                setDescription('');
+                                                                setDiscount(0);
+                                                                setSdate(null);
+                                                                setEdate(null); }}>
                 <AddCircle/>
               </IconButton>
             </div>
-              <div>
-              <Dialog open={open1} onClose={handleClose1} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
-                  <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                      Are you sure to delete this room category?
-                    </DialogContentText>
-                  </DialogContent>
-                  <DialogActions>
-                    <Button onClick={handleClose1} color="primary">
-                      No
-                    </Button>
-                    <Button onClick={()=>{dispatch(removePromotion(temp));handleClose1()}} color="primary" autoFocus>
-                      Yes
-                    </Button>
-                  </DialogActions>
-                </Dialog>
-              </div>
+             
             <TableContainer component={Paper}>
             <Table  className={classes.table} aria-label="customized table" >
               <TableHead>
@@ -143,7 +127,7 @@ export default function ManagePromotions() {
               </TableHead>
               <TableBody>
                   
-                {(promotionsData && promotionsData.length > 0) ? promotionsData.map( ( i , index )=> (
+              {(promotionsData && promotionsData.length > 0) ? promotionsData.map( ( i , index )=> (
                 <StyledTableRow key = {index} >
                   <StyledTableCell>{index+1}</StyledTableCell>
                   <StyledTableCell>{i.code}</StyledTableCell>
@@ -168,7 +152,7 @@ export default function ManagePromotions() {
                     
                   </StyledTableCell>
                 </StyledTableRow> ))
-                : (<tr className={'text-center'}><td colSpan={5}>Không có dữ liệu lúc này</td></tr>)}
+              : (<tr className={'text-center'}><td colSpan={5}>Không có dữ liệu lúc này</td></tr>)}
                 
                   
               </TableBody>
@@ -223,12 +207,14 @@ export default function ManagePromotions() {
                                 </div>
                                 <div className="content">
                                   
-                                <TextField
-                                    id="date"
-                                    type="date"
-                                    defaultValue={sdate}
-                                    onChange={e => setSdate(e.target.value)}
-                                  />
+                                  <TextField
+                                      id="date"
+                                      type="date"
+                                      className="date"
+                                      
+                                      defaultValue={sdate}
+                                      onChange={e => setSdate(e.target.value)}
+                                    />
                                 </div>
                                 
                             </div>
@@ -241,6 +227,8 @@ export default function ManagePromotions() {
                                 <TextField
                                     id="date"
                                     type="date"
+                                    min={(sdate)}
+                                    className="date"
                                     defaultValue={edate}
                                     onChange={e => setEdate(e.target.value)}
                                   />
@@ -257,6 +245,23 @@ export default function ManagePromotions() {
                         </div>
                        </form>
             </Modal>
+            
+            <Dialog open={open1} onClose={handleClose1} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    Are you sure to delete this room category?
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose1} color="primary">
+                    No
+                  </Button>
+                  <Button onClick={()=>{dispatch(removePromotion(temp));handleClose1()}} color="primary" autoFocus>
+                    Yes
+                  </Button>
+                </DialogActions>
+              </Dialog>
+              
                 
             </div>
             </div>

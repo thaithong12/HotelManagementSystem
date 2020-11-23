@@ -39,6 +39,10 @@ export default function SlideBar() {
                     <li>
                         <Link to="/dashboard/services">Services</Link>
                     </li>
+
+                    <li>
+                        <Link to="/dashboard/conveniences">Conveniences</Link>
+                    </li>
                         
                         
                 </ul>

@@ -52,7 +52,7 @@
       text-align: center;
   }
 
-  .row input[type=text],input[type=date]{
+  .row input[type=text]{
     width: 100%;
     padding: 12px;
     border: 1px solid #ccc;
@@ -61,7 +61,10 @@
     resize: vertical;
   }
   
-  
+  .date{
+    width: 100%;
+    
+  }
   label {
     padding: 12px 12px 12px 0;
     display: inline-block;
@@ -103,4 +106,6 @@
     clear: both;
   }
 
-  
+  .text-center {
+    text-align: center !important;
+}

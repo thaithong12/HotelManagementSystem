@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useState } from 'react';
 import {API_URL} from "../Constans/apiConstants";
+import { END_POINT_PROMOTION } from '../Constans/promotionConstant';
 
     
     
@@ -43,7 +44,7 @@ import {API_URL} from "../Constans/apiConstants";
 
     export function getPromotions() {
         return async (dispatch) => {
-            return axios.get(API_URL + '/promotion').then(res => {
+            return axios.get(API_URL + END_POINT_PROMOTION).then(res => {
               console.log(res.data.response)
               dispatch(_getPromotions(res.data.response.data));
             }).catch(err => {
