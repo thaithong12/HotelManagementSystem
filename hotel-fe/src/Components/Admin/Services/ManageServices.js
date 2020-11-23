@@ -4,6 +4,8 @@ import { getServices, deleteServices, addOrUpdateServices } from '../../../Actio
 import Header from '../Header';
 import SlideBar from '../SlideBar';
 
+import AddCircle from "@material-ui/icons/AddCircle";
+import IconButton from "@material-ui/core/IconButton";
 import {StyledTableCell,StyledTableRow,useStyles} from '../css.js';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -12,8 +14,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
-import { loadCSS } from 'fg-loadcss';
+
 
 import '../form.css';
 import Dialog from '@material-ui/core/Dialog';
@@ -46,17 +47,6 @@ export default function ManageServices() {
     const handleClose1 = () => {
       setOpen1(false);
     };
-
-    React.useEffect(() => {
-      const node = loadCSS(
-        'https://use.fontawesome.com/releases/v5.12.0/css/all.css',
-        document.querySelector('#font-awesome-css'),
-      );
-  
-      return () => {
-        node.parentNode.removeChild(node);
-      };
-    }, []);
 
     useEffect(() => {
       dispatch(getServices());
@@ -92,18 +82,19 @@ export default function ManageServices() {
               <div className="form-container">
                 
               <div className="big-content">SERVICES MANAGEMENT</div>
-
+              
               <div className="add-icon-area">
-                <Icon className="fa fa-plus-circle" color="primary" style={{ fontSize: 35 }} 
-                onClick={() => {
-                  setModalIsOpen(true);
-                  setTitle("ADD FORM");
-                  setServiceId(0);
-                  setServiceName('');
-                  setDescription('');
-                  setQuantity(null);
-                  setUnitPrice(null);
-                  setImage('')}}/>
+              <IconButton fontSize={'medium'} onClick={() => {
+                setModalIsOpen(true);
+                setTitle("ADD FORM");
+                setServiceId(0);
+                setServiceName('');
+                setDescription('');
+                setQuantity(null);
+                setUnitPrice(null);
+                setImage('')}}>
+                <AddCircle/>
+              </IconButton>
               </div>
 
               <div>
