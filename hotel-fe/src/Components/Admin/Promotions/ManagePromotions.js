@@ -261,7 +261,7 @@ export default function ManagePromotions() {
                     Yes
                   </Button>
                 </DialogActions>
-              </Dialog>
+            </Dialog>
               
                 
             </div>
