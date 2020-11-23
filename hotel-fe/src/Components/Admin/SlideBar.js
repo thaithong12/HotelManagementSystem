@@ -8,7 +8,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import {getPromotions} from '../../Actions/promotionActions'
 export default function SlideBar() {
-    const dispatch = useDispatch();
+    
     return (
         <aside className="menu-sidebar">
         <div className="logo">
@@ -52,4 +52,3 @@ export default function SlideBar() {
     )
     
 }
-// onClick={() => {dispatch(getPromotions())}}

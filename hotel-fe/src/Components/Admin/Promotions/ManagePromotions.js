@@ -9,9 +9,10 @@ import TableRow from '@material-ui/core/TableRow';
 import TableHead from '@material-ui/core/TableHead';
 import Button from '@material-ui/core/Button';
 import {addOrEditPromotion} from '../../../Actions/promotionActions';
-import './style.css';
+
+import '../form.css';
 import Modal from 'react-modal';
-import {StyledTableCell,StyledTableRow,useStyles} from './css.js';
+import {StyledTableCell,StyledTableRow,useStyles} from '../css.js';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import AddCircle from "@material-ui/icons/AddCircle";
