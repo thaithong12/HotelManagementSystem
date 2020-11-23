@@ -32,7 +32,7 @@ export default function Content() {
   const roomNumber = useRef();
   const categoryRoom = useRef();
   const statusRoom = useRef();
-  console.log(categoriesRooms)
+
   const handleSubmit = (e) => {
     e.preventDefault();
     clearMsg();
