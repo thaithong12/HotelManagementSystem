@@ -15,9 +15,11 @@ export function getCategories() {
         return axios.get(API_URL+'/categories')
         .then(result => {
             const categories = [];
-            result.data.response.data.forEach(item => {
-                categories.push(item);                
-            });
+            if(result.data.response!=null){
+                result.data.response.data.forEach(item => {
+                categories.push(item);  
+            }             
+        )};
         dispatch(_getCategory(categories));
         });
     };

@@ -15,9 +15,11 @@ export function getConveniences() {
         return axios.get(API_URL+'/conveniences')
         .then(result => {
             const conveniences = [];
-            result.data.response.data.forEach(item => {
+            if(result.data.response!=null){
+                result.data.response.data.forEach(item => {
                 conveniences.push(item);                
             });
+            }
         dispatch(_getConvenience(conveniences));
         });
     };

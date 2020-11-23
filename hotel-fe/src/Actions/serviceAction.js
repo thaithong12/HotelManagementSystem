@@ -15,9 +15,11 @@ export function getServices() {
         return axios.get(API_URL+'/services')
         .then(result => {
             const services = [];
-            result.data.response.data.forEach(item => {
+            if(result.data.response!=null){
+                result.data.response.data.forEach(item => {
                 services.push(item);                
-            });
+            }
+        )};
         dispatch(_getService(services));
         });
     };
