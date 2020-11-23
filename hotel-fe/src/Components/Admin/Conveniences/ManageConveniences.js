@@ -80,7 +80,7 @@ export default function ManageConveniences() {
           <SlideBar/>
           <div className="page-container">
               <Header/>
-              <div className="main-content">
+              <div className="form-container">
                 
               <div className="big-content">CONVENIENCES MANAGEMENT</div>
 
