@@ -17,7 +17,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import AddCircle from "@material-ui/icons/AddCircle";
 import IconButton from "@material-ui/core/IconButton";
-import Moment from 'react-moment';
+
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
 import Dialog from '@material-ui/core/Dialog';
@@ -134,8 +134,8 @@ export default function ManagePromotions() {
                   <StyledTableCell>{i.code}</StyledTableCell>
                   <StyledTableCell>{i.description}</StyledTableCell>
                   <StyledTableCell>{i.discount}</StyledTableCell>
-                  <StyledTableCell><Moment format="DD/MM/YYYY">{i.sdate}</Moment></StyledTableCell>
-                  <StyledTableCell><Moment format="DD/MM/YYYY">{i.edate}</Moment></StyledTableCell>
+                  <StyledTableCell>{i.sdate}</StyledTableCell>
+                  <StyledTableCell>{i.edate}</StyledTableCell>
                   <StyledTableCell>
                     <IconButton aria-label="edit" onClick={() => {setPromotionId(i.promotionId);
                                                                   setModalIsOpen(true);
@@ -234,9 +234,8 @@ export default function ManagePromotions() {
                                     onChange={e => setEdate(e.target.value)}
                                   />
                                 </div>
-                                
+                               
                             </div>
-                           
                             <div class="row">
                                 <input type="submit" value="Submit" onClick={()=>{onSubmit(promotionId,code,description,discount,sdate,edate);setModalIsOpen(false)}} />
                             </div>
