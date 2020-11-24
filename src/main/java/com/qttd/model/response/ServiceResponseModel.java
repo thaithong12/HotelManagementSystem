@@ -14,6 +14,8 @@ public class ServiceResponseModel {
 
     private long serviceId;
 
+    private String serviceName;
+
     private int index;
 
     private double unitPrice;
