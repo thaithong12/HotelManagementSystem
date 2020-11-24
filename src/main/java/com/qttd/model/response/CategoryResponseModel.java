@@ -32,6 +32,7 @@ public class CategoryResponseModel {
 	private ApiStatus statusApi;
 	
 	List<ImageRequestModel> images;
+	
 	List<ReviewRequestModel> reviews;
 	
 	private List<ConvenientRequestModel> convenientEntities;

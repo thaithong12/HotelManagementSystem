@@ -57,6 +57,8 @@ public class Services {
                     });
                     serviceResponseModel.setImages(listImageReturn);
                 }
+                serviceResponseModel.setQuantity(item.getQuantity());
+                serviceResponseModel.setServiceName(item.getServiceName());
                 listReturn.add(serviceResponseModel);
             }
             model.setData(listReturn);
