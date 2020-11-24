@@ -61,7 +61,9 @@
     resize: vertical;
   }
   
-  
+  .date{
+    width: 100%;
+  }
   label {
     padding: 12px 12px 12px 0;
     display: inline-block;

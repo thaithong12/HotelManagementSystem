@@ -1,5 +1,7 @@
 import userReducer from './userReducer'
 import {combineReducers} from "redux";
+
+import promotionReducer from './promotionReducer'
 import roomReducer from "./roomReducer";
 import serviceReducer from "./serviceReducer";
 import convenienceReducer from "./convenienceReducer";
@@ -10,7 +12,8 @@ const rootReducer = combineReducers({
   rooms: roomReducer,
   services: serviceReducer,
   conveniences: convenienceReducer,
-  categories: roomCategoryReducer
+  categories: roomCategoryReducer,
+  promotions: promotionReducer
 })
 
 export default rootReducer;

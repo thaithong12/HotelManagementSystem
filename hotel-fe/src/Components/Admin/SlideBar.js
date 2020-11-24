@@ -5,7 +5,8 @@ import {
     Route,
     Link
   } from "react-router-dom";
-
+import { useDispatch, useSelector } from 'react-redux';
+import {getPromotions} from '../../Actions/promotionActions'
 export default function SlideBar() {
     
     return (
@@ -33,7 +34,7 @@ export default function SlideBar() {
                         <Link to="/dashboard/bookings">Bookings</Link>
                     </li>
                     <li>
-                        <Link to="/dashboard/promotions">Promotions</Link>
+                        <Link to="/dashboard/promotions" >Promotions</Link>
                     </li>
                     <li>
                         <Link to="/dashboard/services">Services</Link>
