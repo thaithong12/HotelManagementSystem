@@ -1,8 +1,13 @@
 import axios from 'axios'
-import { useState } from 'react';
 import {API_URL} from "../Constans/apiConstants";
 import { END_POINT_PROMOTION } from '../Constans/promotionConstant';
-
+import ToastServive from 'react-material-toast';
+import {SUCCESS_MSG, ERR_MSG} from "../Constans/messageConstant";   
+    const toast = ToastServive.new({
+        place:'topRight',
+        duration:2,
+        maxCount:20
+    });
     
     
     export function addOrEditPromotion(promotion)  {
@@ -12,13 +17,15 @@ import { END_POINT_PROMOTION } from '../Constans/promotionConstant';
         return(dispatch) => {
             return axios.post(API_URL+ '/promotion',  {data: promotion}).then(() => {
                 dispatch(getPromotions());
-            });
+            })
 
             
         }
-    };
+        
+    }
     
- 
+    
+    
     export const _removePromotion = (promotion) => ({
         type: 'REMOVE_PROMOTION',
         promotion
