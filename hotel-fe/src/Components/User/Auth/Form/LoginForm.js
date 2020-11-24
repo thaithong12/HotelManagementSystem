@@ -16,23 +16,14 @@ export default function LoginForm() {
   const dispatch = useDispatch();
   const emailTxt = useRef(' ');
   const passwordTxt = useRef(' ');
-  let [curUser, setUser] = useState({});
   let user = useSelector(state => state.user.userCurrent);
   let notLoaded = useSelector(state => state.user.notLoaded);
   let history = useHistory();
-
+  const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
-    setUser(user);
+
   },[user]);
-  console.log(curUser)
-
-  if (curUser.email) {
-   redirectTo();
-  }
-  function redirectTo() {
-
-  }
 
   function handleSubmit(e) {
     e.preventDefault();
