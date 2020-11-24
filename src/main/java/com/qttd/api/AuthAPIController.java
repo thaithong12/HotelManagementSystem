@@ -125,8 +125,8 @@ public class AuthAPIController {
         AccountPrincipal userPrincipal = accountService.getAccountPricipalByEmail(user.getEmail());
         if (null == user || !passwordEncoder.matches(user.getPassword(), userPrincipal.getPassword())
         || userPrincipal.getStatus().equals(AccountStatus.UNACTIVE)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("tài khoản hoặc mật khẩu không chính xác or chua kich hoat");
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(null);
         }
         AccountEntity acOnDB = accountService.findOne(userPrincipal.getUserId()).get();
         TokenEntity token = tokenService.findByAccountEntity(acOnDB);

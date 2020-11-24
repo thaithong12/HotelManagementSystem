@@ -31,7 +31,7 @@ public class ServiceAPIController {
 
     @PostMapping
     public ResponseEntity<?> addOrUpdateService(@RequestBody ListServiceRequestModel listRequest) {
-        ResponseModel<ListServiceResponseModel> responseModel = new ResponseModel<>();
+        ResponseModel<ListServiceResponseModel> responseModel = services.addOrUpdateServices(listRequest);
         return ResponseEntity.ok(responseModel);
     }
 }
