@@ -1,4 +1,4 @@
-import React, { useEffect,useRef,useState } from 'react';
+import React, { useEffect,useState } from 'react';
 import Header from '../Header';
 import SlideBar from '../SlideBar';
 import Table from '@material-ui/core/Table';
@@ -24,13 +24,11 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import {DATE_MSG} from "../../../Constans/messageConstant";
 export default function ManagePromotions() {
     const dispatch = useDispatch();
     
-    //const [data, setData] = useState({ listData: []});
     const promotionsData = useSelector(state => state.promotions.promotions);
     const [promotionId , setPromotionId] = useState();
     const [code , setCode] = useState(null);
@@ -41,14 +39,7 @@ export default function ManagePromotions() {
     const [title , setTitle] = useState();
     const [open1, setOpen1] = React.useState(false);
     const [temp, setTemp] = useState();
-    const [itemError, setItemErr] = useState({isErr: false ,msgRoom: '', msgCate: ''})
-
-    const clearMsg = () => {
-      setItemErr({
-        isErr: false,
-        msgPromo: ''
-      })
-    }
+    
   
     const handleClickOpen1 = () => {
       setOpen1(true);
@@ -64,7 +55,6 @@ export default function ManagePromotions() {
     
     const onSubmit = (promotionId ,code , description , discount , sdate , edate ) => {
 
-        let err = {};
         var item = {
           
           promotionId : promotionId ,
@@ -77,7 +67,7 @@ export default function ManagePromotions() {
         
         
         var request = [item]
-        if(code=="" || description=="" || discount == 0 || sdate == null || edate == null){
+        if(code==="" || description==="" || discount === 0 || sdate === null || edate === null){
           dispatch(getPromotions());
           alert('Have field blank!')
         }else if(sdate >= edate ){

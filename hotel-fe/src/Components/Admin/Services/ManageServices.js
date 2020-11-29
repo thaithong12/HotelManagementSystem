@@ -31,7 +31,6 @@ export default function ManageServices() {
     const dispatch = useDispatch();
     const servicesData = useSelector(state => state.services.services);
     
-    const [data, setData] = useState();
     const [serviceId, setServiceId] = useState(0);
     const [serviceName, setServiceName] = useState('');
     const [description, setDescription] = useState('');
@@ -52,7 +51,6 @@ export default function ManageServices() {
 
     useEffect(() => {
       dispatch(getServices());
-      setData(servicesData);
     }, []);
     
     const onSubmit = (serviceId, serviceName, description, quantity, unitPrice, image) => {
@@ -66,7 +64,7 @@ export default function ManageServices() {
         }
         
         var request = [item];
-        if(serviceName==""){
+        if(serviceName===""){
           dispatch(getServices());
         }
         else{

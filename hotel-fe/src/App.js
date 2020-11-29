@@ -1,5 +1,5 @@
 
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
 import Admin from './Admin';
 import {history} from './Helper/history'

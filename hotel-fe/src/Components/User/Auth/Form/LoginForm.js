@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import React, {useEffect, useRef, useState} from "react";
 import useStyles from "../Style";
-import {Link, Redirect, useHistory, useLocation} from "react-router-dom";
+import {Link} from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import {useDispatch, useSelector} from "react-redux";
 import {login} from "../../../../Actions/userActions";
@@ -18,7 +18,6 @@ export default function LoginForm() {
   const passwordTxt = useRef(' ');
   let [curUser, setUser] = useState({});
   let user = useSelector(state => state.user.userCurrent);
-  let notLoaded = useSelector(state => state.user.notLoaded);
 
 
   useEffect(() => {
