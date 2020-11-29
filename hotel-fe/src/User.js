@@ -9,9 +9,7 @@ import Login from "./Login";
 import {history} from './Helper/history';
 import {
   Router,
-  Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 export default function User() {
     

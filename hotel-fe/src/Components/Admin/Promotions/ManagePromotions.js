@@ -1,4 +1,4 @@
-import React, { useEffect,useRef,useState } from 'react';
+import React, { useEffect,useState } from 'react';
 import Header from '../Header';
 import SlideBar from '../SlideBar';
 import Table from '@material-ui/core/Table';
@@ -28,7 +28,7 @@ import {DATE_MSG , BLANK_MSG ,ERR_MSG} from "../../../Constans/messageConstant";
 import axios from 'axios'
 export default function ManagePromotions() {
     const dispatch = useDispatch();
-    //const [data, setData] = useState({ listData: []});
+
     const promotionsData = useSelector(state => state.promotions.promotions);
     const [promotionId , setPromotionId] = useState();
     const [code , setCode] = useState(null);
@@ -42,23 +42,16 @@ export default function ManagePromotions() {
     const [itemError, setItemErr] = useState({isErr: false ,msgCode: '',msgDescription: '',msgDiscount:'', msgSdate:'',msgEdate:''})
     const [modalDelete, setModalDelete] = useState(false);
     const [modalIsOpen, setModalIsOpen] = useState(false)
+
     useEffect(() => {
         dispatch(getPromotions());
           
     }, []); 
     
-    const clearMsg = () => {
-      setItemErr({
-        isErr: false,
-        msgCode: '',msgDescription: '',msgDiscount:'', msgSdate:'',msgEdate:''
-      })
-    }
+
     const onSubmit = (promotionId ,code , description , discount , sdate , edate , image ) => {
-        // clearMsg();
-        // const fileData = new FormData();
-        // fileData.append('file', image);
         
-        // image.url=image.name;
+
         var item = {
           
           promotionId : promotionId ,
@@ -73,11 +66,13 @@ export default function ManagePromotions() {
         
         let err = {};
         var request = [item]
+
         if(code=="" ){
           err.isErr = true;
           err.msgCode = BLANK_MSG;
           
           
+
         }
         if(description=="" ){
           err.isErr = true;
@@ -116,9 +111,7 @@ export default function ManagePromotions() {
         
         
     }
-    // const onChange = e =>{
-    //   setImage(e.target.files[0])
-    // }
+    
     const handleUpload = (e) => {
       // setImage(e.target.files);
       setImage(e.target.files[0]);
@@ -126,12 +119,7 @@ export default function ManagePromotions() {
       let arr = e.target.files;
       let arr2 = []
       let formData = new FormData(); 
-      // for(let i = 0 ; i< arr.length ; i ++) {
-      //   let obj = {file: arr[i], name: arr[i].name}
-      //   arr2.push(obj)
-      //   formData.append('multipartFile',obj)
-      // }
-         //formdata object
+     
       for(var i = 0 ; i< arr.length ; i ++) {
         formData.append('multipartFile',
           arr[i], 

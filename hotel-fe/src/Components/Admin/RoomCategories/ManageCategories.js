@@ -31,11 +31,10 @@ export default function ManageCategories() {
     const dispatch = useDispatch();
     const categoriesData = useSelector(state => state.categories.categories);
     
-    const [data, setData] = useState();
+
     const [categoryId, setCategoryId] = useState(0);
     const [categoryName, setCategoryName] = useState('');
     const [description, setDescription] = useState('');
-    const [quantity, setQuantity] = useState(null);
     const [price, setPrice] = useState(null);
     const [numberOfRoom, setNumberOfRoom] = useState(null);
     const [maximumPeopleOfRoom, setMaximumPeopleOfRoom] = useState(null);
@@ -54,7 +53,6 @@ export default function ManageCategories() {
 
     useEffect(() => {
       dispatch(getCategories());
-      setData(categoriesData);
     }, []);
     
     const onSubmit = (categoryId, categoryName, description, price, numberOfRoom, maximumPeopleOfRoom, image) => {
@@ -69,7 +67,7 @@ export default function ManageCategories() {
         }
         
         var request = [item];
-        if(categoryName==""){
+        if(categoryName===""){
           dispatch(getCategories());
         }
         else{

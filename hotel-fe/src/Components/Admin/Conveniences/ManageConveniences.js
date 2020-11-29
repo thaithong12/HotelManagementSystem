@@ -30,7 +30,6 @@ export default function ManageConveniences() {
     const dispatch = useDispatch();
     const conveniencesData = useSelector(state => state.conveniences.conveniences);
     
-    const [data, setData] = useState();
     const [convenientId, setConvenientId] = useState(0);
     const [convenientName, setConvenientName] = useState('');
     const [open1, setOpen1] = React.useState(false);
@@ -47,7 +46,6 @@ export default function ManageConveniences() {
 
     useEffect(() => {
       dispatch(getConveniences());
-      setData(conveniencesData);
     }, []);
     
     const onSubmit = (convenientId, convenientName) => {
@@ -56,7 +54,7 @@ export default function ManageConveniences() {
         convenientName : convenientName
         }
         var request = [item];
-        if(convenientName==""){
+        if(convenientName===""){
           dispatch(getConveniences());
         }
         else{

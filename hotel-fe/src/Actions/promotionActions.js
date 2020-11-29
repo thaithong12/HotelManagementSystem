@@ -4,23 +4,7 @@ import { END_POINT_PROMOTION } from '../Constans/promotionConstant';
 
 
     
-    // export const _addOrEditPromotion = (data) => ({
-    //     type: 'ADD_PROMOTION',
-    //     data
-    // })
-  
-    // export const addOrEditPromotion = (obj) => {
-    //     return async (dispatch) => {
-    //     await axios.post(API_URL + END_POINT_PROMOTION, {data: [obj]}).then(res => {
-            
-    //         dispatch(getPromotions());
-            
-    //     }).catch(err => {
-    //         console.log(err)
-            
-    //     })
-    //     }
-    // }
+    
     
     export function addOrEditPromotion(promotion)  {
 
@@ -70,16 +54,5 @@ import { END_POINT_PROMOTION } from '../Constans/promotionConstant';
               console.log(err)
             })
           }
-        // return (dispatch) => {
-        //     return axios.get(API_URL+END_POINT_PROMOTION)
-        //     .then(result => {
-        //         const listPromotions = [];
-        //         if(result.data.response!=null){
-        //             result.data.response.data.forEach(item => {
-        //                 listPromotions.push(item);  
-        //         }             
-        //     )};
-        //     dispatch(_getPromotions(listPromotions));
-        //     });
-        // };
+        
     }

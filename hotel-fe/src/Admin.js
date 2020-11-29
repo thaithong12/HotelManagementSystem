@@ -1,5 +1,5 @@
 
-import React, { Component } from 'react';
+import React from 'react';
 import Dashboard from './Components/Admin/Dashboard/Dashboard';
 import './Admin.css';
 import ManageBookings from './Components/Admin/Bookings/ManageBookings';
@@ -10,9 +10,7 @@ import ManageServices from './Components/Admin/Services/ManageServices';
 import ManageConveniences from './Components/Admin/Conveniences/ManageConveniences';
 import {
   Router,
-  Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 import {history} from './Helper/history'
 export default function Admin() {

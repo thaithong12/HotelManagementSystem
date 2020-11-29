@@ -1,13 +1,12 @@
 
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
 import Admin from './Admin';
 import User from './User';
 import {history} from './Helper/history'
 import {
   Router,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 import Login from "./Login";
 

@@ -1,4 +1,4 @@
-import {ROOM_ADD, ROOM_UPDATE, ROOM_DELETE, ROOM_GET} from "../Constans/roomConstant";
+import {ROOM_GET} from "../Constans/roomConstant";
 
 const initState = {
   rooms: [],
