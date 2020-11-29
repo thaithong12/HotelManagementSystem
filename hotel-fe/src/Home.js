@@ -15,15 +15,12 @@ import {
   Link
 } from "react-router-dom";
 
-
-export default function Admin() {
+export default function Home() {
 
     return (
       <Router>
           <Page/>
-          
       </Router>
-      
     );
   
 }
@@ -32,16 +29,8 @@ function Page(){
     <div>
       
       
-      <Switch>
-        <Route exact path="/dashboard" component={Dashboard}/>
-        <Route path="/dashboard/bookings" component={ManageBookings}/>
-        <Route path="/dashboard/promotions" component={ManagePromotions}/>
-        <Route path="/dashboard/categories" component={ManageCategories}/>
-        <Route path="/dashboard/rooms" component={ManageRooms}/>
-        <Route path="/dashboard/services" component={ManageServices}/>
-        <Route path="/dashboard/conveniences" component={ManageConveniences}/>
-        
-      </Switch> 
+      
+      <h2>HomePage</h2>
       
       
        
@@ -49,5 +38,4 @@ function Page(){
     </div>
   )
 }
-  
 

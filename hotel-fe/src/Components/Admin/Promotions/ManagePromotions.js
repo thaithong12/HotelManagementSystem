@@ -3,12 +3,11 @@ import Header from '../Header';
 import SlideBar from '../SlideBar';
 import Table from '@material-ui/core/Table';
 import { useDispatch, useSelector } from 'react-redux';
-import {getPromotions, removePromotion} from '../../../Actions/promotionActions'
+import {getPromotions, removePromotion , addOrEditPromotion , handleImage } from '../../../Actions/promotionActions'
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableHead from '@material-ui/core/TableHead';
 import Button from '@material-ui/core/Button';
-import {addOrEditPromotion} from '../../../Actions/promotionActions';
 import '../form.css';
 import './style.css'
 import Modal from 'react-modal';
@@ -25,7 +24,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import TextField from '@material-ui/core/TextField';
 import {DATE_MSG , BLANK_MSG ,ERR_MSG} from "../../../Constans/messageConstant";
-
+import ImageUploading from "react-images-uploading";
+import axios from 'axios'
 export default function ManagePromotions() {
     const dispatch = useDispatch();
     //const [data, setData] = useState({ listData: []});
@@ -36,7 +36,7 @@ export default function ManagePromotions() {
     const [discount , setDiscount] = useState(0);
     const [sdate , setSdate] = useState(new Date());
     const [edate , setEdate] = useState(new Date());
-    const [image , setImage] = useState(null);
+    const [image , setImage] = useState('');
     const [title , setTitle] = useState();
     const [temp, setTemp] = useState();
     const [itemError, setItemErr] = useState({isErr: false ,msgCode: '',msgDescription: '',msgDiscount:'', msgSdate:'',msgEdate:''})
@@ -55,7 +55,10 @@ export default function ManagePromotions() {
     }
     const onSubmit = (promotionId ,code , description , discount , sdate , edate , image ) => {
         // clearMsg();
+        // const fileData = new FormData();
+        // fileData.append('file', image);
         
+        // image.url=image.name;
         var item = {
           
           promotionId : promotionId ,
@@ -64,7 +67,7 @@ export default function ManagePromotions() {
           discount : discount ,
           sdate : sdate ,
           edate : edate ,
-          image : image ,
+          image : [image] ,
           
         }
         
@@ -113,6 +116,47 @@ export default function ManagePromotions() {
         
         
     }
+    // const onChange = e =>{
+    //   setImage(e.target.files[0])
+    // }
+    const handleUpload = (e) => {
+      // setImage(e.target.files);
+      setImage(e.target.files[0]);
+      console.log(image);
+      let arr = e.target.files;
+      let arr2 = []
+      let formData = new FormData(); 
+      // for(let i = 0 ; i< arr.length ; i ++) {
+      //   let obj = {file: arr[i], name: arr[i].name}
+      //   arr2.push(obj)
+      //   formData.append('multipartFile',obj)
+      // }
+         //formdata object
+      for(var i = 0 ; i< arr.length ; i ++) {
+        formData.append('multipartFile',
+          arr[i], 
+          arr[i].name); 
+      }
+      
+  
+      
+      
+      const config = {     
+          headers: { 'content-type': 'multipart/form-data' }
+      }
+      
+      return axios.post('http://localhost/api'+ '/upload', formData, config).then(response => {
+          const img = response.data;
+          console.log(img);
+          let arr = [...response.data];
+          setImage(img);
+          console.log(image)
+        })
+        .catch(error => {
+            console.log(error);
+        });
+        
+    }
     
     const classes = useStyles();
     
@@ -132,7 +176,7 @@ export default function ManagePromotions() {
                                                                 setDiscount(0);
                                                                 setSdate(null);
                                                                 setEdate(null); 
-                                                                setImage(null)}}>
+                                                                setImage('')}}>
                 <AddCircle/>
               </IconButton>
             </div>
@@ -270,7 +314,8 @@ export default function ManagePromotions() {
                                 </div>
                                 <div className="content">
                                   
-                                  <input id="img" type="file" src={image} onChange={e => setImage(e.target.files[0])} />
+                                  <input id="img" type="file" multiple  onChange={e => {handleUpload(e)}} />
+                                  
                                 </div>
                                
                             </div>

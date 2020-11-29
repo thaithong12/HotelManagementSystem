@@ -3,7 +3,12 @@ import {END_POINT_LOGIN, END_POINT_REGISTER} from '../Constans/userConstants';
 import axios from 'axios'
 import {API_URL} from "../Constans/apiConstants";
 import ToastServive from 'react-material-toast';
-
+import {
+  createBrowserHistory,
+  createHashHistory,
+  createMemoryHistory,
+  
+} from 'history'
 
 export const login = (userRequest = {email: '', password: ''}) => {
   return async (dispatch) => {
@@ -14,7 +19,7 @@ export const login = (userRequest = {email: '', password: ''}) => {
     return await axios.post(API_URL + END_POINT_LOGIN, user).then(res => {
       localStorage.setItem("Authorization", "Token " + res.data.jwttoken);
       dispatch(_login(res.data));
-
+      createBrowserHistory.push("/");
     }).catch(err => {
       const mute = err;
       console.log(err);

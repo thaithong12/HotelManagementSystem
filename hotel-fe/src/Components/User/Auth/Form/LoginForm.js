@@ -22,6 +22,7 @@ export default function LoginForm() {
   let history = useHistory();
 
 
+  
   useEffect(() => {
     setUser(user);
   },[user]);
@@ -31,13 +32,14 @@ export default function LoginForm() {
    redirectTo();
   }
   function redirectTo() {
-
+    history.push("/Dashboard");
+    // window.location.reload(false);
   }
-
+  
   function handleSubmit(e) {
     e.preventDefault();
   }
-
+  
   return (
     <>
       <Typography component="h1" variant="h5">
@@ -76,7 +78,7 @@ export default function LoginForm() {
           variant="contained"
           color="primary"
           className={classes.submit} onClick={() =>
-          dispatch(login({email: emailTxt.current.value, password: passwordTxt.current.value}))}
+          {dispatch(login({email: emailTxt.current.value, password: passwordTxt.current.value}))}}
         >
           Sign In
         </Button>

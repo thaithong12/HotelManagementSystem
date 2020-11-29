@@ -11,14 +11,20 @@ export const _deleteCategory = (categories) => ({
 })
 
 export function getCategories() {
-    return async (dispatch) => {
-        return axios.get(API_URL + '/categories').then(res => {
-          console.log(res.data.response)
-          dispatch(_getCategory(res.data.response.data));
-        }).catch(err => {
-          console.log(err)
-        })
-      }
+
+    return (dispatch) => {
+        return axios.get(API_URL+'/categories')
+        .then(result => {
+            const categories = [];
+            if(result.data.response!=null){
+                result.data.response.data.forEach(item => {
+                categories.push(item);  
+            }             
+        )};
+        dispatch(_getCategory(categories));
+        });
+    };
+
 }
 
 export function deleteCategories(categories) {

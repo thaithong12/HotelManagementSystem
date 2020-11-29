@@ -2,7 +2,12 @@
 import React, { Component } from 'react';
 import './App.css';
 import Admin from './Admin';
-
+import Home from './Home';
+// import Home from './Components/User/Home/Home/Home.js';
+import DetailsRoom from './Components/User/Home/DetailsRoom/DetailsRoom.js';
+import ListRoom from './Components/User/Home/ListRoom/ListRoom.js';
+import Promotion from './Components/User/Home/Promotion/Promotion.js';
+import Service from './Components/User/Home/Home/Home.js';
 import {
   BrowserRouter as Router,
   Switch,
@@ -11,13 +16,18 @@ import {
 } from "react-router-dom";
 import Login from "./Login";
 
-
-
+import {
+  createBrowserHistory,
+  createHashHistory,
+  createMemoryHistory,
+  
+} from 'history'
+const history = createBrowserHistory()
 function App() {
 
     return (
       <div className="App">
-        <Router>
+        <Router history={history}>
           <Page/>
         </Router>
         
@@ -33,40 +43,29 @@ function Page(){
   return(
     <div>
       <header>
-        
-        <Link to="/Dashboard">Dashboard</Link>
+        <Link to="/">Home</Link>
+        <Link to={'/Dashboard'}>Dashboard</Link>
         <Link to={'/login'}>Login</Link>
       </header>
       <main>
       <Switch>
         <Route exact path="/" component={Home}/>
-        <Route path="/Dashboard" component={Dashboard}/>
+        <Route path="/Dashboard" component={Admin}/>
         <Route path="/login" component={Login}/>
-      </Switch> 
-      </main>
-      <footer>
 
-      </footer>
+    </Switch> 
+    </main>
+    <footer>
+
+    </footer>
        
       
     </div>
   )
 }
 
-function Home(props) {
-  console.log(props.match);
-  return(
-    <div>
-      <h2>Home</h2>
-    </div>
-  )
-}
-function Dashboard() {
-  
-  return(
-    <Admin/>
-  )
-}
+
+
 function About() {
   
   return(
