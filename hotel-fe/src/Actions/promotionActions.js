@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { useState } from 'react';
 import {API_URL} from "../Constans/apiConstants";
 import { END_POINT_PROMOTION } from '../Constans/promotionConstant';
 

@@ -1,5 +1,5 @@
 
-import React, { Component } from 'react';
+import React from 'react';
 import Dashboard from './Components/Admin/Dashboard/Dashboard';
 import './Admin.css';
 import ManageBookings from './Components/Admin/Bookings/ManageBookings';
@@ -11,8 +11,7 @@ import ManageConveniences from './Components/Admin/Conveniences/ManageConvenienc
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 
 export default function Admin() {
