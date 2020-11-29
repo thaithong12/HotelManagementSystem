@@ -19,7 +19,7 @@ export default function Header() {
                                 <div className="image">
                                     <img src="../images/a.jpg" alt="Admin" />
                                 </div>
-                                <a href="#">Admin</a>
+                                
                             </div>
                         </div>
                         

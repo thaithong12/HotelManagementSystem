@@ -6,7 +6,6 @@ import Grid from "@material-ui/core/Grid";
 import React from "react";
 import LoginForm from "./Form/LoginForm";
 import { Router,
-  Switch,
   Route} from "react-router-dom";
 import RegisterForm from "./Form/RegisterForm";
 import {history} from './../../../Helper/history'
