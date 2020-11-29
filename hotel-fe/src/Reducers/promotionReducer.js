@@ -13,10 +13,7 @@ export  default function promotionReducer(state = initialState, action)  {
         case 'REMOVE_PROMOTION':
              let removeState = {promotions: state.promotions.filter((item)=> item.promotionId!==action.promotion.promotionId) }
              return removeState;
-        case 'EDIT_PROMOTION':
-            
-            let editState = {...state,promotions: action.promotions }
-            return editState;
+       
 
         case 'GET_PROMOTIONs':
             
