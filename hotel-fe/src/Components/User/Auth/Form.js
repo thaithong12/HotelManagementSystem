@@ -9,6 +9,7 @@ import { BrowserRouter as Router,
   Switch,
   Route} from "react-router-dom";
 import RegisterForm from "./Form/RegisterForm";
+import {history} from './../../../Helper/history'
 
 export default function Form() {
   const classes = useStyles();
@@ -18,7 +19,7 @@ export default function Form() {
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <Router>
+        <Router history={history}>
           <Page />
         </Router>
       </div>
@@ -29,8 +30,8 @@ export default function Form() {
 function Page() {
   return (
     <Switch>
-      <Route exact={'/login'} path="/Login" component={LoginForm}/>
-      <Route exact={'/register'} path="/register" component={RegisterForm}/>
+      <Route exact path="/Login" component={LoginForm}/>
+      <Route exact path="/register" component={RegisterForm}/>
     </Switch>
   )
 }

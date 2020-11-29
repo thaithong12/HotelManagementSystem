@@ -2,10 +2,9 @@
 import React, { Component } from 'react';
 import './App.css';
 import Admin from './Admin';
-
+import {history} from './Helper/history'
 import {
-  BrowserRouter as Router,
-  Switch,
+  Router,
   Route,
   Link
 } from "react-router-dom";
@@ -17,40 +16,30 @@ function App() {
 
     return (
       <div className="App">
-        <Router>
-          <Page/>
+        <Router history={history}>
+            <div>
+            <header>
+              
+              <Link to="/Dashboard">Dashboard</Link>
+              <Link to={'/login'}>Login</Link>
+            </header>
+            <main>
+            
+              <Route exact path="/" component={Home}/>
+              <Route path="/Dashboard" component={Dashboard}/>
+              <Route path="/login" component={Login}/>
+
+            </main>
+            <footer>
+
+            </footer>
+            
+            
+          </div>
         </Router>
-        
-        
       </div>
     );
   
-}
-
-
-
-function Page(){
-  return(
-    <div>
-      <header>
-        
-        <Link to="/Dashboard">Dashboard</Link>
-        <Link to={'/login'}>Login</Link>
-      </header>
-      <main>
-      <Switch>
-        <Route exact path="/" component={Home}/>
-        <Route path="/Dashboard" component={Dashboard}/>
-        <Route path="/login" component={Login}/>
-      </Switch> 
-      </main>
-      <footer>
-
-      </footer>
-       
-      
-    </div>
-  )
 }
 
 function Home(props) {
@@ -67,14 +56,5 @@ function Dashboard() {
     <Admin/>
   )
 }
-function About() {
-  
-  return(
-    <div>
-      <h2>About</h2>
-    </div>
-  )
-}
-
 
 export default App ;

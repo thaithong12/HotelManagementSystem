@@ -9,24 +9,33 @@ import {Link, Redirect, useHistory, useLocation} from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import {useDispatch, useSelector} from "react-redux";
 import {login} from "../../../../Actions/userActions";
-import App from "../../../../App";
+import {history} from "../../../../Helper/history";
 
 export default function LoginForm() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const emailTxt = useRef(' ');
   const passwordTxt = useRef(' ');
+  let [curUser, setUser] = useState({});
   let user = useSelector(state => state.user.userCurrent);
   let notLoaded = useSelector(state => state.user.notLoaded);
-  let history = useHistory();
-  const [redirect, setRedirect] = useState(false);
+
 
   useEffect(() => {
-
+    setUser(user);
   },[user]);
+  console.log(curUser)
+
+  if (curUser.email) {
+    redirectTo();
+  }
+  function redirectTo() {
+    history.push("/");
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
+    dispatch(login({email: emailTxt.current.value, password: passwordTxt.current.value}));
   }
 
   return (
@@ -66,8 +75,7 @@ export default function LoginForm() {
           fullWidth
           variant="contained"
           color="primary"
-          className={classes.submit} onClick={() =>
-          dispatch(login({email: emailTxt.current.value, password: passwordTxt.current.value}))}
+          className={classes.submit} onClick={(e) =>handleSubmit(e)}
         >
           Sign In
         </Button>
@@ -78,7 +86,7 @@ export default function LoginForm() {
             </Link>
           </Grid>
           <Grid item>
-              <Link to={'/register'} variant="body2">
+            <Link to={'/register'} variant="body2">
               {"Don't have an account? Sign Up"}
             </Link>
           </Grid>

@@ -175,7 +175,7 @@ export default function Content() {
                 </Select>
                 <div className={'text-err'}>{itemError.isErr ? itemError.msgCate : ''}</div>
               </div>
-              {useCase === 'UPDATE ROOM' ? <div className="row">
+              {useCase == 'UPDATE ROOM' ? <div className="row">
                 <div className="label">
                   <label>Status Room</label>
                 </div>
