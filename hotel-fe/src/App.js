@@ -2,36 +2,55 @@
 import React, { Component } from 'react';
 import './App.css';
 import Admin from './Admin';
+
 import Home from './Home';
 // import Home from './Components/User/Home/Home/Home.js';
 import DetailsRoom from './Components/User/Home/DetailsRoom/DetailsRoom.js';
 import ListRoom from './Components/User/Home/ListRoom/ListRoom.js';
 import Promotion from './Components/User/Home/Promotion/Promotion.js';
 import Service from './Components/User/Home/Home/Home.js';
+
+import {history} from './Helper/history'
+
 import {
-  BrowserRouter as Router,
-  Switch,
+  Router,
   Route,
   Link
 } from "react-router-dom";
 import Login from "./Login";
 
 import {
-  createBrowserHistory,
-  createHashHistory,
-  createMemoryHistory,
+  createBrowserHistory
   
 } from 'history'
-const history = createBrowserHistory()
+
 function App() {
 
     return (
       <div className="App">
         <Router history={history}>
-          <Page/>
+
+            <div>
+            <header>
+              
+              <Link to="/Dashboard">Dashboard</Link>
+              <Link to={'/login'}>Login</Link>
+            </header>
+            <main>
+              
+              <Route exact path="/" component={Home}/>
+              <Route path="/Dashboard" component={Dashboard}/>
+              <Route path="/login" component={Login}/>
+              
+            </main>
+            <footer>
+
+            </footer>
+            
+            
+            </div>
+
         </Router>
-        
-        
       </div>
     );
   
@@ -39,39 +58,10 @@ function App() {
 
 
 
-function Page(){
-  return(
-    <div>
-      <header>
-        <Link to="/">Home</Link>
-        <Link to={'/Dashboard'}>Dashboard</Link>
-        <Link to={'/login'}>Login</Link>
-      </header>
-      <main>
-      <Switch>
-        <Route exact path="/" component={Home}/>
-        <Route path="/Dashboard" component={Admin}/>
-        <Route path="/login" component={Login}/>
-
-    </Switch> 
-    </main>
-    <footer>
-
-    </footer>
-       
-      
-    </div>
-  )
-}
-
-
-
-function About() {
+function Dashboard() {
   
   return(
-    <div>
-      <h2>About</h2>
-    </div>
+    <Admin/>
   )
 }
 

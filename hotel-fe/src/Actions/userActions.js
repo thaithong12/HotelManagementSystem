@@ -3,12 +3,12 @@ import {END_POINT_LOGIN, END_POINT_REGISTER} from '../Constans/userConstants';
 import axios from 'axios'
 import {API_URL} from "../Constans/apiConstants";
 import ToastServive from 'react-material-toast';
-import {
-  createBrowserHistory,
-  createHashHistory,
-  createMemoryHistory,
-  
-} from 'history'
+
+const toast = ToastServive.new({
+  place:'topRight',
+  duration:2,
+  maxCount:20
+});
 
 export const login = (userRequest = {email: '', password: ''}) => {
   return async (dispatch) => {
@@ -17,12 +17,16 @@ export const login = (userRequest = {email: '', password: ''}) => {
       password: userRequest.password
     }
     return await axios.post(API_URL + END_POINT_LOGIN, user).then(res => {
-      localStorage.setItem("Authorization", "Token " + res.data.jwttoken);
-      dispatch(_login(res.data));
-      createBrowserHistory.push("/");
+      if (res.data) {
+        localStorage.setItem("Authorization", "Token " + res.data.jwttoken);
+        dispatch(_login(res.data));
+      } else {
+        toast.error("Username or Password not valid", () => {
+          // console.log(err);
+        })
+      }
     }).catch(err => {
-      const mute = err;
-      console.log(err);
+
     })
   }
 }
@@ -32,11 +36,6 @@ export const _login =(user) => ({
 })
 
 export function register(obj) {
-  const toast = ToastServive.new({
-    place:'topRight',
-    duration:2,
-    maxCount:20
-  });
   const user = {...obj}
   return async (dispatch) => {
     return await axios.post(API_URL + END_POINT_REGISTER, user).then(res => {
