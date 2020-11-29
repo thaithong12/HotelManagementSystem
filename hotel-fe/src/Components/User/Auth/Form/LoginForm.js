@@ -21,7 +21,6 @@ export default function LoginForm() {
   let notLoaded = useSelector(state => state.user.notLoaded);
 
 
-  
   useEffect(() => {
     setUser(user);
   },[user]);
@@ -31,16 +30,14 @@ export default function LoginForm() {
     redirectTo();
   }
   function redirectTo() {
-
     history.push("/");
-
   }
-  
+
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(login({email: emailTxt.current.value, password: passwordTxt.current.value}));
   }
-  
+
   return (
     <>
       <Typography component="h1" variant="h5">
@@ -78,9 +75,7 @@ export default function LoginForm() {
           fullWidth
           variant="contained"
           color="primary"
-
           className={classes.submit} onClick={(e) =>handleSubmit(e)}
-
         >
           Sign In
         </Button>

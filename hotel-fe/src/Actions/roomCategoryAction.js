@@ -11,7 +11,6 @@ export const _deleteCategory = (categories) => ({
 })
 
 export function getCategories() {
-
     return (dispatch) => {
         return axios.get(API_URL+'/categories')
         .then(result => {
@@ -24,7 +23,6 @@ export function getCategories() {
         dispatch(_getCategory(categories));
         });
     };
-
 }
 
 export function deleteCategories(categories) {

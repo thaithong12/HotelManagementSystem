@@ -1,36 +1,47 @@
 import React from 'react';
+import {
+    Link	
+  } from "react-router-dom";
 export default function Header() {
-    
+        return(
         <div >
     		<nav class="navbar">
 		        <div class="nav-center">
 		          <div class="nav-header">
-		            <a href="test.html">
-						<img  src="images/logo.jpg" alt="Hotel" />
-		            </a>
+				  <Link to="/">
+				  	<img  src="../images/logo.jpg" alt="Hotel" />
+				  </Link>
+						
 		            
 		          </div>
 		          <ul class="nav-links">
 		            <li>
-		              <a href="test.html">Home</a>
+                        <Link to="/">Home</Link>
 		            </li>
 		            <li>
-		              <a href="listRoom.html">List Room</a>
+                        <Link to="/categories">Categories</Link>
 		            </li>
 		            <li>
-		              <a href="#">Service</a>
+		                <Link to="/services">Services</Link>
 		            </li>
 		            <li>
-		              <a href="#">Promotion</a>
+                        <Link to="/promotions">Promotions</Link>
 		            </li>
 		            <li>
-		              <a href="#">Gallery</a>
+                        <Link to="/">Gallery</Link>
 		            </li>
 		            <li>
-		              <a href="#">About us</a>
+                        <Link to="/">About Us</Link>
+		            </li>
+					<li>
+                        <Link to="/login">Login</Link>
+		            </li>
+					<li>
+                        <Link to="/Dashboard">Admin</Link>
 		            </li>
 		          </ul>
 		        </div>
 	     	</nav>
     	</div>
+        )
 }

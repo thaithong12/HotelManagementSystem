@@ -24,7 +24,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import TextField from '@material-ui/core/TextField';
 import {DATE_MSG , BLANK_MSG ,ERR_MSG} from "../../../Constans/messageConstant";
-import ImageUploading from "react-images-uploading";
+
 import axios from 'axios'
 export default function ManagePromotions() {
     const dispatch = useDispatch();

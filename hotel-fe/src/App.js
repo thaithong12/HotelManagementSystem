@@ -2,16 +2,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import Admin from './Admin';
-
-import Home from './Home';
-// import Home from './Components/User/Home/Home/Home.js';
-import DetailsRoom from './Components/User/Home/DetailsRoom/DetailsRoom.js';
-import ListRoom from './Components/User/Home/ListRoom/ListRoom.js';
-import Promotion from './Components/User/Home/Promotion/Promotion.js';
-import Service from './Components/User/Home/Home/Home.js';
-
+import User from './User';
 import {history} from './Helper/history'
-
 import {
   Router,
   Route,
@@ -19,10 +11,7 @@ import {
 } from "react-router-dom";
 import Login from "./Login";
 
-import {
-  createBrowserHistory
-  
-} from 'history'
+
 
 function App() {
 
@@ -30,25 +19,10 @@ function App() {
       <div className="App">
         <Router history={history}>
 
-            <div>
-            <header>
-              
-              <Link to="/Dashboard">Dashboard</Link>
-              <Link to={'/login'}>Login</Link>
-            </header>
-            <main>
-              
-              <Route exact path="/" component={Home}/>
-              <Route path="/Dashboard" component={Dashboard}/>
-              <Route path="/login" component={Login}/>
-              
-            </main>
-            <footer>
 
-            </footer>
-            
-            
-            </div>
+          <Route path="/" component={User}/>
+          <Route path="/Dashboard" component={Admin}/>
+          <Route path="/login" component={Login}/>
 
         </Router>
       </div>
@@ -56,14 +30,6 @@ function App() {
   
 }
 
-
-
-function Dashboard() {
-  
-  return(
-    <Admin/>
-  )
-}
 
 
 export default App ;

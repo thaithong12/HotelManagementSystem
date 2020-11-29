@@ -75,7 +75,7 @@ export default function Content() {
     console.log(itemExecute)
     setModalAddOrUpdate(true);
   }
-  
+
   const clearMsg = () => {
     setItemErr({
       isErr: false,

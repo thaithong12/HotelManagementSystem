@@ -9,30 +9,16 @@ import ManageRooms from './Components/Admin/Rooms/ManageRooms';
 import ManageServices from './Components/Admin/Services/ManageServices';
 import ManageConveniences from './Components/Admin/Conveniences/ManageConveniences';
 import {
-  BrowserRouter as Router,
+  Router,
   Switch,
   Route,
   Link
 } from "react-router-dom";
-
-
+import {history} from './Helper/history'
 export default function Admin() {
-
+    
     return (
-      <Router>
-          <Page/>
-          
-      </Router>
-      
-    );
-  
-}
-function Page(){
-  return(
-    <div>
-      
-      
-      <Switch>
+      <Router history={history}>
         <Route exact path="/dashboard" component={Dashboard}/>
         <Route path="/dashboard/bookings" component={ManageBookings}/>
         <Route path="/dashboard/promotions" component={ManagePromotions}/>
@@ -40,14 +26,9 @@ function Page(){
         <Route path="/dashboard/rooms" component={ManageRooms}/>
         <Route path="/dashboard/services" component={ManageServices}/>
         <Route path="/dashboard/conveniences" component={ManageConveniences}/>
-        
-      </Switch> 
-      
-      
-       
-      
-    </div>
-  )
-}
+      </Router>
+    );
   
+}
+
 
