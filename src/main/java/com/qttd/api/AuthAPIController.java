@@ -160,4 +160,17 @@ public class AuthAPIController {
         long diffInMillies = date2.getTime() - date1.getTime();
         return timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
     }
+
+    @PostMapping("/isAdmin")
+    public boolean isAdmin(@RequestBody String token) {
+        boolean check = false;
+
+        AccountPrincipal user = null;
+        if (StringUtils.hasText(token)) {
+            user = jwtUtil.getUserFromToken(token);
+            if (!ObjectUtils.isEmpty(user) && user.getAuthorities().contains("ROLE_ADMIN"))
+                check = true;
+        }
+        return check;
+    }
 }

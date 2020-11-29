@@ -18,7 +18,10 @@ export const login = (userRequest = {email: '', password: ''}) => {
     }
     return await axios.post(API_URL + END_POINT_LOGIN, user).then(res => {
       if (res.data) {
-        localStorage.setItem("Authorization", "Token " + res.data.jwttoken);
+        const obj = {...res.data};
+        obj.jwttoken = "Token " + obj.jwttoken;
+        localStorage.setItem("Authorization", res.data.jwttoken);
+
         dispatch(_login(res.data));
       } else {
         toast.error("Username or Password not valid", () => {

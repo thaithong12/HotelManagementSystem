@@ -17,16 +17,15 @@ export default function LoginForm() {
   const emailTxt = useRef(' ');
   const passwordTxt = useRef(' ');
   let [curUser, setUser] = useState({});
-  let user = useSelector(state => state.user.userCurrent);
-  let notLoaded = useSelector(state => state.user.notLoaded);
-
+  let user = useSelector(state => state.user.user);
 
   useEffect(() => {
     setUser(user);
   },[user]);
-  console.log(curUser)
 
-  if (curUser.email) {
+  console.log(user)
+
+  if (curUser && curUser.customerName) {
     redirectTo();
   }
   function redirectTo() {
