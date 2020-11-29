@@ -1,8 +1,9 @@
 import axios from 'axios'
-import { useState } from 'react';
 import {API_URL} from "../Constans/apiConstants";
 import { END_POINT_PROMOTION } from '../Constans/promotionConstant';
 
+
+    
     
     
     export function addOrEditPromotion(promotion)  {
@@ -12,13 +13,15 @@ import { END_POINT_PROMOTION } from '../Constans/promotionConstant';
         return(dispatch) => {
             return axios.post(API_URL+ '/promotion',  {data: promotion}).then(() => {
                 dispatch(getPromotions());
-            });
+            })
 
             
         }
-    };
+        
+    }
     
- 
+    
+    
     export const _removePromotion = (promotion) => ({
         type: 'REMOVE_PROMOTION',
         promotion
@@ -51,4 +54,5 @@ import { END_POINT_PROMOTION } from '../Constans/promotionConstant';
               console.log(err)
             })
           }
+        
     }

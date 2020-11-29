@@ -36,21 +36,21 @@ export default function Content() {
   const handleSubmit = (e) => {
     e.preventDefault();
     clearMsg();
-    if(useCase == 'ADD ROOM') {
+    if(useCase === 'ADD ROOM') {
       itemExecute.categoryId = categoryRoom.current.value;
       itemExecute.roomNumber = roomNumber.current.value
     }
-    if(useCase == 'UPDATE ROOM') {
+    if(useCase === 'UPDATE ROOM') {
       itemExecute.categoryId = categoryRoom.current.value;
       itemExecute.roomNumber = roomNumber.current.value;
       itemExecute.roomStatus = statusRoom.current.value;
     }
     let err = {};
-    if (itemExecute.roomNumber == '') {
+    if (itemExecute.roomNumber === '') {
       err.isErr = true;
       err.msgRoom = BLANK_MSG
     }
-    if (itemExecute.categoryId == '') {
+    if (itemExecute.categoryId === '') {
       err.isErr = true;
       err.msgCate = BLANK_MSG
     }
@@ -69,7 +69,7 @@ export default function Content() {
   }
 
   const handleEdit = (id) => {
-    const obj = rooms.filter(item => item.roomId == id)[0];
+    const obj = rooms.filter(item => item.roomId === id)[0];
     setItem({categoryId: obj.categoryId, roomId: obj.roomId,
       roomStatus: obj.roomStatus, roomNumber: obj.roomNumber});
     console.log(itemExecute)
@@ -117,7 +117,7 @@ export default function Content() {
                   <TableCell align="left" component="th" scope="row">{index + 1}</TableCell>
                   <TableCell align="left">{row.roomNumber}</TableCell>
                   <TableCell align="left">{row.categoryName}</TableCell>
-                  <TableCell align="left"><span className={row.roomStatus == 'AVAILABLE'? 'status-suc': 'status-err'}>{row.roomStatus}</span></TableCell>
+                  <TableCell align="left"><span className={row.roomStatus === 'AVAILABLE'? 'status-suc': 'status-err'}>{row.roomStatus}</span></TableCell>
                   <TableCell align="left">
                     <IconButton aria-label="delete" onClick={(e) => {handleEdit(row.roomId);setCase('UPDATE ROOM')}}>
                       <EditIcon fontSize="small"/>
@@ -170,12 +170,12 @@ export default function Content() {
                 >
                   {(categoriesRooms && categoriesRooms.length > 0) ?
                     categoriesRooms.map((row , index) => (
-                    <option value={row.categoryId} selected={itemExecute.categoryId == row.categoryName}>{row.categoryName}</option>
+                    <option value={row.categoryId} selected={itemExecute.categoryId === row.categoryName}>{row.categoryName}</option>
                     )): <option aria-label="None" value=""/>}
                 </Select>
                 <div className={'text-err'}>{itemError.isErr ? itemError.msgCate : ''}</div>
               </div>
-              {useCase == 'UPDATE ROOM' ? <div className="row">
+              {useCase === 'UPDATE ROOM' ? <div className="row">
                 <div className="label">
                   <label>Status Room</label>
                 </div>
@@ -187,8 +187,8 @@ export default function Content() {
                         }}
                 >
                   <option aria-label="None" value=""/>
-                  <option value={'AVAILABLE'} selected={itemExecute.roomStatus == 'AVAILABLE'}>AVAILABLE</option>
-                  <option value={'BOOKED'} selected={itemExecute.roomStatus == 'BOOKED'}>BOOKED</option>
+                  <option value={'AVAILABLE'} selected={itemExecute.roomStatus === 'AVAILABLE'}>AVAILABLE</option>
+                  <option value={'BOOKED'} selected={itemExecute.roomStatus === 'BOOKED'}>BOOKED</option>
                 </Select>
               </div> : ''}
               <div class="row">

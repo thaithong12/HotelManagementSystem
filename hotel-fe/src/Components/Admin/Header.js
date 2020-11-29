@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 
 export default function Header() {
     
@@ -19,7 +19,7 @@ export default function Header() {
                                 <div className="image">
                                     <img src="../images/a.jpg" alt="Admin" />
                                 </div>
-                                <a href="#">Admin</a>
+                                
                             </div>
                         </div>
                         
