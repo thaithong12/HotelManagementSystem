@@ -50,6 +50,7 @@ public class AuthAPIController {
     private AccountRoleService accountRoleService;
 
     @PostMapping("/register")
+    @ResponseBody
     public ResponseEntity<?> register(@RequestBody AccountModel user){
         try {
             AccountEntity checkExist = accountService.findAll().stream()

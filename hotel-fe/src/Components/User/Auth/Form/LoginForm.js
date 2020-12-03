@@ -23,8 +23,6 @@ export default function LoginForm() {
     setUser(user);
   },[user]);
 
-  console.log(user)
-
   if (curUser && curUser.customerName) {
     redirectTo();
   }
