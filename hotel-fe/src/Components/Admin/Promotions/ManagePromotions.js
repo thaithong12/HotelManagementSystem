@@ -40,7 +40,7 @@ export default function ManagePromotions() {
     const [temp, setTemp] = useState();
     const [itemError, setItemErr] = useState({isErr: false ,msgCode: '',msgDescription: '',msgDiscount:'', msgSdate:'',msgEdate:''})
     const [modalDelete, setModalDelete] = useState(false);
-    const [modalIsOpen, setModalIsOpen] = useState(false)
+    const [modalIsOpen, setModalIsOpen] = useState(false);
     useEffect(() => {
         dispatch(getPromotions());
           

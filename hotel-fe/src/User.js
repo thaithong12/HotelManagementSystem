@@ -5,7 +5,7 @@ import DetailsRoom from './Components/User/Home/DetailsRoom/DetailsRoom';
 import Categories from './Components/User/Home/Categories/Categories';
 import Promotion from './Components/User/Home/Promotion/Promotion';
 import Service from './Components/User/Home/Service/Service';
-import Login from "./Login";
+
 import {history} from './Helper/history';
 import {
   Router,
@@ -20,7 +20,6 @@ export default function User() {
         <Route path="/categories" component={Categories}/>
         <Route path="/promotions" component={Promotion}/>
         <Route path="/services" component={Service}/>
-        <Route path="/login" component={Login}/>
       </Router>
     );
   

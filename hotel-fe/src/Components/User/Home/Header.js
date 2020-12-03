@@ -5,16 +5,16 @@ import {
 export default function Header() {
         return(
         <div >
-    		<nav class="navbar">
-		        <div class="nav-center">
-		          <div class="nav-header">
+    		<nav className="navbar">
+		        <div className="nav-center">
+		          <div className="nav-header">
 				  <Link to="/">
 				  	<img  src="../images/logo.jpg" alt="Hotel" />
 				  </Link>
 						
 		            
 		          </div>
-		          <ul class="nav-links">
+		          <ul className="nav-links">
 		            <li>
                         <Link to="/">Home</Link>
 		            </li>

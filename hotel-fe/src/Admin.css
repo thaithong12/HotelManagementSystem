@@ -1,27 +1,10 @@
 
-
-body {
-  font-family:  sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 1.625;
-  color: #666;
-  
-}
-
-
 a {
   display: inline-block;
   text-decoration: none;
 }
 ul {
   list-style: none;
-}
-a:hover,
-a:focus,
-a:active {
-  text-decoration: none;
-  outline: none;
 }
 
 
@@ -68,8 +51,7 @@ p {
 
 
 .main-content {
-  
-  padding-top: 116px;
+  margin-top: 66px;
   min-height: 100vh;
   padding-left: 100px;
   padding-right: 100px;

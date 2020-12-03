@@ -19,7 +19,7 @@ export default function Form() {
           <LockOutlinedIcon />
         </Avatar>
         <Router history={history}>
-          <Route exact path="/Login" component={LoginForm}/>
+          <Route exact path="/login" component={LoginForm}/>
           <Route exact path="/register" component={RegisterForm}/>
         </Router>
       </div>
