@@ -5,12 +5,13 @@ import DetailsRoom from './Components/User/Home/DetailsRoom/DetailsRoom';
 import Categories from './Components/User/Home/Categories/Categories';
 import Promotion from './Components/User/Home/Promotion/Promotion';
 import Service from './Components/User/Home/Service/Service';
-import Login from "./Login";
+import BookingInfo from "./Components/User/Home/BookingInfo/BookingInfo";
 import {history} from './Helper/history';
 import {
   Router,
   Route
 } from "react-router-dom";
+import './User.css'
 export default function User() {
     
     return (
@@ -20,7 +21,7 @@ export default function User() {
         <Route path="/categories" component={Categories}/>
         <Route path="/promotions" component={Promotion}/>
         <Route path="/services" component={Service}/>
-        <Route path="/login" component={Login}/>
+        <Route path="/booking-info" component={BookingInfo}/>
       </Router>
     );
   

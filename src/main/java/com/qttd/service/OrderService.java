@@ -1,5 +1,6 @@
 package com.qttd.service;
 
+import com.qttd.entities.AccountEntity;
 import com.qttd.entities.OrderEntity;
 import com.qttd.enums.ApiStatus;
 import com.qttd.model.common.ResponseModel;
@@ -66,5 +67,56 @@ public class OrderService {
         } else responseModel.setStatus(ApiStatus.ERROR);
         responseModel.setResponse(null);
         return responseModel;
+    }
+
+    public ResponseModel<ListOrderResponseModel> getAllOrderByAccount(AccountEntity ac) {
+        ResponseModel<ListOrderResponseModel> responseModel = new ResponseModel<>();
+        responseModel.setMessage("GETT ALL ORDER BY ACCOUNT");
+        responseModel.setStatus(ApiStatus.ERROR);
+        ListOrderResponseModel model = new ListOrderResponseModel();
+        if (!ObjectUtils.isEmpty(ac)) {
+            //list data
+            List<OrderEntity> orderEntities = (List<OrderEntity>) orderRepository.findAll();
+            //list return
+            List<OrderResponseModel> listReturn = new ArrayList<>();
+
+            if (!CollectionUtils.isEmpty(orderEntities)){
+                OrderResponseModel orderResponseModel;
+                for (OrderEntity o : orderEntities) {
+                    if ((o.getAccountEntity().getId() == ac.getId()) && !o.isDeleted()) {
+                        orderResponseModel = new OrderResponseModel();
+                        orderResponseModel.setCategoryRoom(o.getRoomEntity().getCategoryEntity().getCategoryName());
+                        orderResponseModel.setId(o.getId());
+                        orderResponseModel.setCustomerName(o.getCustomerName());
+                        orderResponseModel.setEmail(o.getEmail());
+                        orderResponseModel.setStatus(o.getOrderStatus());
+                        orderResponseModel.setPromotionCode(ObjectUtils.isEmpty(o.getPromotionEntity()) ? "": o.getPromotionEntity().getCode());
+                        orderResponseModel.setTotalPrice(o.getTotalPrice());
+                        orderResponseModel.setCheckIn(o.getCheckIn());
+                        orderResponseModel.setCheckOut(o.getCheckOut());
+                        listReturn.add(orderResponseModel);
+                    }
+                }
+                responseModel.setStatus(ApiStatus.SUCCESS);
+                model.setData(listReturn);
+            }
+        }
+        responseModel.setResponse(model);
+        return responseModel;
+    }
+
+    public OrderEntity findById(Long id ) {
+        return orderRepository.findById(id).get();
+    }
+
+    public boolean deleteOrderFromUser(Long id) {
+        boolean check = false;
+        OrderEntity entity = findById(id);
+        if (!ObjectUtils.isEmpty(entity)){
+            entity.setDeleted(true);
+            orderRepository.save(entity);
+            check = true;
+        }
+        return check;
     }
 }
