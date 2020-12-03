@@ -4,7 +4,6 @@ import './User.css';
 import DetailsRoom from './Components/User/Home/DetailsRoom/DetailsRoom';
 import Categories from './Components/User/Home/Categories/Categories';
 import Promotion from './Components/User/Home/Promotion/Promotion';
-import Service from './Components/User/Home/Service/Service';
 
 import Login from "./Login";
 import Payment from './Components/User/Home/Payment/Payment';
@@ -18,6 +17,8 @@ import {
 } from "react-router-dom";
 import PaymentSuccess from './Components/User/Home/Payment/PaymentSuccess'
 import './User.css'
+import ServiceDetail from './Components/User/Home/Service/ServiceDetail';
+import ListServices from './Components/User/Home/Service/ListService';
 export default function User() {
     
     return (
@@ -26,7 +27,10 @@ export default function User() {
         <Route path="/detailsRoom" component={DetailsRoom}/>
         <Route path="/categories" component={Categories}/>
         <Route path="/promotions" component={Promotion}/>
-        <Route path="/services" component={Service}/>
+
+        <Route path="/services" component={ListServices}/>
+        <Route path="/services-detail" component={ServiceDetail}/>
+        
         
         <Route path="/payment" component={Payment}/>
         <Route path="/payment-success" component={PaymentSuccess}/>
