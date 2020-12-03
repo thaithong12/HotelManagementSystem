@@ -3,7 +3,7 @@ import './SuccessStyle.css'
 
 export default function PaymentSuccess () {
     return (
-      <div>  
+      <div id="body">   
         <div class="pyro">
 	      <div class="before"></div>
 	      <div class="after"></div>

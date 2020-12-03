@@ -1,4 +1,4 @@
-var axios = require("axios");
+export const axios = require("axios");
 
 export const jwtToken = localStorage.getItem("Authorization");
 

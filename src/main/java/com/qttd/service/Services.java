@@ -191,7 +191,7 @@ public class Services {
             item.getImageEntities().forEach(img -> {
                 ImageEntity imageEntity = new ImageEntity();
                 imageEntity.setImageUrl(img.getUrl());
-
+                imageEntity.setServiceEntity(entity);
                 listImages.add(imageEntity);
             });
             entity.setImageEntities(listImages);

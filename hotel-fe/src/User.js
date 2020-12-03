@@ -5,14 +5,19 @@ import DetailsRoom from './Components/User/Home/DetailsRoom/DetailsRoom';
 import Categories from './Components/User/Home/Categories/Categories';
 import Promotion from './Components/User/Home/Promotion/Promotion';
 import Service from './Components/User/Home/Service/Service';
+
 import Login from "./Login";
 import Payment from './Components/User/Home/Payment/Payment';
+
+import BookingInfo from "./Components/User/Home/BookingInfo/BookingInfo";
+
 import {history} from './Helper/history';
 import {
   Router,
   Route
 } from "react-router-dom";
 import PaymentSuccess from './Components/User/Home/Payment/PaymentSuccess'
+import './User.css'
 export default function User() {
     
     return (
@@ -25,6 +30,7 @@ export default function User() {
         <Route path="/login" component={Login}/>
         <Route path="/payment" component={Payment}/>
         <Route path="/payment-success" component={PaymentSuccess}/>
+        <Route path="/booking-info" component={BookingInfo}/>
       </Router>
     );
   

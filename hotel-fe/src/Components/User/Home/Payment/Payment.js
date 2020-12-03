@@ -22,7 +22,7 @@ export default function Payment(){
     }
 
     return(
-        <div>
+        <div id="body">
          <div id ="confirm">	
 		   <div id="title">	
 	         <br/><h2>BOOKING DETAILS</h2><br/>
