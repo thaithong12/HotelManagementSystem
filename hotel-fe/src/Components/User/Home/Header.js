@@ -39,6 +39,9 @@ export default function Header() {
 					<li>
                         <Link to="/Dashboard">Admin</Link>
 		            </li>
+					<li>
+                        <Link to="/payment">Payment</Link>
+		            </li>
 		          </ul>
 		        </div>
 	     	</nav>
