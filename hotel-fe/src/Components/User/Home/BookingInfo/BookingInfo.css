@@ -57,11 +57,13 @@
     width: 20px;
 }
 
-.border{
+.border {
     border: 1px solid red;
 }
 
-button {
+/* button {
     padding: 10px;
     width: 556px;
-}
+} */
+
+

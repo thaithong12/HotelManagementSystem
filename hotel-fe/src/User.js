@@ -27,7 +27,7 @@ export default function User() {
         <Route path="/categories" component={Categories}/>
         <Route path="/promotions" component={Promotion}/>
         <Route path="/services" component={Service}/>
-        <Route path="/login" component={Login}/>
+        
         <Route path="/payment" component={Payment}/>
         <Route path="/payment-success" component={PaymentSuccess}/>
         <Route path="/booking-info" component={BookingInfo}/>

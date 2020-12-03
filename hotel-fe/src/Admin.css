@@ -27,7 +27,7 @@ button {
   background: none;
 }
 
-img {
+.account-item img {
   max-width: 100%;
   height: auto;
 }
