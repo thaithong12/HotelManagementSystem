@@ -106,8 +106,7 @@ export default function ManageServices() {
                 setServiceName('');
                 setDescription('');
                 setQuantity(null);
-                setUnitPrice(null);
-                setImageEntities('')}}>
+                setUnitPrice(null)}}>
                 <AddCircle/>
               </IconButton>
               </div>
