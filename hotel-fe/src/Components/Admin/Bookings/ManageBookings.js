@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useEffect,useState } from 'react';
 import Header from '../Header';
-import Content from './Content';
 import SlideBar from '../SlideBar';
-
+import Content from './Content';
 
 export default function ManageBookings() {
 
