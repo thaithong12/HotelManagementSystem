@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getServices } from '../../../../Actions/serviceAction';
-import { useStyles } from './Style';
+import { getPromotions } from "../../../../Actions/promotionActions";
+import { useStyles } from './Styles';
 import Header from '../Header.js';
 
-import './Service.css';
+import './Promotion.css';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
@@ -17,12 +17,12 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 
 import { Link } from "react-router-dom";
 
-export default function ListServices() {
+export default function ListPromotion() {
     const dispatch = useDispatch();
-    const servicesData = useSelector(state => state.services.services);
-
+    const promotionsData = useSelector(state => state.promotions.promotions);
+    
     useEffect(() => {
-      dispatch(getServices());
+        dispatch(getPromotions());
     }, []);
 
     const classes = useStyles();
@@ -32,21 +32,21 @@ export default function ListServices() {
             <div className="bread-scrumb">
                 <Breadcrumbs separator={<NavigateNextIcon fontSize="small" />} aria-label="breadcrumb">
                     <Link to="/">Home</Link>
-                    <Typography color="textPrimary">List Services</Typography>
+                    <Typography color="textPrimary">List Promotions</Typography>
                 </Breadcrumbs>
             </div>
-            {servicesData.map( row => 
+            {promotionsData.map( row => 
             <div className="page-wrapper">
                 <Card className={classes.root} key={row}>
                     <CardActionArea>
-                        <Link to={{ pathname: '/services-detail', state: [row] }}/>
+                        <Link to={{ pathname: '/promotions-detail', state: [row] }}/>
                             <CardMedia
                             className={classes.media}>
-                                <img style={{height: 350,width: 600}} src={row.images!=null?'../images/'+row.images[0].url:null} alt="Admin"/>
+                                <img style={{height: 350,width: 600}} src={row.image!=null?'../images/'+row.image:''} alt="Admin"/>
                             </CardMedia>
                             <CardContent>
                             <Typography gutterBottom variant="h5" component="h2">
-                                {row.serviceName}
+                                {row.code}
                             </Typography>
                             <Typography variant="body2" color="textSecondary" component="p">
                                 {row.description}
@@ -56,7 +56,7 @@ export default function ListServices() {
                     <CardActions>
                         <Button size="small" color="primary" >
                                 <Link to={{
-                                    pathname: '/services-detail',
+                                    pathname: '/promotions-detail',
                                     state: [row]
                                 }}> Read More </Link>
                         </Button>
