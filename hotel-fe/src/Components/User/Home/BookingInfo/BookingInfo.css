@@ -3,7 +3,7 @@
     flex-direction: row;
     max-width: 90%;
     margin-left: 5%;
-    margin-top: 2%;
+    margin-top: 8%;
 }
 
 .customer-info {
@@ -48,7 +48,7 @@
     flex-direction: row;
 }
 
-.services  {
+.select-service {
     width: 252px;
     padding: 8px;
 }
@@ -61,7 +61,28 @@
     border: 1px solid red;
 }
 
-button {
-    padding: 10px;
+.my-button {
+    padding: 20px;
     width: 556px;
+}
+
+.valid-code{
+    background-color: #08f308;
+    padding-left: 22px;
+    padding-right: 22px;
+}
+
+.unvalid-code {
+    background-color: red;
+    padding-left: 22px;
+    padding-right: 22px;
+}
+
+.txt-err{
+    color: red;
+}
+
+.txt-center{
+    text-align: center;
+    padding-top: 3%;
 }
