@@ -67,7 +67,7 @@ export default function BookingInfo() {
     let check = false;
     setItem({...itemErr, isErr: false, msg: ''});
     if (customer.method === '' || customer.email === ''
-       || customer.fname === '' || customer.lname === '' || customer.country === '' || customer.phone === ''){
+       || customer.fname === '' || customer.lname === '' || customer.phone === ''){
       setItem({...itemErr, isErr: true, msg: 'This Fields Cannot be Blank'})
       check = true;
     }
