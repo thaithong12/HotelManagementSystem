@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
+@RequestMapping("api/orders")
 public class OrderAPIController {
 
     @Autowired
@@ -28,19 +29,19 @@ public class OrderAPIController {
     @Autowired
     AccountService accountService;
 
-    @RequestMapping(value = "/api/orders", method = RequestMethod.GET)
+    @GetMapping
     public ResponseEntity<?> getAllOrders() {
         ResponseModel<ListOrderResponseModel> responseModel = orderService.getAllOrders();
         return ResponseEntity.ok(responseModel);
     }
 
-    @RequestMapping(value = "/api/orders", method = RequestMethod.DELETE)
+    @DeleteMapping
     public ResponseEntity<?> deleteOrder(@RequestBody OrderRequestModel requestModel) {
         ResponseModel<OrderResponseModel> responseModel = orderService.deleteData(requestModel);
         return ResponseEntity.ok(responseModel);
     }
 
-    @RequestMapping(value = "/api/orders", method = RequestMethod.POST)
+    @PostMapping
     public ResponseEntity<?> addOrUpdateOrders(@RequestBody ListOrderRequestModel listRequest) {
         ResponseModel<ListOrderResponseModel> responseModel = orderService.addOrUpdateOrder(listRequest);
 
