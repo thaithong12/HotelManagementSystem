@@ -7,6 +7,7 @@ import serviceReducer from "./serviceReducer";
 import convenienceReducer from "./convenienceReducer";
 import roomCategoryReducer from "./roomCategoryReducer";
 import userOrderReducer from "./userOrderReducer";
+import bookingAdminReducer from "./bookingAdminReducer";
 
 const rootReducer = combineReducers({
   user: userReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   conveniences: convenienceReducer,
   categories: roomCategoryReducer,
   promotions: promotionReducer,
+  bookings: bookingAdminReducer,
   userOrders: userOrderReducer
 })
 

@@ -3,6 +3,7 @@ package com.qttd.api;
 import com.qttd.config.JwtUtil;
 import com.qttd.model.common.AccountPrincipal;
 import com.qttd.model.common.ResponseModel;
+import com.qttd.model.request.ListOrderRequestModel;
 import com.qttd.model.request.OrderRequestModel;
 import com.qttd.model.response.ListOrderResponseModel;
 import com.qttd.model.response.OrderResponseModel;
@@ -15,8 +16,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/orders")
 @CrossOrigin
+@RequestMapping("api/orders")
 public class OrderAPIController {
 
     @Autowired
@@ -41,8 +42,10 @@ public class OrderAPIController {
     }
 
     @PostMapping
-    public ResponseEntity<?> addOrUpdateOrders() {
-        return ResponseEntity.ok(null);
+    public ResponseEntity<?> addOrUpdateOrders(@RequestBody ListOrderRequestModel listRequest) {
+        ResponseModel<ListOrderResponseModel> responseModel = orderService.addOrUpdateOrder(listRequest);
+
+        return ResponseEntity.ok(responseModel);
     }
 
     @PostMapping("/order-details")

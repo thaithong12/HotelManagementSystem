@@ -1,5 +1,6 @@
 package com.qttd.model.response;
 
+import com.qttd.enums.ApiStatus;
 import com.qttd.enums.Gender;
 import com.qttd.enums.OrderStatus;
 import lombok.AllArgsConstructor;
@@ -33,6 +34,7 @@ public class OrderResponseModel {
     private Date checkIn ;
 
     private Date checkOut;
+    private ApiStatus statusApi;
 
     private OrderStatus status;
 
@@ -43,4 +45,5 @@ public class OrderResponseModel {
     private String promotionCode;
 
     private String roomCode;
+    private boolean isDeleted;
 }
