@@ -3,6 +3,7 @@ package com.qttd.api;
 import com.qttd.config.JwtUtil;
 import com.qttd.model.common.AccountPrincipal;
 import com.qttd.model.common.ResponseModel;
+import com.qttd.model.request.ListOrderRequestModel;
 import com.qttd.model.request.OrderRequestModel;
 import com.qttd.model.response.ListOrderResponseModel;
 import com.qttd.model.response.OrderResponseModel;
@@ -15,7 +16,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/orders")
 @CrossOrigin
 public class OrderAPIController {
 
@@ -28,24 +28,26 @@ public class OrderAPIController {
     @Autowired
     AccountService accountService;
 
-    @GetMapping
+    @RequestMapping(value = "/api/orders", method = RequestMethod.GET)
     public ResponseEntity<?> getAllOrders() {
         ResponseModel<ListOrderResponseModel> responseModel = orderService.getAllOrders();
         return ResponseEntity.ok(responseModel);
     }
 
-    @DeleteMapping
+    @RequestMapping(value = "/api/orders", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteOrder(@RequestBody OrderRequestModel requestModel) {
         ResponseModel<OrderResponseModel> responseModel = orderService.deleteData(requestModel);
         return ResponseEntity.ok(responseModel);
     }
 
-    @PostMapping
-    public ResponseEntity<?> addOrUpdateOrders() {
-        return ResponseEntity.ok(null);
+    @RequestMapping(value = "/api/orders", method = RequestMethod.POST)
+    public ResponseEntity<?> addOrUpdateOrders(@RequestBody ListOrderRequestModel listRequest) {
+        ResponseModel<ListOrderResponseModel> responseModel = orderService.addOrUpdateOrder(listRequest);
+
+        return ResponseEntity.ok(responseModel);
     }
 
-    @PostMapping("/order-details")
+    @RequestMapping(value = "/api/orders/order-details", method = RequestMethod.POST)
     public ResponseEntity<?> getAllOrderByAccount(@RequestBody String token) {
         ResponseModel<ListOrderResponseModel> responseModel = null;
         try {
@@ -61,7 +63,7 @@ public class OrderAPIController {
         return ResponseEntity.ok(responseModel);
     }
 
-    @DeleteMapping("/order-details")
+    @RequestMapping(value = "/api/orders/order-details", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteOrderFromUser(@RequestBody OrderRequestModel model) {
         boolean check = false;
         if (!StringUtils.isEmpty(model.getId())) {
