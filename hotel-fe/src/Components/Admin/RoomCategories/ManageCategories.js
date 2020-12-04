@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCategories, deleteCategories, addOrUpdateCategories } from '../../../Actions/roomCategoryAction';
+import { getCategories, deleteCategories, addOrUpdateCategories, uploadImage} from '../../../Actions/roomCategoryAction';
 import Header from '../Header';
 import SlideBar from '../SlideBar';
 
@@ -38,7 +38,7 @@ export default function ManageCategories() {
     const [price, setPrice] = useState(null);
     const [numberOfRoom, setNumberOfRoom] = useState(null);
     const [maximumPeopleOfRoom, setMaximumPeopleOfRoom] = useState(null);
-    const [image, setImage] = useState('');
+    const [imageEntities, setImageEntities] = useState([]);
     const [open1, setOpen1] = React.useState(false);
     const [temp, setTemp] = useState();
     const [title, setTitle] = useState();
@@ -51,11 +51,23 @@ export default function ManageCategories() {
       setOpen1(false);
     };
 
+    const onChange = e =>{
+      setImageEntities(e.target.files)
+    }
+
     useEffect(() => {
       dispatch(getCategories());
     }, []);
     
-    const onSubmit = (categoryId, categoryName, description, price, numberOfRoom, maximumPeopleOfRoom, image) => {
+    const onSubmit = (categoryId, categoryName, description, price, numberOfRoom, maximumPeopleOfRoom, imageEntities) => {
+        const fileData = new FormData();
+        var Files = [];
+        for (let i = 0; i < imageEntities.length; i++) {
+          imageEntities[i].url=imageEntities[i].name;
+          fileData.append("multipartFile", imageEntities[i]);
+          Files.push(imageEntities[i]);
+        }
+      
         var item = {
           categoryId : categoryId,
           categoryName : categoryName, 
@@ -63,7 +75,7 @@ export default function ManageCategories() {
           price : price,
           numberOfRoom : numberOfRoom,
           maximumPeopleOfRoom : maximumPeopleOfRoom,
-          image : image
+          imageEntities : Files
         }
         
         var request = [item];
@@ -72,6 +84,7 @@ export default function ManageCategories() {
         }
         else{
           dispatch(addOrUpdateCategories(request));
+          dispatch(uploadImage(fileData));
         }
     }
 
@@ -95,8 +108,7 @@ export default function ManageCategories() {
                 setDescription('');
                 setPrice(null);
                 setNumberOfRoom(null);
-                setMaximumPeopleOfRoom(null);
-                setImage('')}}>
+                setMaximumPeopleOfRoom(null)}}>
                 <AddCircle/>
               </IconButton>
               </div>
@@ -167,13 +179,13 @@ export default function ManageCategories() {
                                     <label>Image</label>
                                 </div>
                                 <div className="content">
-                                    <input type="file"  defaultValue={image} onChange={e =>setImage(e.target.value)} />
+                                    <input type="file"  multiple defaultValue={imageEntities} onChange={onChange} />
                                 </div>
                             </div>
 
                             
                             <div class="row">
-                                <input type="submit" value="Submit" onClick={()=>{setModalIsOpen(false);onSubmit(categoryId,categoryName,description,price,numberOfRoom,maximumPeopleOfRoom,image)}} />
+                                <input type="submit" value="Submit" onClick={()=>{setModalIsOpen(false);onSubmit(categoryId,categoryName,description,price,numberOfRoom,maximumPeopleOfRoom,imageEntities)}} />
                             </div>
                         </div>
                     </div>
@@ -218,12 +230,11 @@ export default function ManageCategories() {
                     <StyledTableRow key={index}>
                         <StyledTableCell align="left" component="th" scope="row">{index+1}</StyledTableCell>
                         <StyledTableCell align="left">{row.categoryName}</StyledTableCell>
-
                         <StyledTableCell align="left">{row.description}</StyledTableCell>
                         <StyledTableCell align="left">{row.price}</StyledTableCell>
                         <StyledTableCell align="left">{row.numberOfRoom}</StyledTableCell>
                         <StyledTableCell align="left">{row.maximumPeopleOfRoom}</StyledTableCell>
-                        <StyledTableCell align="left">{row.image}</StyledTableCell>
+                        <StyledTableCell align="right"></StyledTableCell>
                         <StyledTableCell align="right">
                           <IconButton aria-label="edit" onClick={()=>{setModalIsOpen(true);
                             setCategoryId(row.categoryId);
@@ -232,7 +243,6 @@ export default function ManageCategories() {
                             setPrice(row.price);
                             setNumberOfRoom(row.numberOfRoom);
                             setMaximumPeopleOfRoom(row.maximumPeopleOfRoom);
-                            setImage(row.image);
                             setTitle("EDIT FORM")}}>
                             <EditIcon fontSize="small"/>
                           </IconButton>

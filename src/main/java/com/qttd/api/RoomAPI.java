@@ -187,11 +187,11 @@ public class RoomAPI {
         listReturn.add(roomResponseModel);
     }
 	private boolean validateExist(String name ) {
-        List<RoomEntity> datas = roomService.findByRoomNumber(name);
-        if (!CollectionUtils.isEmpty(datas)){
-            if (datas.size() > 0) {
+        RoomEntity data = roomService.findByRoomNumber(name);
+        if (!ObjectUtils.isEmpty(data)){
+            
                 return  true;
-            }
+            
         }
         return  false;
     }

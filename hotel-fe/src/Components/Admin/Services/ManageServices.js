@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getServices, deleteServices, addOrUpdateServices } from '../../../Actions/serviceAction';
+import { getServices, deleteServices, addOrUpdateServices, uploadImage } from '../../../Actions/serviceAction';
 import Header from '../Header';
 import SlideBar from '../SlideBar';
 
@@ -36,7 +36,7 @@ export default function ManageServices() {
     const [description, setDescription] = useState('');
     const [quantity, setQuantity] = useState(null);
     const [unitPrice, setUnitPrice] = useState(null);
-    const [image, setImage] = useState('');
+    const [imageEntities, setImageEntities] = useState([]);
     const [open1, setOpen1] = React.useState(false);
     const [temp, setTemp] = useState();
     const [title, setTitle] = useState();
@@ -49,18 +49,30 @@ export default function ManageServices() {
       setOpen1(false);
     };
 
+    const onChange = e =>{
+      setImageEntities(e.target.files)
+    }
+
     useEffect(() => {
       dispatch(getServices());
     }, []);
     
-    const onSubmit = (serviceId, serviceName, description, quantity, unitPrice, image) => {
+    const onSubmit = (serviceId, serviceName, description, quantity, unitPrice, imageEntities) => {
+        const fileData = new FormData();
+        var Files = [];
+        for (let i = 0; i < imageEntities.length; i++) {
+          imageEntities[i].url=imageEntities[i].name;
+          fileData.append("multipartFile", imageEntities[i]);
+          Files.push(imageEntities[i]);
+        }
+        
         var item = {
         serviceId : serviceId,
         serviceName : serviceName, 
-        description : description,
-        quantity : quantity,
         unitPrice : unitPrice,
-        image : image
+        quantity : quantity,
+        description : description,
+        imageEntities : Files
         }
         
         var request = [item];
@@ -69,8 +81,11 @@ export default function ManageServices() {
         }
         else{
           dispatch(addOrUpdateServices(request));
+          dispatch(uploadImage(fileData));
         }
     }
+
+    
 
     const classes = useStyles();
     const [modalIsOpen, setModalIsOpen] = useState(false)
@@ -91,8 +106,7 @@ export default function ManageServices() {
                 setServiceName('');
                 setDescription('');
                 setQuantity(null);
-                setUnitPrice(null);
-                setImage('')}}>
+                setUnitPrice(null)}}>
                 <AddCircle/>
               </IconButton>
               </div>
@@ -154,13 +168,13 @@ export default function ManageServices() {
                                     <label>Image</label>
                                 </div>
                                 <div className="content">
-                                    <input type="file"  defaultValue={image} onChange={e =>setImage(e.target.value)} />
+                                    <input type="file" multiple defaultValue={imageEntities} onChange={onChange} />
                                 </div>
                             </div>
 
                             
                             <div class="row">
-                                <input type="submit" value="Submit" onClick={()=>{setModalIsOpen(false);onSubmit(serviceId,serviceName,description,quantity,unitPrice,image)}} />
+                                <input type="submit" value="Submit" onClick={()=>{setModalIsOpen(false);onSubmit(serviceId,serviceName,description,quantity,unitPrice,imageEntities)}} />
                             </div>
                         </div>
                     </div>
@@ -208,7 +222,8 @@ export default function ManageServices() {
                         <StyledTableCell align="left">{row.description}</StyledTableCell>
                         <StyledTableCell align="left">{row.quantity}</StyledTableCell>
                         <StyledTableCell align="left">{row.unitPrice}</StyledTableCell>
-                        <StyledTableCell align="left">{row.image}</StyledTableCell>
+                        <StyledTableCell align="left">
+                        </StyledTableCell>
                         <StyledTableCell align="right">
                           <IconButton aria-label="edit" onClick={()=>{setModalIsOpen(true);
                           setServiceId(row.serviceId);
@@ -216,7 +231,6 @@ export default function ManageServices() {
                           setDescription(row.description);
                           setQuantity(row.quantity);
                           setUnitPrice(row.unitPrice);
-                          setUnitPrice(row.image);
                           setTitle("EDIT FORM")}}>
                             <EditIcon fontSize="small"/>
                           </IconButton>

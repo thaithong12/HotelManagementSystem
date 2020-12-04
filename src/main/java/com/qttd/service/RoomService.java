@@ -25,7 +25,7 @@ public class RoomService {
 		roomRepository.delete(p);
 	}
 	
-	public List<RoomEntity> findByRoomNumber(String roomNumber) {
+	public RoomEntity findByRoomNumber(String roomNumber) {
 		return roomRepository.findByRoomNumber(roomNumber);
 	}
 }

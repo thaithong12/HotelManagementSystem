@@ -10,6 +10,12 @@ export const _deleteService = (services) => ({
     services
 })
 
+export function uploadImage(fileData){
+    return (dispatch) => {
+        return axios.post(API_URL+'/upload', fileData, {headers: {'Content-Type': 'multipart/form-data'}});
+    }
+}
+
 export function getServices() {
     return (dispatch) => {
         return axios.get(API_URL+'/services')
@@ -42,6 +48,7 @@ export function addOrUpdateServices(services){
         });
     };
 }
+
 
 
 

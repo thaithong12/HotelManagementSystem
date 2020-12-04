@@ -10,6 +10,12 @@ export const _deleteCategory = (categories) => ({
     categories
 })
 
+export function uploadImage(fileData){
+    return (dispatch) => {
+        return axios.post(API_URL+'/upload', fileData, {headers: {'Content-Type': 'multipart/form-data'}});
+    }
+}
+
 export function getCategories() {
     return (dispatch) => {
         return axios.get(API_URL+'/categories')

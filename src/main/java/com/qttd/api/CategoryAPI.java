@@ -205,7 +205,7 @@ public class CategoryAPI {
             item.getImageEntities().forEach(img -> {
                 ImageEntity imageEntity = new ImageEntity();
                 imageEntity.setImageUrl(img.getUrl());
-
+                imageEntity.setCategoryEntity(entity);
                 listImages.add(imageEntity);
             });
             entity.setImageEntities(listImages);

@@ -173,14 +173,13 @@ public class PromotionAPI {
 	
 	private boolean validateExist(String code) {
 		//int dem = 0;
-		List<PromotionEntity> fc = promotionService.findByCode(code);
+		PromotionEntity fc = promotionService.findByCode(code);
 //		List<PromotionEntity> fde = promotionService.findByDescription(item.getDescription());
 //		List<PromotionEntity> fdi = promotionService.findByDiscount(item.getDiscount());
 //		List<PromotionEntity> fe = promotionService.findByEDate(item.getEDate());
 //		List<PromotionEntity> fs = promotionService.findBySDate(item.getSDate());
 //		List<PromotionEntity> fi = promotionService.findByImage(item.getImage());
-		if (!CollectionUtils.isEmpty(fc)){
-			if (fc.size() > 0) 
+		if (!ObjectUtils.isEmpty(fc)){
 				return true;
 		}
 //		if (!CollectionUtils.isEmpty(fde) && item.getDescription()!= null){
