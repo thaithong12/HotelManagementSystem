@@ -209,6 +209,7 @@ export default function ManageServices() {
                       <StyledTableCell>Quantity</StyledTableCell>
                       <StyledTableCell>Price</StyledTableCell>
                       <StyledTableCell>Image</StyledTableCell>
+                      <StyledTableCell align="right"></StyledTableCell>
                       <StyledTableCell align="right">Action</StyledTableCell>
                       <StyledTableCell align="right"></StyledTableCell>
                   </TableRow>
@@ -222,6 +223,7 @@ export default function ManageServices() {
                         <StyledTableCell align="left">{row.description}</StyledTableCell>
                         <StyledTableCell align="left">{row.quantity}</StyledTableCell>
                         <StyledTableCell align="left">{row.unitPrice}</StyledTableCell>
+                        <StyledTableCell align="left">{((row.images) && (row.images).length>0) ? (row.images).map((image) => (<img style={{height: 40,width: 40}} src={'../images/'+image.url} alt="Admin"/>)):""}</StyledTableCell>
                         <StyledTableCell align="left">
                         </StyledTableCell>
                         <StyledTableCell align="right">

@@ -271,6 +271,7 @@ export default function ManageCategories() {
                         <StyledTableCell align="left">{row.numberOfRoom}</StyledTableCell>
                         <StyledTableCell align="left">{row.maximumPeopleOfRoom}</StyledTableCell>
                         <StyledTableCell align="left">{((row.convenientEntities) && (row.convenientEntities).length>0) ? (row.convenientEntities).map((name) => (name.convenientName + " / ")):""}</StyledTableCell>
+                        <StyledTableCell align="left">{((row.images) && (row.images).length>0) ? (row.images).map((image) => (<img style={{height: 40,width: 40}} src={'../images/'+image.url} alt="Admin"/>)):""}</StyledTableCell>
                         <StyledTableCell align="right">
                           <IconButton aria-label="edit" onClick={()=>{setModalIsOpen(true);
                             setCategoryId(row.categoryId);
