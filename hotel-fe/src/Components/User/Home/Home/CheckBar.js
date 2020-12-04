@@ -1,5 +1,6 @@
 import React from 'react';
 export default function CheckBar(){
+
     return(
         <div className="check">
     		<form>
@@ -72,3 +73,4 @@ export default function CheckBar(){
     	</div>
         );
 }
+

@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react';
 import {
+
     Link	
   } from "react-router-dom";
+
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getServices } from '../../../../Actions/serviceAction';
 export default function ServiceHome(){
+
 	const dispatch = useDispatch();
     const servicesData = useSelector(state => state.services.services);
     const data = servicesData.slice(0, 2);
@@ -44,3 +47,4 @@ export default function ServiceHome(){
     	</div>
         );
 }
+

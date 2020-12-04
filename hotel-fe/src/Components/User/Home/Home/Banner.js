@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Link	
   } from "react-router-dom";
@@ -12,24 +12,47 @@ export default function Banner(){
     useEffect(() => {
       dispatch(getPromotions());
     }, []);
-    console.log(promotionData[1]);
+    function formatDate(date) {
+      let d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+  
+      if (month.length < 2)
+        month = '0' + month;
+      if (day.length < 2)
+        day = '0' + day;
+  
+      return [year, month, day].join('-');
+    }
+    const today = formatDate(Date.now());
+    let listData = {};
+    if (promotionData && promotionData.length > 0 ){
+      let arr = []
+      arr = promotionData.filter(item=> item.sdate <= today && item.edate >= today ) [0];
+      listData = arr ;
+    }
+      
     return(
+     
       <div>
-      {promotionData.map( i =>
-        <div class="banner">
+      
+      {listData ?
+          <div className="banner">
+            
+            <img className="banner"  src={listData.image!=null?'../images/'+listData.image:''} alt="Admin"/>
+            <div className="banner-content">
+              
+              <h1>{listData.discount*100}%  Discount Off</h1>
+              <div></div>
+              <p>From <Moment format="D MMM">{listData.sdate}</Moment>  To <Moment format="D MMM">{listData.edate}</Moment> </p>
+              <Link to="/categories" className="btn-primary">our rooms</Link>
+                    
+              
+            </div>
           
-          <img  class="banner" src="../images/default.jpeg"/>
-          <div class="banner-content">
-            
-            <h1>{i.discount*100}%  Discount Off</h1>
-            <div></div>
-            <p>From <Moment format="D MMM">{i.sdate}</Moment>  To <Moment format="D MMM">{i.edate}</Moment> </p>
-            <Link to="/categories" class="btn-primary">our rooms</Link>
-                  
-            
-          </div>
-        
-    	</div>)}
-      </div>
-    );
+        </div>: '' }
+        </div>
+      );
 }
+

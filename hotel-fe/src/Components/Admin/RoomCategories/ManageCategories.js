@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCategories, deleteCategories, addOrUpdateCategories } from '../../../Actions/roomCategoryAction';
+import { getCategories, deleteCategories, addOrUpdateCategories, uploadImage} from '../../../Actions/roomCategoryAction';
+import { getConveniences } from '../../../Actions/convenienceAction';
 import Header from '../Header';
 import SlideBar from '../SlideBar';
 
+import Select from "@material-ui/core/Select";
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import AddCircle from "@material-ui/icons/AddCircle";
@@ -30,15 +32,16 @@ import Modal from 'react-modal';
 export default function ManageCategories() {
     const dispatch = useDispatch();
     const categoriesData = useSelector(state => state.categories.categories);
-    
+    const conveniencesData = useSelector(state => state.conveniences.conveniences);
 
+    const [convenientEntities, setConvenientEntities] = useState([{convenientName:""}]);
     const [categoryId, setCategoryId] = useState(0);
     const [categoryName, setCategoryName] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState(null);
     const [numberOfRoom, setNumberOfRoom] = useState(null);
     const [maximumPeopleOfRoom, setMaximumPeopleOfRoom] = useState(null);
-    const [image, setImage] = useState('');
+    const [imageEntities, setImageEntities] = useState([]);
     const [open1, setOpen1] = React.useState(false);
     const [temp, setTemp] = useState();
     const [title, setTitle] = useState();
@@ -51,11 +54,39 @@ export default function ManageCategories() {
       setOpen1(false);
     };
 
+    const onChange = e =>{
+      setImageEntities(e.target.files)
+    }
+
     useEffect(() => {
       dispatch(getCategories());
+      dispatch(getConveniences());
     }, []);
+
+    const handleSelect = (e) => {
+      e.preventDefault();
+      
+      let options = e.target.options;
+      let value = [];
+      for (let i = 0, l = options.length; i < l; i++) {
+        if (options[i].selected) {
+          let obj = {convenientId: options[i].value, convenientName: options[i].text};
+          value.push(obj);
+        }
+      }
+      setConvenientEntities(value);
+    }
     
-    const onSubmit = (categoryId, categoryName, description, price, numberOfRoom, maximumPeopleOfRoom, image) => {
+    const onSubmit = (categoryId, categoryName, description, price, numberOfRoom, maximumPeopleOfRoom, convenientEntities, imageEntities) => {
+        const fileData = new FormData();
+        var Files = [];
+        for (let i = 0; i < imageEntities.length; i++) {
+          imageEntities[i].url=imageEntities[i].name;
+          fileData.append("multipartFile", imageEntities[i]);
+          Files.push(imageEntities[i]);
+        }
+
+      
         var item = {
           categoryId : categoryId,
           categoryName : categoryName, 
@@ -63,7 +94,8 @@ export default function ManageCategories() {
           price : price,
           numberOfRoom : numberOfRoom,
           maximumPeopleOfRoom : maximumPeopleOfRoom,
-          image : image
+          convenientEntities : convenientEntities,
+          imageEntities : Files
         }
         
         var request = [item];
@@ -72,6 +104,7 @@ export default function ManageCategories() {
         }
         else{
           dispatch(addOrUpdateCategories(request));
+          dispatch(uploadImage(fileData));
         }
     }
 
@@ -83,9 +116,8 @@ export default function ManageCategories() {
           <div className="page-container">
               <Header/>
               <div className="form-container">
-                
-              <div className="big-content">ROOM CATEGORIES MANAGEMENT</div>
-
+              
+              <h2>ROOM CATEGORIES  MANAGEMENT</h2>
               <div className="add-icon-area">
               <IconButton fontSize={'medium'} onClick={() => {
                 setModalIsOpen(true);
@@ -95,8 +127,7 @@ export default function ManageCategories() {
                 setDescription('');
                 setPrice(null);
                 setNumberOfRoom(null);
-                setMaximumPeopleOfRoom(null);
-                setImage('')}}>
+                setMaximumPeopleOfRoom(null)}}>
                 <AddCircle/>
               </IconButton>
               </div>
@@ -163,17 +194,32 @@ export default function ManageCategories() {
                             </div>
 
                             <div className="row">
+                              <div className="label">
+                                <label>Convenience Name</label>
+                              </div>
+                              <Select className={'content'}
+                                      native inputRef={conveniencesData}
+                                      onChange={(e) => handleSelect(e)}
+                                      multiple>
+                                {(conveniencesData && conveniencesData.length > 0) ?
+                                  conveniencesData.map((row) => (
+                                  <option value={row.convenientId} >{row.convenientName}</option>
+                                  )): <option aria-label="None" value=""/>}
+                              </Select>
+                              </div>
+
+                            <div className="row">
                                 <div className="label">
                                     <label>Image</label>
                                 </div>
                                 <div className="content">
-                                    <input type="file"  defaultValue={image} onChange={e =>setImage(e.target.value)} />
+                                    <input type="file"  multiple defaultValue={imageEntities} onChange={onChange} />
                                 </div>
                             </div>
 
                             
                             <div class="row">
-                                <input type="submit" value="Submit" onClick={()=>{setModalIsOpen(false);onSubmit(categoryId,categoryName,description,price,numberOfRoom,maximumPeopleOfRoom,image)}} />
+                                <input type="submit" value="Submit" onClick={()=>{setModalIsOpen(false);onSubmit(categoryId,categoryName,description,price,numberOfRoom,maximumPeopleOfRoom,convenientEntities,imageEntities)}} />
                             </div>
                         </div>
                     </div>
@@ -208,6 +254,7 @@ export default function ManageCategories() {
                       <StyledTableCell>Price</StyledTableCell>
                       <StyledTableCell>Number of room</StyledTableCell>
                       <StyledTableCell>Maximum number of room</StyledTableCell>
+                      <StyledTableCell>Conveniences name</StyledTableCell>
                       <StyledTableCell>Image</StyledTableCell>
                       <StyledTableCell align="right">Action</StyledTableCell>
                       <StyledTableCell align="right"></StyledTableCell>
@@ -218,12 +265,11 @@ export default function ManageCategories() {
                     <StyledTableRow key={index}>
                         <StyledTableCell align="left" component="th" scope="row">{index+1}</StyledTableCell>
                         <StyledTableCell align="left">{row.categoryName}</StyledTableCell>
-
                         <StyledTableCell align="left">{row.description}</StyledTableCell>
                         <StyledTableCell align="left">{row.price}</StyledTableCell>
                         <StyledTableCell align="left">{row.numberOfRoom}</StyledTableCell>
                         <StyledTableCell align="left">{row.maximumPeopleOfRoom}</StyledTableCell>
-                        <StyledTableCell align="left">{row.image}</StyledTableCell>
+                        <StyledTableCell align="left">{((row.convenientEntities) && (row.convenientEntities).length>0) ? (row.convenientEntities).map((name) => (name.convenientName + " / ")):""}</StyledTableCell>
                         <StyledTableCell align="right">
                           <IconButton aria-label="edit" onClick={()=>{setModalIsOpen(true);
                             setCategoryId(row.categoryId);
@@ -232,7 +278,6 @@ export default function ManageCategories() {
                             setPrice(row.price);
                             setNumberOfRoom(row.numberOfRoom);
                             setMaximumPeopleOfRoom(row.maximumPeopleOfRoom);
-                            setImage(row.image);
                             setTitle("EDIT FORM")}}>
                             <EditIcon fontSize="small"/>
                           </IconButton>

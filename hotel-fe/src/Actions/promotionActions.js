@@ -53,7 +53,6 @@ import { END_POINT_PROMOTION } from '../Constans/promotionConstant';
     export function getPromotions() {
         return async (dispatch) => {
             return axios.get(API_URL + END_POINT_PROMOTION).then(res => {
-              console.log(res.data.response)
               dispatch(_getPromotions(res.data.response.data));
             }).catch(err => {
               console.log(err)

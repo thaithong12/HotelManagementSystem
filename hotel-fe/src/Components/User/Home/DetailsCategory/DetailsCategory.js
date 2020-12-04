@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Header from '../Header'
 import Review from './Review'
+
 import BookingBar from './BookingBar';
-import { useSelector } from 'react-redux';
-import { useTheme } from '@material-ui/core/styles';
+
 import { useLocation, Link } from "react-router-dom";
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import Typography from '@material-ui/core/Typography';
+
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 
-import Paper from '@material-ui/core/Paper';
+
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
-
 export default function DetailsCategory(){
     
     // const categoriesData = useSelector(state => state.currentCategoryReducer);
@@ -22,6 +22,8 @@ export default function DetailsCategory(){
     const handleStepChange = (step) => {
         setActiveStep(step);
     };
+    const convenienceData = row[0].convenientEntities;
+    console.log(convenienceData);
     return(
         <div class="container">
             <Header/>
@@ -63,8 +65,19 @@ export default function DetailsCategory(){
                                 <h6>rating</h6>
                                 <p>{row[0].description}</p>
                         </div>
+                        <h6>convenience</h6>
                         <div class="details-convenience">
-                            <h6>convenience</h6>
+
+                                
+                                {convenienceData.map( i =>
+                                   
+                                    <div className=  "details-convenience-content">
+                                        <CheckCircleOutlineIcon/>{i.convenientName}
+                                    </div>
+                                        
+                                    
+                                )}
+                                
                         </div>
                     </div>
                     
@@ -74,3 +87,4 @@ export default function DetailsCategory(){
     ); 
         
 }
+

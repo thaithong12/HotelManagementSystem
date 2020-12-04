@@ -29,7 +29,7 @@ public class PromotionService {
 	public PromotionEntity findByPromotionId(long promotionId) {
 		return promotionRepository.findById(promotionId);
 	} 
-	public List<PromotionEntity> findByCode(String code) {
+	public PromotionEntity findByCode(String code) {
 		return promotionRepository.findByCode(code);
 	}
 	public List<PromotionEntity> findByDiscount(double discount) {

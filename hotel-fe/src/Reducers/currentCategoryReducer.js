@@ -18,8 +18,6 @@ export default function categoryReducer(state = initState , action) {
       
     case 'REMOVE_CATEGORY_INFO':
       return {};
-    default: 
-    console.log(state);
-    return state;
+    default: return state;
   }
 }

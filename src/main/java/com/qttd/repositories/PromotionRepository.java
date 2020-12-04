@@ -10,7 +10,7 @@ import java.util.List;
 
 	public interface PromotionRepository extends CrudRepository<PromotionEntity, Long>{
 	    public PromotionEntity findById(long promotionId);
-	    public List<PromotionEntity> findByCode(String code);
+	    public PromotionEntity findByCode(String code);
 	    public List<PromotionEntity> findByDiscount(double discount);
 	    public List<PromotionEntity> findBySDate(Date sDate);
 	    public List<PromotionEntity> findByEDate(Date eDate);

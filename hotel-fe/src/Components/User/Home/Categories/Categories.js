@@ -30,7 +30,7 @@ export default function Categories(){
                     <div className="img-container">
                         <img  src={i.images!=null?'../images/'+i.images[0].url:null} alt="Accomodation"/>
                         <Link className="btn-primary room-link" to={{
-                                    pathname: '/detailsCategory',
+                                    pathname: '/details-category',
                                     state: [i]
                         }}> 
 						See More 

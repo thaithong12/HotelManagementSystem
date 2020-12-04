@@ -96,8 +96,8 @@ export default function ManageServices() {
               <Header/>
               <div className="form-container">
                 
-              <div className="big-content">SERVICES MANAGEMENT</div>
               
+              <h2>SERVICES MANAGEMENT</h2>
               <div className="add-icon-area">
               <IconButton fontSize={'medium'} onClick={() => {
                 setModalIsOpen(true);
@@ -106,8 +106,7 @@ export default function ManageServices() {
                 setServiceName('');
                 setDescription('');
                 setQuantity(null);
-                setUnitPrice(null);
-                setImageEntities('')}}>
+                setUnitPrice(null)}}>
                 <AddCircle/>
               </IconButton>
               </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import {Link} from "react-router-dom";
 export default function Header() {
     
         return (
@@ -20,7 +20,7 @@ export default function Header() {
                                     <img src="../images/a1.jpg" alt="Admin" />
                                 </div>
                                 <div className="account-content">
-                                    <a href="#">Admin</a>
+                                    <Link to="/">User</Link>
                                 </div>
                                 <div className="account-dropdown">
 

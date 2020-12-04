@@ -1,6 +1,7 @@
 import React from 'react';
 
 export default function About(){
+
     return(
         <div className="about">
     		<div className="section-title">
@@ -14,3 +15,4 @@ export default function About(){
     	</div>
         );
 }
+

@@ -22,28 +22,28 @@ export default function Payment(){
     }
 
     return(
-        <div id="body">
-         <div id ="confirm">	
-		   <div id="title">	
-	         <br/><h2>BOOKING DETAILS</h2><br/>
-	       </div>
-	       <div id="confirm-form">
-	         <br/><p>Room Category: Deluxe</p>
-	         <p>Check-in date: 2021/01/01</p>
-	         <p>Check-out date: 2021/01/15</p>
-	         <p>Guests: 5</p>
-	         <p>Services: </p>
-	         <p>Voucher: 30%</p>
-	         <p>Pay in full/ deposit: full </p><br/>
-	       </div>  
-	       <div id="amount">
-	       	 <br/><p id="show-amount">Total amount: 10$</p> <br/>
-	       </div>
-           <div>
-              <Button onClick={()=>{pay(10)}}>Pay</Button>
-           </div>
-         </div>
+      <div id="body">
+        <div id ="confirm">	
+          <div id="title">	
+              <br/><h2>BOOKING DETAILS</h2><br/>
+          </div>
+          <div id="confirm-form">
+            <br/><p>Room Category: Deluxe</p>
+            <p>Check-in date: 2021/01/01</p>
+            <p>Check-out date: 2021/01/15</p>
+            <p>Guests: 5</p>
+            <p>Services: </p>
+            <p>Voucher: 30%</p>
+            <p>Pay in full/ deposit: full </p><br/>
+          </div>  
+          <div id="amount">
+            <br/><p id="show-amount">Total amount: 10$</p> <br/>
+          </div>
+          <div id="button-pay">
+                <button onClick={()=>{pay(10)}}>Pay</button>
+          </div>
+        </div>
             
-        </div> 
+      </div> 
         );
 }
