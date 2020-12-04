@@ -17,7 +17,7 @@ const rootReducer = combineReducers({
   conveniences: convenienceReducer,
   categories: roomCategoryReducer,
   promotions: promotionReducer,
-  currentCategoryReducer: currentCategoryReducer
+  currentCategoryReducer: currentCategoryReducer,
   bookings: bookingAdminReducer,
   userOrders: userOrderReducer
 })
