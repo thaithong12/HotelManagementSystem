@@ -50,6 +50,7 @@ public class AuthAPIController {
     private AccountRoleService accountRoleService;
 
     @PostMapping("/register")
+    @ResponseBody
     public ResponseEntity<?> register(@RequestBody AccountModel user){
         try {
             AccountEntity checkExist = accountService.findAll().stream()
@@ -159,5 +160,18 @@ public class AuthAPIController {
     public long getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
         long diffInMillies = date2.getTime() - date1.getTime();
         return timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
+    }
+
+    @PostMapping("/isAdmin")
+    public boolean isAdmin(@RequestBody String token) {
+        boolean check = false;
+
+        AccountPrincipal user = null;
+        if (StringUtils.hasText(token)) {
+            user = jwtUtil.getUserFromToken(token);
+            if (!ObjectUtils.isEmpty(user) && user.getAuthorities().contains("ROLE_ADMIN"))
+                check = true;
+        }
+        return check;
     }
 }

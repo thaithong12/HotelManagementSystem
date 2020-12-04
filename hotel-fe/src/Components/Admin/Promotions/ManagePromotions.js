@@ -3,7 +3,7 @@ import Header from '../Header';
 import SlideBar from '../SlideBar';
 import Table from '@material-ui/core/Table';
 import { useDispatch, useSelector } from 'react-redux';
-import {getPromotions, removePromotion , addOrEditPromotion } from '../../../Actions/promotionActions'
+import {getPromotions, removePromotion , addOrEditPromotion ,uploadImage } from '../../../Actions/promotionActions'
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableHead from '@material-ui/core/TableHead';
@@ -25,7 +25,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import TextField from '@material-ui/core/TextField';
 import {DATE_MSG , BLANK_MSG } from "../../../Constans/messageConstant";
 
-import axios from 'axios'
+
 export default function ManagePromotions() {
     const dispatch = useDispatch();
     const promotionsData = useSelector(state => state.promotions.promotions);
@@ -47,8 +47,10 @@ export default function ManagePromotions() {
     }, []); 
     
     
-    const onSubmit = (promotionId ,code , description , discount , sdate , edate  ) => {
+    const onSubmit = (promotionId ,code , description , discount , sdate , edate ,image  ) => {
         
+          
+       
         var item = {
           
           promotionId : promotionId ,
@@ -57,7 +59,7 @@ export default function ManagePromotions() {
           discount : discount ,
           sdate : sdate ,
           edate : edate ,
-          
+          image : image
           
         }
         
@@ -98,48 +100,25 @@ export default function ManagePromotions() {
           err.msgSdate = DATE_MSG;
           err.msgEdate = DATE_MSG;
           
-        }
-        
+        }    
         setItemErr(err);
         if (err.isErr) return  ;
         dispatch(addOrEditPromotion(request));
         
         
     }
-    
-    const handleUpload = (e) => {
-      
-      setImage(e.target.files[0]);
-      console.log(image);
-      let arr = e.target.files;
-      
-      let formData = new FormData(); 
-      
-      for(var i = 0 ; i< arr.length ; i ++) {
-        formData.append('multipartFile',
-          arr[i], 
-          arr[i].name); 
-      }
-      
-  
-      
-      
-      const config = {     
-          headers: { 'content-type': 'multipart/form-data' }
-      }
-      
-      return axios.post('http://localhost/api'+ '/upload', formData, config).then(response => {
-          const img = response.data;
-          console.log(img);
-          
-          setImage(img);
-          console.log(image)
-        })
-        .catch(error => {
-            console.log(error);
-        });
+
+    function handleImage(e) {
+      let fileData = new FormData();
         
+      fileData.append('multipartFile', e.target.files[0]);
+      e.preventDefault();
+      setImage(e.target.files[0].name);
+      dispatch(uploadImage(fileData));
+      
     }
+    
+ 
     
     const classes = useStyles();
     
@@ -267,7 +246,6 @@ export default function ManagePromotions() {
                                       id="date"
                                       type="date"
                                       className="date"
-                                      
                                       defaultValue={sdate}
                                       onChange={e => setSdate(e.target.value)}
                                     />
@@ -297,7 +275,7 @@ export default function ManagePromotions() {
                                 </div>
                                 <div className="content">
                                   
-                                  <input id="img" type="file" multiple  onChange={e => {handleUpload(e)}} />
+                                  <input id="img" type="file" multiple  onChange={(e) => {handleImage(e)}} />
                                   
                                 </div>
                                

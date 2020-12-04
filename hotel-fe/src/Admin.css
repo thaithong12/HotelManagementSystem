@@ -28,7 +28,7 @@ button {
   background: none;
 }
 
-img {
+.account-item img {
   max-width: 100%;
   height: auto;
 }
@@ -45,7 +45,7 @@ p {
 
 
 .page-container {
-  
+
   padding-left: 300px;
 }
 
@@ -69,7 +69,7 @@ p {
   color: #666;
   padding: 0 17px;
   border-radius: 3px;
-  
+
 }
 
 
@@ -95,30 +95,37 @@ p {
   right: 0;
   left: 300px;
   height: 75px;
-  
+
 }
 
 .header .header__content {
-  
+
   position: absolute;
   top: 50%;
   left: 5%;
   right: 2%;
   -webkit-transform: translateY(-50%);
-   
+
 }
 .header-wrap {
- 
+
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-
-.image {
-  width: 43px;
+.account {
+  position: relative;
+}
+.account-item{
+  cursor: pointer;
+  width: 100px;
+}
+.account-image img {
+  width: 45px;
   height: 45px;
   float: left;
   
+
 }
 
 .account-item > a {

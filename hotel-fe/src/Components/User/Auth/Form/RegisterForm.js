@@ -9,7 +9,6 @@ import {useDispatch} from "react-redux";
 import {register} from "../../../../Actions/userActions";
 import Alert from "@material-ui/lab/Alert";
 
-
 export default function RegisterForm() {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -19,7 +18,7 @@ export default function RegisterForm() {
   const rePassword = useRef('');
   const phoneNumber = useRef(' ');
 
-  let [itemErr , setErr] = useState({isErr: false , msg: ''});
+  let [itemErr, setErr] = useState({isErr: false, msg: ''});
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -46,19 +45,20 @@ export default function RegisterForm() {
     }
     // validate blank
     if (email.current.value === '' || password.current.value === '' || rePassword.current.value === ''
-      || fullName.current.value === '' || phoneNumber.current.value === '' ) {
+      || fullName.current.value === '' || phoneNumber.current.value === '') {
       check = true;
       setErr({isErr: true, msg: 'Not Blank'})
     }
     return check;
   }
+
   return (
     <>
       <Typography component="h1" variant="h5">
         Sign Up
       </Typography>
       {
-        itemErr.isErr? <Alert severity="error">{itemErr.msg}</Alert>: ''
+        itemErr.isErr ? <Alert severity="error">{itemErr.msg}</Alert> : ''
       }
       <form className={classes.form} noValidate onSubmit={handleSubmit}>
         <TextField
@@ -99,7 +99,7 @@ export default function RegisterForm() {
           name="password"
           label="Password"
           type="password"
-          id="password"  inputRef={password}
+          id="password" inputRef={password}
         />
         <TextField
           variant="outlined"

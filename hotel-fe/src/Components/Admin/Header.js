@@ -16,10 +16,15 @@ export default function Header() {
                             
                         <div className="account">
                             <div className="account-item">
-                                <div className="image">
-                                    <img src="../images/a.jpg" alt="Admin" />
+                                <div className="account-image">
+                                    <img src="../images/a1.jpg" alt="Admin" />
                                 </div>
-                                
+                                <div className="account-content">
+                                    <a href="#">Admin</a>
+                                </div>
+                                <div className="account-dropdown">
+
+                                </div>
                             </div>
                         </div>
                         

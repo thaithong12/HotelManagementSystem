@@ -3,6 +3,7 @@ import {END_POINT_LOGIN, END_POINT_REGISTER} from '../Constans/userConstants';
 import axios from 'axios'
 import {API_URL} from "../Constans/apiConstants";
 import ToastServive from 'react-material-toast';
+import {history} from "../Helper/history";
 
 const toast = ToastServive.new({
   place:'topRight',
@@ -18,12 +19,17 @@ export const login = (userRequest = {email: '', password: ''}) => {
     }
     return await axios.post(API_URL + END_POINT_LOGIN, user).then(res => {
       if (res.data) {
-        localStorage.setItem("Authorization", "Token " + res.data.jwttoken);
+        const obj = {loggedIn: true, ...res.data};
+        if (obj.authorization.includes("ROLE_ADMIN")){
+          obj.isAdmin = true;
+        } else obj.isAdmin = false;
+        console.log(obj)
+        // obj.jwttoken = "Token " + obj.jwttoken;
+        localStorage.setItem("Authorization", res.data.jwttoken);
+        localStorage.setItem("user", JSON.stringify(obj));
         dispatch(_login(res.data));
       } else {
-        toast.error("Username or Password not valid", () => {
-          // console.log(err);
-        })
+        toast.error("Username or Password not valid", () => {})
       }
     }).catch(err => {
 
@@ -59,8 +65,8 @@ export const _register = (user) => ({
 export function logout() {
   return (dispatch) => {
     localStorage.clear();
-    window.location.href('/');
     dispatch(_logout());
+    history.push('/');
   }
 }
 export const _logout = () => ({

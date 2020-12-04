@@ -16,6 +16,8 @@ public class OrderResponseModel {
 
     private int index;
 
+    private String categoryRoom;
+
     private String address;
 
     private  String country ;

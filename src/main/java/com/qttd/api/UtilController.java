@@ -18,7 +18,7 @@ public class UtilController {
 
     @PostMapping("/upload")
     public ResponseEntity<?> uploadFiles(@RequestBody MultipartFile multipartFile[]) {
-        String uploadRootPath = "src/main/resources/static";
+        String uploadRootPath = "hotel-fe/public/images";
         System.out.println("uploadRootPath=" + uploadRootPath);
 
         File uploadRootDir = new File(uploadRootPath);

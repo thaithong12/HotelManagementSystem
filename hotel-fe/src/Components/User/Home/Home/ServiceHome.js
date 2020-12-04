@@ -1,35 +1,45 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     Link	
   } from "react-router-dom";
+
+import { useDispatch, useSelector } from 'react-redux';
+import { getServices } from '../../../../Actions/serviceAction';
 export default function ServiceHome(){
+	const dispatch = useDispatch();
+    const servicesData = useSelector(state => state.services.services);
+    const data = servicesData.slice(0, 2);
+    useEffect(() => {
+      dispatch(getServices());
+    }, []);
+	
     return(
-        <div class="services">
-    		<div class="section-title">
+        <div className="services">
+    		<div className="section-title">
     			<h4>Services</h4>
     			<div></div>
     		</div>
-    		<div class="services-center">
-    			<div class="services1">
-	    			<div class="vt-img">
-	    				{/* <img src="images/room-3.jpeg"> */}
+			
+    		<div className="services-center">
+			{data.map( i => 
+    			<div className="services1">
+	    			<div className="vt-img">
+						<img  src={i.images!=null?'../images/'+i.images[0].url:null} alt="Service"/>
 	    			</div>
-	    			<div class="vt-content-services">
-	    				<p>ádasdasdasdádddddddddddddddddddddddddddddddddddddddddddddddddddddddddddđvvvvvvvvvvvádasd</p>
-                        <button>Read More</button>
-	    			</div>
-    			</div>
-    			<div class="services2">
-	    			<div class="vt-img">
-	    				{/* <img src="images/room-3.jpeg"> */}
-	    			</div>
-	    			<div class="vt-content-services">
-	    				<p>ádasdasdasdádddddddddddddddddddddddddddddddddddddddddddddddddddddddddddđvvvvvvvvvvvádasd</p>
-                        <button>Read More</button>
+	    			<div className="vt-content-services">
+						<p>{i.description}</p>
+						
+						<button><Link to={{	pathname: '/services-detail',
+                                    state: [i]
+                        }}> Read More</Link></button>
+						
+                        
 	    			</div>
     			</div>
+    			)}
     			
     		</div>
+			
     		
     	</div>
         );

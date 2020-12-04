@@ -8,7 +8,7 @@ import Accomodation from './Accomodation';
 import ServiceHome from './ServiceHome';
 export default function Home(){
     return(
-        <div class="container">
+        <div className="container">
             <Header/>
             <Banner/>
             <CheckBar/>

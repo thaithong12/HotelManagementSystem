@@ -25,6 +25,8 @@ public class OrderEntity extends PersonalInformation {
 	
 	private double totalPrice;
 
+	private boolean isDeleted;
+
 	@Enumerated(EnumType.STRING)
 	private OrderStatus orderStatus;
 	

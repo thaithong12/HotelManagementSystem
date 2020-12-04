@@ -1,38 +1,38 @@
 import React from 'react';
 export default function CheckBar(){
     return(
-        <div class="check">
+        <div className="check">
     		<form>
-                <div class="check-center">
+                <div className="check-center">
                  
                     
-                    <div class="check-content">
+                    <div className="check-content">
                         
-                        <div class="check-tittle">
+                        <div className="check-tittle">
                             <span> Check In Date:</span>
                         </div>
-                        <div class="check-datepicker">
+                        <div className="check-datepicker">
                             <input type="date"/>
                         </div>
                    </div>
                                         
-                    <div class="check-content">
+                    <div className="check-content">
                         
-                        <div class="check-tittle">
+                        <div className="check-tittle">
                             <span>Check OutDate:</span>
                         </div>
-                        <div class="check-datepicker">
+                        <div className="check-datepicker">
                             <input type="date" />
                         </div>
                    </div>
                     
-                    <div class="check-content">
-                        <div class="check-tittle">
+                    <div className="check-content">
+                        <div className="check-tittle">
                             <span>Adults:</span>
                         </div>
-                        <div class="select-this">
+                        <div className="select-this">
                             <form action="#">
-                                <div class="select-itms">
+                                <div className="select-itms">
                                     <select name="select" id="select1">
                                         <option value="">1</option>
                                         <option value="">2</option>
@@ -44,13 +44,13 @@ export default function CheckBar(){
                         </div>
                    </div>
                     
-                    <div class="check-content">
-                        <div class="check-tittle">
+                    <div className="check-content">
+                        <div className="check-tittle">
                             <span>Children:</span>
                         </div>
-                        <div class="select-this">
+                        <div className="select-this">
                             <form action="#">
-                                <div class="select-itms">
+                                <div className="select-itms">
                                     <select name="select" id="select2">
                                         <option value="">1</option>
                                         <option value="">2</option>
@@ -62,7 +62,7 @@ export default function CheckBar(){
                         </div>
                    </div>
                     
-                    <div class="check-button">
+                    <div className="check-button">
                         <button>Check</button>
                    </div>
                

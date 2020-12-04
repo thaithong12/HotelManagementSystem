@@ -1,42 +1,49 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Link	
   } from "react-router-dom";
+  import { useDispatch, useSelector, } from 'react-redux';
+import { getCategories } from '../../../../Actions/roomCategoryAction';
+import { setCategoryInfo} from '../../../../Actions/currentCategoriesAction'
+import {history} from '../../../../Helper/history'
+
 export default function Accommodation(){
+	const dispatch = useDispatch();
+    const categoriesData = useSelector(state => state.categories.categories);
+	const data = categoriesData.slice(0, 3);    // lấy 3 phần tử đầu để in ra
+	console.log(data);
+	console.log(categoriesData);
+    useEffect(() => {
+      dispatch(getCategories());
+	}, []);
+	
+	
     return(
-        <div class="featured-rooms">
-    		<div class="section-title">
+        <div className="featured-rooms">
+    		<div className="section-title">
     			<h4>Accommodation</h4>
     			<div></div>
     		</div>
-    		<div class="featured-rooms-center">
-    			<div class="room">
-    				<div class="img-container">
-    					{/* <img src="images/room-8.jpeg"> */}
-    					<Link to="/" class="btn-primary room-link">see more</Link>
-    					
-    				</div>
-    				<p class="room-info">Deluxe Room</p>
-    			</div>
-    			<div class="room">
-    				<div class="img-container">
-    					{/* <img src="images/room-4.jpeg"> */}
-    					
-    					<Link to="/" class="btn-primary room-link">see more</Link>
-    				</div>
-    				<p class="room-info">Family Room</p>
-    			</div>
-    			<div class="room">
-    				<div class="img-container">
-    					{/* <img src="images/room-3.jpeg"> */}
-    					
-    					<Link to="/" class="btn-primary room-link">see more</Link>
-    				</div>
-    				<p class="room-info">Royal Room</p>
-    			</div>
+			
+    		<div className="featured-rooms-center">
+			{data.map( i => 
+    			<div className="room room-items">
+                    <div className="img-container">
+                        <img  src={i.images!=null?'../images/'+i.images[0].url:null} alt="Accomodation"/>
+                        
+                        <Link className="btn-primary room-link" to={{
+                                    pathname: '/detailsCategory',
+                                    state: [i]
+                        }}> 
+						See More 
+						</Link>
+                    </div>
+                    <p className="room-info">{i.categoryName}</p>
+                </div>)}
+    			
     		</div>
     		
-    		
-    	</div>
+			
+    	</div> 
         );
 }
