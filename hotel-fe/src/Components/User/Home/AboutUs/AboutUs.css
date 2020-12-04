@@ -1,0 +1,14 @@
+.abt_wrapper {
+    margin-bottom: 50px;
+    margin-left: 50px;
+    margin-top: 130px;
+}
+
+.abt_container {
+    background: rgb(255, 255, 255);
+    margin: 1.75rem auto;
+    max-width: 700px;
+    padding: 2.5rem;
+    border-style: groove;
+    margin-left: 160px;
+}
