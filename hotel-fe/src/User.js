@@ -1,7 +1,7 @@
 import React from 'react';
 import Home from './Components/User/Home/Home/Home';
 import './User.css';
-import DetailsRoom from './Components/User/Home/DetailsRoom/DetailsRoom';
+import DetailsCategory from './Components/User/Home/DetailsCategory/DetailsCategory';
 import Categories from './Components/User/Home/Categories/Categories';
 import Promotion from './Components/User/Home/Promotion/Promotion';
 
@@ -24,12 +24,11 @@ export default function User() {
     return (
       <Router history={history}>
         <Route exact path="/" component={Home}/>
-        <Route path="/detailsRoom" component={DetailsRoom}/>
+        <Route path="/details-category" component={DetailsCategory}/>
         <Route path="/categories" component={Categories}/>
         <Route path="/promotions" component={Promotion}/>
         <Route path="/services" component={ListServices}/>
         <Route path="/services-detail" component={ServiceDetail}/>
-        <Route path="/login" component={Login}/>
         <Route path="/payment" component={Payment}/>
         <Route path="/payment-success" component={PaymentSuccess}/>
         <Route path="/booking-info" component={BookingInfo}/>

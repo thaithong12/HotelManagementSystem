@@ -193,10 +193,10 @@
       color: #008900;
       margin-left: 32%;
   }
-  p {
-      font-size: 120%;
-      margin-left: 21%;
-  }
+  /*p {*/
+  /*    font-size: 120%;*/
+  /*    margin-left: 21%;*/
+  /*}*/
   #check {
       width: 1000px;
       background-color: white;
@@ -206,5 +206,4 @@
       margin-bottom: 2%;
       border: 4px solid #008900;
       border-radius: 6px;
-      }
-      
+  }

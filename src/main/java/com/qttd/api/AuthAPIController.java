@@ -50,7 +50,6 @@ public class AuthAPIController {
     private AccountRoleService accountRoleService;
 
     @PostMapping("/register")
-    @ResponseBody
     public ResponseEntity<?> register(@RequestBody AccountModel user){
         try {
             AccountEntity checkExist = accountService.findAll().stream()
@@ -91,11 +90,11 @@ public class AuthAPIController {
     }
 
     @GetMapping("/confirm-account")
-    public ResponseEntity<?> activeAccount(@RequestParam String token){
+    public String activeAccount(@RequestParam String token){
         AccountEntity ac = null;
         if (!StringUtils.isEmpty(token)) {
             TokenEntity tkEntity = tokenService.findByToken(token);
-            ac = tkEntity.getAccountEntity();
+            if (!ObjectUtils.isEmpty(tkEntity)) ac = tkEntity.getAccountEntity();
             if (!ObjectUtils.isEmpty(ac)) {
                 Date cur = new Date();
                 Date last = tokenService.findByToken(token).getCreatedAt();
@@ -109,14 +108,16 @@ public class AuthAPIController {
                     mailMessage.setText("To confirm your account, please click here : "
                             + "http://localhost/api/confirm-account?token="+ tk);
                     sender.send(mailMessage);
-
-                    return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+                    return "RE-SENDMAIL";
+//                    return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
                 }
                 ac.setStatus(AccountStatus.ACTIVE);
                 accountService.saveData(ac);
             }
+            else return "ERROR";
         }
-        return ResponseEntity.status(HttpStatus.OK).body(ac);
+        return "OK";
+//        return ResponseEntity.status(HttpStatus.OK).body(ac);
     }
 
     @PostMapping("/login")

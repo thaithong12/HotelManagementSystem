@@ -56,9 +56,9 @@ export default function Header() {
             <li>
               <Link to="/about-us">About Us</Link>
             </li>
-            <li>
-              <Link to="/payment">Payment</Link>
-            </li>
+            {/*<li>*/}
+            {/*  <Link to="/payment">Payment</Link>*/}
+            {/*</li>*/}
             {curUser && curUser.loggedIn ?
               <li>
                 <Link onClick={(e) => handleLoggout(e)}>Logout</Link>
