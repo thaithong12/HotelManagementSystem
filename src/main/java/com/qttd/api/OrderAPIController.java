@@ -48,7 +48,7 @@ public class OrderAPIController {
         return ResponseEntity.ok(responseModel);
     }
 
-    @RequestMapping(value = "/api/orders/order-details", method = RequestMethod.POST)
+    @PostMapping("/order-details")
     public ResponseEntity<?> getAllOrderByAccount(@RequestBody String token) {
         ResponseModel<ListOrderResponseModel> responseModel = null;
         try {
@@ -64,7 +64,7 @@ public class OrderAPIController {
         return ResponseEntity.ok(responseModel);
     }
 
-    @RequestMapping(value = "/api/orders/order-details", method = RequestMethod.DELETE)
+    @DeleteMapping("/order-details")
     public ResponseEntity<?> deleteOrderFromUser(@RequestBody OrderRequestModel model) {
         boolean check = false;
         if (!StringUtils.isEmpty(model.getId())) {

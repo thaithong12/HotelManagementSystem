@@ -23,22 +23,33 @@ export default function Content() {
     const new_book = bookings && bookings.length > 0 ? bookings.filter(item => item.deleted === false ):[];
     console.log(new_book);
     const dispatch = useDispatch();
-    const initItemExecute ={customerName: '', phoneNumber: '', address: '', checkIn: null, checkOut: null, totalPrice: 0, status: 'UNPAID' };
+    const initItemExecute ={email: '', roomCode: '', country: '', promotionCode: '', gender: '', customerName: '', phoneNumber: '', address: '', checkIn: null, checkOut: null, totalPrice: 0, status: 'UNPAID', deleted: false };
     const [itemError, setItemErr] = useState({isErr: false ,msgRoom: '', msgCate: ''})
-
     const [itemExecute, setItem] = useState(initItemExecute);
+    const [modalAddOrUpdate, setModalAddOrUpdate] = useState(false);
     const [modalDelete, setModalDelete] = useState(false);
     const [useCase, setCase] = useState('');
     useEffect(() => {
       dispatch(getAllBookings());
     }, []);
-    // const handleEdit = (id) => {
-    //     const obj = bookings.filter(item => item.id === id)[0];
-    //     setItem({categoryId: obj.categoryId, roomId: obj.roomId,
-    //       roomStatus: obj.roomStatus, roomNumber: obj.roomNumber});
-    //     console.log(itemExecute)
-    //     setModalAddOrUpdate(true);
-    //   }
+    const handleEdit = (id) => {
+        const obj_book = bookings.filter(item => item.id === id)[0];
+        setItem({email: obj_book.categoryId,
+                 roomCode: obj_book.roomCode,
+                 country: obj_book.country,
+                 promotionCode: obj_book.promotionCode,
+                 gender: obj_book.gender,
+                 customerName: obj_book.customerName,
+                 phoneNumber: obj_book.phoneNumber,
+                 address: obj_book.address,
+                 checkIn: obj_book.checkIn,
+                 checkOut: obj_book.checkOut,
+                 totalPrice: obj_book.totalPrice,
+                 status: obj_book.status,
+                 deleted: obj_book.deleted});
+        console.log(itemExecute)
+        setModalAddOrUpdate(true);
+      }
     const handleDelete = (e) => {
         e.preventDefault();
         dispatch(deleteBooking(itemExecute))
@@ -52,9 +63,9 @@ export default function Content() {
         
           {/*Table*/}
           <IconButton fontSize={'medium'} onClick={() => {
-            // setCase('ADD ROOM');
-            // setModalAddOrUpdate(true);
-            // setItem(initItemExecute);
+            setCase('ADD ROOM');
+            setModalAddOrUpdate(true);
+            setItem(initItemExecute);
           }}>
             <AddCircle/>
           </IconButton>
@@ -113,6 +124,7 @@ export default function Content() {
             </Button>
             </DialogActions>
         </Dialog>
+
       </div>
     )
   
