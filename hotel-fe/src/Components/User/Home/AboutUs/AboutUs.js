@@ -10,7 +10,7 @@ export default function AboutUs(){
             <div className="abt_wrapper">
                 <div className="abt_container">
                     <div className="space"/>
-                    <Typography variant="h5" align="left" color="secondary" style={{ maxWidth: 700 }}>
+                    <Typography  variant="h5" align="left" color="secondary" style={{ maxWidth: 700 }}>
                         WELCOME TO BUTTERFLY HOTEL
                     </Typography>
                     <div className="space"/>

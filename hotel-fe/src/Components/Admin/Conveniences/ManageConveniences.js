@@ -71,8 +71,8 @@ export default function ManageConveniences() {
               <Header/>
               <div className="form-container">
                 
-              <div className="big-content">CONVENIENCES MANAGEMENT</div>
-
+              
+              <h2>CONVENIENCES MANAGEMENT</h2>
               <div className="add-icon-area">
               <IconButton fontSize={'medium'} onClick={() => {
                 setModalIsOpen(true);

@@ -116,9 +116,8 @@ export default function ManageCategories() {
           <div className="page-container">
               <Header/>
               <div className="form-container">
-                
-              <div className="big-content">ROOM CATEGORIES MANAGEMENT</div>
-
+              
+              <h2>ROOM CATEGORIES  MANAGEMENT</h2>
               <div className="add-icon-area">
               <IconButton fontSize={'medium'} onClick={() => {
                 setModalIsOpen(true);

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import {Link} from "react-router-dom";
 export default function Header() {
     
         return (
@@ -16,10 +16,15 @@ export default function Header() {
                             
                         <div className="account">
                             <div className="account-item">
-                                <div className="image">
-                                    <img src="../images/a.jpg" alt="Admin" />
+                                <div className="account-image">
+                                    <img src="../images/a1.jpg" alt="Admin" />
                                 </div>
-                                
+                                <div className="account-content">
+                                    <Link to="/">User</Link>
+                                </div>
+                                <div className="account-dropdown">
+
+                                </div>
                             </div>
                         </div>
                         

@@ -6,6 +6,7 @@ import {logout} from "../../../Actions/userActions";
 
 export default function Header() {
 
+
   let [curUser, setUser] = useState({});
   let user = useSelector(state => state.user);
   const dispatch = useDispatch();
@@ -85,3 +86,4 @@ export default function Header() {
     </div>
   )
 }
+

@@ -29,6 +29,7 @@ export default function PromotionDetail() {
                 <div className="space"/>
                 <hr/>
                 <div className="space"/>
+                
                 <img src={"../images/"+row[0].image} alt={"Admin"} />        
                 <div className="space"/>
                 <Typography variant="body1" gutterBottom>
@@ -40,7 +41,7 @@ export default function PromotionDetail() {
                 </Typography>
                 
                 <Typography variant="h6" align="left" color="primary" style={{ maxWidth: 700 }}>
-                    From : {row[0].sDate} - To : {row[0].eDate}
+                    From : {row[0].sdate} - To : {row[0].edate}
                 </Typography>
             </div>
         </div>

@@ -14,13 +14,12 @@ import Button from '@material-ui/core/Button';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Typography from '@material-ui/core/Typography';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-
 import { Link } from "react-router-dom";
 
 export default function ListServices() {
     const dispatch = useDispatch();
     const servicesData = useSelector(state => state.services.services);
-
+    
     useEffect(() => {
       dispatch(getServices());
     }, []);
@@ -29,7 +28,8 @@ export default function ListServices() {
     return(
         <div class="container">
             <Header/>
-            <div className="bread-scrumb">
+            <div>
+                <div className="bread-scrumb">
                 <Breadcrumbs separator={<NavigateNextIcon fontSize="small" />} aria-label="breadcrumb">
                     <Link to="/">Home</Link>
                     <Typography color="textPrimary">List Services</Typography>
@@ -64,5 +64,7 @@ export default function ListServices() {
                 </Card>
                 </div>
             )}  
+            </div>
+            
         </div>
     )}

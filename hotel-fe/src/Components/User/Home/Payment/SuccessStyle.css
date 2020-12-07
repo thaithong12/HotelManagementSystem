@@ -189,14 +189,16 @@
       margin-left: 40%;
       margin-right: 45%;
   }
-  h1 {
+  /* h1 {
       color: #008900;
       margin-left: 32%;
-  }
-  /*p {*/
-  /*    font-size: 120%;*/
-  /*    margin-left: 21%;*/
-  /*}*/
+
+  } */
+  /* p {
+      font-size: 120%;
+      margin-left: 21%;
+  } */
+
   #check {
       width: 1000px;
       background-color: white;
