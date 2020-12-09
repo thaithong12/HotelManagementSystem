@@ -72,3 +72,7 @@ export function logout() {
 export const _logout = () => ({
   type: types.LOGOUT_ACCOUNT,
 })
+
+export const _getCurrenUser = () => ({
+  type: 'CUR_USER'
+})
