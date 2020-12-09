@@ -1,3 +1,4 @@
+
 a {
   display: inline-block;
   text-decoration: none;
@@ -27,7 +28,7 @@ button {
   background: none;
 }
 
-img {
+.account-item img {
   max-width: 100%;
   height: auto;
 }
@@ -112,11 +113,18 @@ p {
   align-items: center;
   justify-content: space-between;
 }
-
-.image {
-  width: 43px;
+.account {
+  position: relative;
+}
+.account-item{
+  cursor: pointer;
+  width: 100px;
+}
+.account-image img {
+  width: 45px;
   height: 45px;
   float: left;
+  
 
 }
 

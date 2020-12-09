@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategories, deleteCategories, addOrUpdateCategories, uploadImage} from '../../../Actions/roomCategoryAction';
+import { getConveniences } from '../../../Actions/convenienceAction';
 import Header from '../Header';
 import SlideBar from '../SlideBar';
 
+import Select from "@material-ui/core/Select";
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import AddCircle from "@material-ui/icons/AddCircle";
@@ -30,8 +32,9 @@ import Modal from 'react-modal';
 export default function ManageCategories() {
     const dispatch = useDispatch();
     const categoriesData = useSelector(state => state.categories.categories);
-    
+    const conveniencesData = useSelector(state => state.conveniences.conveniences);
 
+    const [convenientEntities, setConvenientEntities] = useState([{convenientName:""}]);
     const [categoryId, setCategoryId] = useState(0);
     const [categoryName, setCategoryName] = useState('');
     const [description, setDescription] = useState('');
@@ -57,9 +60,24 @@ export default function ManageCategories() {
 
     useEffect(() => {
       dispatch(getCategories());
+      dispatch(getConveniences());
     }, []);
+
+    const handleSelect = (e) => {
+      e.preventDefault();
+      
+      let options = e.target.options;
+      let value = [];
+      for (let i = 0, l = options.length; i < l; i++) {
+        if (options[i].selected) {
+          let obj = {convenientId: options[i].value, convenientName: options[i].text};
+          value.push(obj);
+        }
+      }
+      setConvenientEntities(value);
+    }
     
-    const onSubmit = (categoryId, categoryName, description, price, numberOfRoom, maximumPeopleOfRoom, imageEntities) => {
+    const onSubmit = (categoryId, categoryName, description, price, numberOfRoom, maximumPeopleOfRoom, convenientEntities, imageEntities) => {
         const fileData = new FormData();
         var Files = [];
         for (let i = 0; i < imageEntities.length; i++) {
@@ -67,6 +85,7 @@ export default function ManageCategories() {
           fileData.append("multipartFile", imageEntities[i]);
           Files.push(imageEntities[i]);
         }
+
       
         var item = {
           categoryId : categoryId,
@@ -75,6 +94,7 @@ export default function ManageCategories() {
           price : price,
           numberOfRoom : numberOfRoom,
           maximumPeopleOfRoom : maximumPeopleOfRoom,
+          convenientEntities : convenientEntities,
           imageEntities : Files
         }
         
@@ -96,9 +116,8 @@ export default function ManageCategories() {
           <div className="page-container">
               <Header/>
               <div className="form-container">
-                
-              <div className="big-content">ROOM CATEGORIES MANAGEMENT</div>
-
+              
+              <h2>ROOM CATEGORIES  MANAGEMENT</h2>
               <div className="add-icon-area">
               <IconButton fontSize={'medium'} onClick={() => {
                 setModalIsOpen(true);
@@ -175,6 +194,21 @@ export default function ManageCategories() {
                             </div>
 
                             <div className="row">
+                              <div className="label">
+                                <label>Convenience Name</label>
+                              </div>
+                              <Select className={'content'}
+                                      native inputRef={conveniencesData}
+                                      onChange={(e) => handleSelect(e)}
+                                      multiple>
+                                {(conveniencesData && conveniencesData.length > 0) ?
+                                  conveniencesData.map((row) => (
+                                  <option value={row.convenientId} >{row.convenientName}</option>
+                                  )): <option aria-label="None" value=""/>}
+                              </Select>
+                              </div>
+
+                            <div className="row">
                                 <div className="label">
                                     <label>Image</label>
                                 </div>
@@ -185,7 +219,7 @@ export default function ManageCategories() {
 
                             
                             <div class="row">
-                                <input type="submit" value="Submit" onClick={()=>{setModalIsOpen(false);onSubmit(categoryId,categoryName,description,price,numberOfRoom,maximumPeopleOfRoom,imageEntities)}} />
+                                <input type="submit" value="Submit" onClick={()=>{setModalIsOpen(false);onSubmit(categoryId,categoryName,description,price,numberOfRoom,maximumPeopleOfRoom,convenientEntities,imageEntities)}} />
                             </div>
                         </div>
                     </div>
@@ -220,6 +254,7 @@ export default function ManageCategories() {
                       <StyledTableCell>Price</StyledTableCell>
                       <StyledTableCell>Number of room</StyledTableCell>
                       <StyledTableCell>Maximum number of room</StyledTableCell>
+                      <StyledTableCell>Conveniences name</StyledTableCell>
                       <StyledTableCell>Image</StyledTableCell>
                       <StyledTableCell align="right">Action</StyledTableCell>
                       <StyledTableCell align="right"></StyledTableCell>
@@ -234,7 +269,8 @@ export default function ManageCategories() {
                         <StyledTableCell align="left">{row.price}</StyledTableCell>
                         <StyledTableCell align="left">{row.numberOfRoom}</StyledTableCell>
                         <StyledTableCell align="left">{row.maximumPeopleOfRoom}</StyledTableCell>
-                        <StyledTableCell align="right"></StyledTableCell>
+                        <StyledTableCell align="left">{((row.convenientEntities) && (row.convenientEntities).length>0) ? (row.convenientEntities).map((name) => (name.convenientName + " / ")):""}</StyledTableCell>
+                        <StyledTableCell align="left">{((row.images) && (row.images).length>0) ? (row.images).map((image) => (<img style={{height: 40,width: 40}} src={'../images/'+image.url} alt="Admin"/>)):""}</StyledTableCell>
                         <StyledTableCell align="right">
                           <IconButton aria-label="edit" onClick={()=>{setModalIsOpen(true);
                             setCategoryId(row.categoryId);
