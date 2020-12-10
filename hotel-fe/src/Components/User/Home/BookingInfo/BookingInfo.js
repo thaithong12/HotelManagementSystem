@@ -79,7 +79,6 @@ export default function BookingInfo() {
         booking: {...booking},
       }
     }
-    console.log(location)
     history.push(location);
   }
 

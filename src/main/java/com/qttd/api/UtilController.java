@@ -8,7 +8,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -34,8 +36,11 @@ public class UtilController {
         List<String> fileNames = new ArrayList<String>();
         for (MultipartFile fileData : fileDatas) {
 
+            // format name file
+            Date date = new Date() ;
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss") ;
             // File Name in client
-            String name = fileData.getOriginalFilename();
+            String name = dateFormat.format(date) +  fileData.getOriginalFilename();
             System.out.println("Client File Name = " + name);
 
             if (name != null && name.length() > 0) {
