@@ -11,8 +11,10 @@ export const _deleteService = (services) => ({
 })
 
 export function deleteImage(images){
-    return (dispatch) => {
-        return axios.delete(API_URL+'/upload',{data:images});
+    return async (dispatch) => {
+        return await axios.delete(API_URL+'/upload',{data: {...images}}).then(res => {
+            dispatch(getServices())
+        });
     }
 }
 
