@@ -53,6 +53,7 @@ public class Services {
                     item.getImageEntities().forEach(el -> {
                         ImageRequestModel imgResponse = new ImageRequestModel();
                         imgResponse.setUrl(el.getImageUrl());
+                        imgResponse.setId(el.getId());
                         listImageReturn.add(imgResponse);
                     });
                     serviceResponseModel.setImages(listImageReturn);

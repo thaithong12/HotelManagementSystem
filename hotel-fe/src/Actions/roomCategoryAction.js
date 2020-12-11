@@ -10,9 +10,21 @@ export const _deleteCategory = (categories) => ({
     categories
 })
 
-export function uploadImage(fileData){
+export function uploadImage(fileData, item){
     return (dispatch) => {
-        return axios.post(API_URL+'/upload', fileData, {headers: {'Content-Type': 'multipart/form-data'}});
+        return axios.post(API_URL+'/upload', fileData, {headers: {'Content-Type': 'multipart/form-data'}})
+        .then(result => {
+            for (let i = 0; i < item.imageEntities.length; i++) {
+                item.imageEntities[i].url = result.data[i];
+            }
+            var request = [item];
+            if(item.categoryName===""){
+            dispatch(getCategories());
+            }
+            else{
+            dispatch(addOrUpdateCategories(request));
+            }
+        })
     }
 }
 

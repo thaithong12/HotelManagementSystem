@@ -42,7 +42,7 @@ export default function ListPromotion() {
                         <Link to={{ pathname: '/promotions-detail', state: [row] }}/>
                             <CardMedia
                             className={classes.media}>
-                                <img style={{height: 350,width: 600}} src={row.image!=null?'../images/'+row.image:''} alt="Admin"/>
+                                <img style={{height: 550,width: 800}} src={row.image!=null?'../images/'+row.image:''} alt="Admin"/>
                             </CardMedia>
                             <CardContent>
                             <Typography gutterBottom variant="h5" component="h2">

@@ -2,12 +2,12 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme) => ({
     root: {
-      maxWidth: 600,
-      marginLeft: 440 ,
+      maxWidth: 800,
+      marginLeft: 320 ,
     },
 
     media: {
-      height: 350,
+      height: 550,
     },
 
     paper: {
@@ -25,13 +25,13 @@ export const useStyles = makeStyles((theme) => ({
 
   export const SlideStyles = makeStyles((theme) => ({
     root: {
-      maxWidth: 600,
+      maxWidth: 800,
       flexGrow: 1,
     },
     img: {
-      height: 400,
+      height: 600,
       display: 'block',
-      maxWidth: 600,
+      maxWidth: 800,
       overflow: 'hidden',
       width: '100%',
     },
