@@ -9,6 +9,7 @@ import {getPromotions} from "../../../../Actions/promotionActions";
 import {useLocation} from 'react-router-dom'
 import {history} from "../../../../Helper/history";
 import {getAllBookings, addBooking} from "../../../../Actions/bookingAction";
+import {_getCurrenUser} from "../../../../Actions/userActions";
 
 export default function BookingInfo() {
   const servicesData = useSelector(state => state.services.services);
@@ -16,6 +17,7 @@ export default function BookingInfo() {
   const data = useLocation().state.booking;
   const promotionsData = useSelector(state => state.promotions.promotions);
   const [itemErr, setItem] = useState({isErr: false, msg: ''});
+  const curUser = useSelector(state => state.user);
   const initItemExecute = {
     id: 0,
     address: '',
@@ -49,15 +51,15 @@ export default function BookingInfo() {
     dispatch(getServices());
     dispatch(getPromotions());
     dispatch(getAllBookings());
+    dispatch(_getCurrenUser());
   }, []);
 
   const [customer, setCustomer] = useState({
-    fname: '',
-    lname: '',
+    fname: curUser.loggedIn ? curUser.user.customerName : '',
     gender: 'MALE',
-    country: '',
-    email: '',
-    phone: '',
+    country: curUser.loggedIn ? curUser.user.country : '',
+    email: curUser.loggedIn ? curUser.user.email : '',
+    phone: curUser.loggedIn ? curUser.user.phoneNumber : '',
     services: [],
     promotion: '',
     special: '',
@@ -86,11 +88,10 @@ export default function BookingInfo() {
     let check = false;
     setItem({...itemErr, isErr: false, msg: ''});
     if (customer.method === '' || customer.email === ''
-       || customer.fname === '' || customer.lname === '' || customer.phone === ''){
+       || customer.fname === ''|| customer.phone === ''){
       setItem({...itemErr, isErr: true, msg: 'This Fields Cannot be Blank'})
-      check = true;
+      return;
     }
-    if (itemErr.isErr === true || check) return;
     itemExecute.checkIn = booking.checkIn;
     itemExecute.checkOut = booking.checkOut;
     itemExecute.country = customer.country;
@@ -99,7 +100,7 @@ export default function BookingInfo() {
     itemExecute.phoneNumber = customer.phone;
     itemExecute.promotionCode = customer.promotion;
     itemExecute.roomCode = booking.roomName;
-    itemExecute.customerName = customer.fname + ' ' + customer.lname;
+    itemExecute.customerName = customer.fname
     itemExecute.totalPrice = booking.totalPrice;
     itemExecute.prePayment = booking.totalPrice;
     if(promotionsData && promotionsData.filter(item => item.code === customer.promotion) && promotionsData.filter(item => item.code === customer.promotion).length > 0)
@@ -148,17 +149,15 @@ export default function BookingInfo() {
                   <option value={'MALE'}>Mr</option>
                   <option value={'FEMALE'}>Ms</option>
                 </select>
-                <Input id="fname" name={'fname'} className={'my-input'} placeholder={'First Name'}
-                       onChange={(e) => handleChange(e)} required/>
-                <Input id="lname" name={'lname'} className={'my-input'} placeholder={'Last Name'}
+                <Input defaultValue={curUser.loggedIn ? curUser.user.customerName : ''} id="fname" name={'fname'} className={'my-input'} placeholder={'Full Name'}
                        onChange={(e) => handleChange(e)} required/>
               </div>
               <br/>
               <p><strong>Country/Region</strong></p>
               <select name={'country'} className={'my-select'}
                       onChange={(e) => handleChange(e)}>
-                <option value={'VN'}>VN</option>
-                <option value={'US'}>US</option>
+                <option selected={curUser && curUser.country === 'VN'} value={'VN'}>VN</option>
+                <option selected={curUser && curUser.country === 'US'} value={'US'}>US</option>
               </select>
               <br/>
               <br/>
@@ -167,7 +166,7 @@ export default function BookingInfo() {
                   <p><strong>Email</strong></p>
                   <Input name={'email'} onChange={(e) => {
                     handleChange(e)
-                  }} defaultValue={customer.email} id="email" className={'my-input'} placeholder={'Email Address'} required/>
+                  }} defaultValue={curUser.loggedIn ? curUser.user.email : ''} id="email" className={'my-input'} placeholder={'Email Address'} required/>
                 </div>
                 <div style={{paddingLeft: 32}}>
                   <p><strong>Phone Number</strong></p>
@@ -177,7 +176,7 @@ export default function BookingInfo() {
                          onChange={(e) => {
                            handleChange(e)
                          }} required
-                         defaultValue={customer.phone}
+                         defaultValue={curUser.loggedIn ? curUser.user.phoneNumber : ''}
                   />
                 </div>
               </div>

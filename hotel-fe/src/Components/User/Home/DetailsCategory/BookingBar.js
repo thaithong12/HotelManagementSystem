@@ -49,26 +49,26 @@ export default function BookingBar() {
     setBooking({...booking, [e.target.name]: e.target.value})
   }
 
-  function validateData() {
-    if (booking.checkIn < formatDate(new Date())){
-      setItem({...itemErr,isErr: true, msgDate: 'Check In cannot less then current Date'})
-    }
-    if (booking.checkOut < booking.checkIn) {
-      setItem({...itemErr,isErr: true, msgDate: 'Check In must less then Check Out'})
-    }
-    if (booking.numberOfPeople < 1) {
-      setItem({...itemErr,isErr: true, msgDate: 'Number must greater then 1'})
-    }
-  }
-
   function handleSubmit(e) {
     e.preventDefault();
     setItem({...itemErr,isErr: false,msgDate: '', msgPeople: ''})
-    validateData();
+    if (booking.checkIn < formatDate(new Date())){
+      setItem({...itemErr,isErr: true, msgDate: 'Check In cannot less then current Date'})
+      return
+    }
+    if (booking.checkOut <= booking.checkIn) {
+      setItem({...itemErr,isErr: true, msgDate: 'Check In must less then Check Out'})
+      return
+    }
+    if (booking.numberOfPeople < 1) {
+      setItem({...itemErr,isErr: true, msgDate: 'Number must greater then 1'})
+      return
+    }
     if (itemErr.isErr) {
       return;
     }
     let  dateIn = (new Date(booking.checkOut)- new Date(booking.checkIn))/ 86400000; 
+    let  dateIn = (new Date(booking.checkOut)- new Date(booking.checkIn))/ 86400000;
     booking.totalPrice += categoriesData.price*(dateIn-1);
     booking.unitPrice += categoriesData.price*(dateIn-1);
     const location = {
