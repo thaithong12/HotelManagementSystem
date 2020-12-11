@@ -28,4 +28,7 @@ public class RoomService {
 	public RoomEntity findByRoomNumber(String roomNumber) {
 		return roomRepository.findByRoomNumber(roomNumber);
 	}
+	public RoomEntity findById(long id) {
+		return roomRepository.findById(id);
+	}
 }

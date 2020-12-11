@@ -25,7 +25,7 @@ public class CategoryService {
 		categoryRepository.delete(p);
 	}
 	
-	public List<CategoryEntity> findByCategoryName(String name) {
+	public CategoryEntity findByCategoryName(String name) {
 		return categoryRepository.findByCategoryName(name);
 	} 
 	

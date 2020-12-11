@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.paypal.api.payments.Amount;
+import com.paypal.api.payments.Details;
 import com.paypal.api.payments.Payer;
 import com.paypal.api.payments.Payment;
 import com.paypal.api.payments.PaymentExecution;
@@ -25,6 +26,7 @@ public class PaypalService {
 	
 	public Payment createPayment(
 			Double total, 
+			Double subTotal,
 //			String currency, 
 //			String method,
 //			String intent,
@@ -34,7 +36,13 @@ public class PaypalService {
 		Amount amount = new Amount();
 		amount.setCurrency("USD");
 		total = new BigDecimal(total).setScale(2, RoundingMode.HALF_UP).doubleValue();
+		subTotal = new BigDecimal(subTotal).setScale(2, RoundingMode.HALF_UP).doubleValue();
+		Double shipDiscount = new BigDecimal(total - subTotal).setScale(2, RoundingMode.HALF_UP).doubleValue();
 		amount.setTotal(String.format("%.2f", total));
+	    Details details = new Details();
+	    details.setSubtotal(String.format("%.2f", subTotal));
+	    details.setShippingDiscount(String.format("%.2f", shipDiscount));
+	    amount.setDetails(details);
 
 		Transaction transaction = new Transaction();
 		//transaction.setDescription(description);

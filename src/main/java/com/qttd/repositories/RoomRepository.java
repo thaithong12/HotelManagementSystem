@@ -8,4 +8,5 @@ import com.qttd.entities.RoomEntity;
 @Repository
 public interface RoomRepository extends CrudRepository<RoomEntity, Long>{
 	RoomEntity findByRoomNumber(String roomNumber);
+	RoomEntity findById(long id);
 }

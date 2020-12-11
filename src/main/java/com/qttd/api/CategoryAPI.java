@@ -215,29 +215,32 @@ public class CategoryAPI {
             List<ConvenientEntity> listConvenients;
             if (CollectionUtils.isEmpty(entity.getConvenientEntities())){
                 listConvenients = new ArrayList<>();
+                item.getConvenientEntities().forEach(cv -> {
+                	
+                    ConvenientEntity convenientEntity= convenientService.findById(cv.getId());
+                    
+                    if(ObjectUtils.isEmpty(convenientEntity)) {
+                       convenientEntity = new ConvenientEntity(); 	 
+                       //convenientEntity.setId(cv.getConvenientId());
+                       convenientEntity.setConvenientName(cv.getConvenientName()); 
+                    }             
+       
+                    listConvenients.add(convenientEntity);
+                });
             } else {
-                listConvenients = entity.getConvenientEntities();
+            	
+                listConvenients = item.getConvenientEntities();
             }
-            item.getConvenientEntities().forEach(cv -> {
-                ConvenientEntity convenientEntity= convenientService.findById(cv.getConvenientId());
-                
-                if(ObjectUtils.isEmpty(convenientEntity)) {
-                   convenientEntity = new ConvenientEntity(); 	 
-                   //convenientEntity.setId(cv.getConvenientId());
-                   convenientEntity.setConvenientName(cv.getConvenientName()); 
-                }             
-   
-                listConvenients.add(convenientEntity);
-            });
+            
             entity.setConvenientEntities(listConvenients);
         }
 	}
 	private boolean validateExist(String name ) {
-        List<CategoryEntity> datas = categoryService.findByCategoryName(name);
-        if (!CollectionUtils.isEmpty(datas)){
-            if (datas.size() > 0) {
+        CategoryEntity datas = categoryService.findByCategoryName(name);
+        if (!ObjectUtils.isEmpty(datas)){
+            
                 return  true;
-            }
+            
         }
         return  false;
     }

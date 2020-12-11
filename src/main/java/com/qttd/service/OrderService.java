@@ -1,11 +1,13 @@
 package com.qttd.service;
 
 import com.qttd.entities.AccountEntity;
+import com.qttd.entities.CategoryEntity;
 import com.qttd.entities.ConvenientEntity;
 import com.qttd.entities.OrderEntity;
 import com.qttd.entities.PromotionEntity;
 import com.qttd.entities.RoomEntity;
 import com.qttd.enums.ApiStatus;
+import com.qttd.enums.RoomStatus;
 import com.qttd.model.common.ResponseModel;
 import com.qttd.model.request.ConvenientRequestModel;
 import com.qttd.model.request.ListConvenientRequestModel;
@@ -35,7 +37,8 @@ public class OrderService {
    	PromotionService promotionService;
     @Autowired
 	AccountService accountService;
-
+    @Autowired
+	CategoryService categoryService;
 
     public ResponseModel<ListOrderResponseModel> getAllOrders() {
         ResponseModel<ListOrderResponseModel> responseModel = new ResponseModel<>();
@@ -83,6 +86,12 @@ public class OrderService {
         	OrderEntity orderEntity = orderRepository.findById(orderRequestModel.getId()).get();
         	orderEntity.setDeleted(true);
         	orderRepository.save(orderEntity);
+        	if(orderEntity.getOrderStatus().toString().equals("UNPAID") == false)
+        	{  RoomEntity roomEntity = roomService.findById(orderEntity.getRoomEntity().getId());
+			   roomEntity.setRoomStatus(RoomStatus.AVAILABLE);
+			   roomService.saveData(roomEntity);
+		    }
+			
             //orderRepository.delete(orderRepository.findById(orderRequestModel.getId()).get());
             responseModel.setStatus(ApiStatus.SUCCESS);
         } else responseModel.setStatus(ApiStatus.ERROR);
@@ -172,6 +181,8 @@ public class OrderService {
           entity.setOrderStatus(item.getStatus());	
         if(item.getTotalPrice() != 0)
           entity.setTotalPrice(item.getTotalPrice());
+        if(item.getPrePayment() != 0)
+          entity.setUnitPrice(item.getPrePayment());	
         if(item.getEmail() != null)
           if(validateExistMail(item.getEmail()))
         	{
@@ -183,8 +194,18 @@ public class OrderService {
           entity.setPromotionEntity(promotionEntity);	
         }
         if(item.getRoomCode() != null) {
-            RoomEntity roomEntity = roomService.findByRoomNumber(item.getRoomCode());	
-            entity.setRoomEntity(roomEntity);	
+        	CategoryEntity categoryEntity = categoryService.findByCategoryName(item.getRoomCode());
+            List<RoomEntity> listRoomEntity = roomService.getAllRoom();	
+            for (RoomEntity roomEntity : listRoomEntity) {
+				if(roomEntity.getCategoryEntity().getId() == categoryEntity.getId())
+				{
+					if(roomEntity.getRoomStatus().toString().equals("AVAILABLE")) 
+					{ entity.setRoomEntity(roomEntity);
+					  break;
+					}
+				}
+			}
+           	
          }
         entity.setDeleted(false);
 		

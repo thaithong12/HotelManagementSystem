@@ -166,7 +166,17 @@ public class RoomAPI {
 	}
 	private void SetAttrRoom(RoomEntity entity, RoomRequestModel item) {
 		entity.setId(item.getRoomId());
-		entity.setRoomNumber(item.getRoomNumber());
+		List<RoomEntity> listRoomEntity = roomService.getAllRoom();
+		int d = 0;
+		for (RoomEntity roomEntity : listRoomEntity) {
+			if(roomEntity.getRoomNumber().equals(item.getRoomNumber()))
+			{
+				d = 1;
+				break;
+			}	
+		}
+	    if(d == 0)
+		  entity.setRoomNumber(item.getRoomNumber());
 		entity.setRoomStatus(item.getRoomStatus());
 		if(ObjectUtils.isEmpty(categoryService.findById(item.getCategoryId())))
 		{

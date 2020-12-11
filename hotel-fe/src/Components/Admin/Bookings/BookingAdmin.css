@@ -1,13 +1,46 @@
 .booking-info{
     display: flex;
     flex-direction: row;
-    max-width: 90%;
+    max-width: 120%;
     margin-left: 5%;
     margin-top: 2%;
 }
-
-.customer-info {
-    width: 55%;
+.modal-overlay-booking {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    opacity: .5;
+    
+  }
+  
+  .modal-wrapperr-booking {
+    position: fixed;
+    top: 28px;
+    left: 0;
+    z-index: 5;
+    width: 1000px;
+    height: 150%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    
+  }
+  
+  .modal-booking {
+    z-index: 100;
+    background: white;
+    position: relative;
+    margin: 1.75rem auto;
+    border-radius: 3px;
+    max-width: 700px;
+    max-height: 1000px;
+    padding: 2rem;
+  }
+.customer-info-admin {
+    width: 100%;
     padding: 5%;
     border: 1px solid black;
 }
