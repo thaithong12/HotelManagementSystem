@@ -54,6 +54,11 @@ export default function ManageServices() {
       setImageEntities(e.target.files)
     }
 
+    const del = (e,image) =>{
+      e.preventDefault();
+      dispatch(deleteImage(image));
+    }
+
     useEffect(() => {
       dispatch(getServices());
     }, []);
@@ -220,7 +225,7 @@ export default function ManageServices() {
                         <StyledTableCell align="left">{row.unitPrice}</StyledTableCell>
                         <StyledTableCell align="left">{((row.images) && (row.images).length>0) ? (row.images).map((image) => (
                         [<img style={{height: 40,width: 40}} src={'../images/'+image.url} alt="Admin"/>,
-                        <BackspaceIcon className="delete-image-button"/>]
+                        <BackspaceIcon className="delete-image-button" onClick={(e)=>{del(e, image)}}/>]
                         )):""}</StyledTableCell>
                         <StyledTableCell align="left">
                         </StyledTableCell>
