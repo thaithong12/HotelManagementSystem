@@ -8,6 +8,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReviewRequestModel {
+    private long id ;
+
+    private String token;
+
     private int rate;
+
 	private String content;
+
+	private long categoryId;
 }

@@ -15,11 +15,9 @@ export default function categoryReducer(state = initState , action) {
     case 'SET_CATEGORY_INFO':
       let newState = action.category
       return newState;
-
+      
     case 'REMOVE_CATEGORY_INFO':
       return {};
-    default:
-      console.log(state);
-      return state;
+    default: return state;
   }
 }

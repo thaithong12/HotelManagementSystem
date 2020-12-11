@@ -1,14 +1,20 @@
 package com.qttd.api;
 
+import com.qttd.model.request.ImageRequestModel;
+import com.qttd.service.ImageService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -34,8 +40,11 @@ public class UtilController {
         List<String> fileNames = new ArrayList<String>();
         for (MultipartFile fileData : fileDatas) {
 
+            // format name file
+            Date date = new Date() ;
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss") ;
             // File Name in client
-            String name = fileData.getOriginalFilename();
+            String name = dateFormat.format(date) +  fileData.getOriginalFilename();
             System.out.println("Client File Name = " + name);
 
             if (name != null && name.length() > 0) {
@@ -60,5 +69,18 @@ public class UtilController {
             return new ResponseEntity<>(HttpStatus.PAYLOAD_TOO_LARGE);
         }
         return ResponseEntity.ok(fileNames);
+    }
+
+    @Autowired
+    ImageService imageService;
+
+    @DeleteMapping("/upload")
+    public ResponseEntity<?> deleteFile(@RequestBody ImageRequestModel imageRequestModel){
+        if (!ObjectUtils.isEmpty(imageRequestModel)) {
+            boolean check = imageService.deleteImage(imageRequestModel);
+            return ResponseEntity.ok(check);
+        } else {
+            return ResponseEntity.ok(false);
+        }
     }
 }

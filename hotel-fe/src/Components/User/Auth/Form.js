@@ -19,12 +19,14 @@ export default function Form() {
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
+
         <BrowserRouter history={history}>
           <Switch>
             <Route exact path="/Login" component={LoginForm}/>
             <Route exact path="/register" component={RegisterForm}/>
           </Switch>
         </BrowserRouter>
+
       </div>
     </Grid>
   )

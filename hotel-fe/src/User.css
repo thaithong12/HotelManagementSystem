@@ -418,7 +418,7 @@ body {
     padding-bottom: 5%;
 }
 .review-room{
-    width: 25%;
+    width: 32%;
     border : 1px solid #848484;
     background-color: white;
 }
@@ -444,28 +444,49 @@ body {
 .review-room-description{
     margin-left: 5%;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    /*overflow: hidden;*/
+    /*text-overflow: ellipsis;*/
 
 }
+.author {
+    display: flex;
+}
+.author button{
+
+    position: relative;
+    left: 70px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    opacity: .3;
+    cursor: pointer;
+    border: none;
+}
+
 .review-room-comment p{
+    padding-top: 10px;
     font-size: 12px;
 
 }
-.review-room-content input   {
+.review-room-input{
+    padding-left: 10%;
+    padding-right: 10%;
+}
+.review-room-input input   {
 
     width: 60%;
     height: 40px;
     border : 1px solid;
 
 }
-.review-room-content select   {
+.review-room-input select   {
 
     width: 15%;
     height: 40px;
 
 }
-.review-room-content button   {
+.review-room-input button   {
     margin-left: 5%;
     width: 20%;
     height: 40px;
@@ -484,4 +505,8 @@ body {
     grid-column-gap: 90px;
     grid-row-gap: 40px;
     padding-bottom: 2%;
+}
+
+.text-center {
+    text-align: center !important;
 }

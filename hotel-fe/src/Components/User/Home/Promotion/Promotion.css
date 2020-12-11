@@ -1,0 +1,23 @@
+
+.page-wrapper {
+    margin-bottom: 50px;
+    margin-left: 210px;
+}
+.pr_container {
+    background: rgb(255, 255, 255);
+    margin: 1.75rem auto;
+    max-width: 900px;
+    padding: 2.5rem;
+    border-style: groove;
+    margin-left: 450px;
+}
+
+.bread-scrumb {
+    margin-left: 400px;
+    margin-top: 100px;
+}
+
+.space {
+    margin-top: 20px;
+}
+

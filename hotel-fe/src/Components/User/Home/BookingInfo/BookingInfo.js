@@ -122,7 +122,6 @@ export default function BookingInfo() {
         bookinfo: {...itemExecute}
       }
     }
-    console.log(location)
     history.push(location);
   }
 

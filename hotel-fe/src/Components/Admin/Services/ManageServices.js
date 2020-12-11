@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getServices, deleteServices, addOrUpdateServices, uploadImage } from '../../../Actions/serviceAction';
+import { getServices, deleteServices, uploadImage, deleteImage} from '../../../Actions/serviceAction';
 import Header from '../Header';
 import SlideBar from '../SlideBar';
 
+import BackspaceIcon from '@material-ui/icons/Backspace';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import AddCircle from "@material-ui/icons/AddCircle";
@@ -65,24 +66,18 @@ export default function ManageServices() {
           fileData.append("multipartFile", imageEntities[i]);
           Files.push(imageEntities[i]);
         }
-        
+
         var item = {
-        serviceId : serviceId,
-        serviceName : serviceName, 
-        unitPrice : unitPrice,
-        quantity : quantity,
-        description : description,
-        imageEntities : Files
-        }
+          serviceId : serviceId,
+          serviceName : serviceName, 
+          unitPrice : unitPrice,
+          quantity : quantity,
+          description : description,
+          imageEntities : Files
+          }
+
+        dispatch(uploadImage(fileData, item));
         
-        var request = [item];
-        if(serviceName===""){
-          dispatch(getServices());
-        }
-        else{
-          dispatch(addOrUpdateServices(request));
-          dispatch(uploadImage(fileData));
-        }
     }
 
     
@@ -96,8 +91,8 @@ export default function ManageServices() {
               <Header/>
               <div className="form-container">
                 
-              <div className="big-content">SERVICES MANAGEMENT</div>
               
+              <h2>SERVICES MANAGEMENT</h2>
               <div className="add-icon-area">
               <IconButton fontSize={'medium'} onClick={() => {
                 setModalIsOpen(true);
@@ -209,6 +204,7 @@ export default function ManageServices() {
                       <StyledTableCell>Quantity</StyledTableCell>
                       <StyledTableCell>Price</StyledTableCell>
                       <StyledTableCell>Image</StyledTableCell>
+                      <StyledTableCell align="right"></StyledTableCell>
                       <StyledTableCell align="right">Action</StyledTableCell>
                       <StyledTableCell align="right"></StyledTableCell>
                   </TableRow>
@@ -222,6 +218,10 @@ export default function ManageServices() {
                         <StyledTableCell align="left">{row.description}</StyledTableCell>
                         <StyledTableCell align="left">{row.quantity}</StyledTableCell>
                         <StyledTableCell align="left">{row.unitPrice}</StyledTableCell>
+                        <StyledTableCell align="left">{((row.images) && (row.images).length>0) ? (row.images).map((image) => (
+                        [<img style={{height: 40,width: 40}} src={'../images/'+image.url} alt="Admin"/>,
+                        <BackspaceIcon className="delete-image-button"/>]
+                        )):""}</StyledTableCell>
                         <StyledTableCell align="left">
                         </StyledTableCell>
                         <StyledTableCell align="right">

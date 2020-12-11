@@ -71,6 +71,7 @@ public class CategoryAPI {
                     item.getImageEntities().forEach(el -> {
                         ImageRequestModel imgResponse = new ImageRequestModel();
                         imgResponse.setUrl(el.getImageUrl());
+                        imgResponse.setId(el.getId());
                         listImageReturn.add(imgResponse);
                     });
                     categoryResponseModel.setImages(listImageReturn);
