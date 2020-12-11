@@ -1,11 +1,11 @@
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-import {Link} from "react-router-dom";
+import {Link,useHistory} from "react-router-dom";
 import React, {useRef, useState} from "react";
 import useStyles from "../Style";
 import Typography from "@material-ui/core/Typography";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {register} from "../../../../Actions/userActions";
 import Alert from "@material-ui/lab/Alert";
 
@@ -17,6 +17,8 @@ export default function RegisterForm() {
   const fullName = useRef('')
   const rePassword = useRef('');
   const phoneNumber = useRef(' ');
+  const user = useSelector(state => state.user);
+  const history = useHistory();
 
   let [itemErr, setErr] = useState({isErr: false, msg: ''});
 
@@ -34,6 +36,9 @@ export default function RegisterForm() {
       }
       dispatch(register(obj));
     }
+  }
+  if (user && user.isSuccess){
+    history.push('/login');
   }
 
   function validatesData() {
