@@ -1,7 +1,11 @@
 package com.qttd.api;
 
+import com.qttd.model.request.ImageRequestModel;
+import com.qttd.service.ImageService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -65,5 +69,18 @@ public class UtilController {
             return new ResponseEntity<>(HttpStatus.PAYLOAD_TOO_LARGE);
         }
         return ResponseEntity.ok(fileNames);
+    }
+
+    @Autowired
+    ImageService imageService;
+
+    @DeleteMapping("/upload")
+    public ResponseEntity<?> deleteFile(@RequestBody ImageRequestModel imageRequestModel){
+        if (!ObjectUtils.isEmpty(imageRequestModel)) {
+            boolean check = imageService.deleteImage(imageRequestModel);
+            return ResponseEntity.ok(check);
+        } else {
+            return ResponseEntity.ok(false);
+        }
     }
 }

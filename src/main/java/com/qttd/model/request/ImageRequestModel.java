@@ -9,4 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ImageRequestModel {
     private String url;
+
+    private long id;
 }
