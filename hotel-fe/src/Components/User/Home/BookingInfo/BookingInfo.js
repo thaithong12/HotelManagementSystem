@@ -15,7 +15,6 @@ export default function BookingInfo() {
   const dispatch = useDispatch();
   const data = useLocation().state.booking;
   const promotionsData = useSelector(state => state.promotions.promotions);
-  const bookingsData = useSelector(state => state.bookings.bookings);
   const [itemErr, setItem] = useState({isErr: false, msg: ''});
   const initItemExecute = {
     id: 0,
@@ -111,8 +110,6 @@ export default function BookingInfo() {
       }
     if(customer.method === 'deposit')
       itemExecute.totalPrice /=2;
-    console.log("this is in BookingInfo");  
-    console.log(itemExecute);
     dispatch(addBooking(itemExecute));
     const location = {
       pathname: '/payment',

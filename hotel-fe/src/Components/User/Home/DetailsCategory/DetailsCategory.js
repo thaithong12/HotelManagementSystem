@@ -15,15 +15,12 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 export default function DetailsCategory(){
-    
-    // const categoriesData = useSelector(state => state.currentCategoryReducer);
     const row = useLocation().state; 
     const [activeStep, setActiveStep] = React.useState(0);
     const handleStepChange = (step) => {
         setActiveStep(step);
     };
     const convenienceData = row[0].convenientEntities;
-    console.log(convenienceData);
     return(
         <div class="container">
             <Header/>

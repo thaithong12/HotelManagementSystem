@@ -68,11 +68,9 @@ export default function BookingBar() {
     if (itemErr.isErr) {
       return;
     }
-    let  dateIn = (new Date(booking.checkOut)- new Date(booking.checkIn))/ 86400000;
-    console.log(dateIn) 
+    let  dateIn = (new Date(booking.checkOut)- new Date(booking.checkIn))/ 86400000; 
     booking.totalPrice += categoriesData.price*(dateIn-1);
     booking.unitPrice += categoriesData.price*(dateIn-1);
-    console.log(booking);
     const location = {
       pathname: '/booking-info',
       state: {booking}

@@ -1,15 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Button from '@material-ui/core/Button';
-import {useDispatch} from 'react-redux';
 import axios from 'axios'
 import {API_URL} from "../../../../Constans/apiConstants";
-import {Link, useLocation} from 'react-router-dom';
+import {useLocation} from 'react-router-dom';
 import './PaymentStyle.css';
 export default function Payment(){
-    const [totalPrice, setTotalPrice] = useState();
-
-    const dispatch = useDispatch();
-    const [url, setUrl] = useState("");
     const data2 = useLocation().state.booking;
     const data1 = useLocation().state.customer;
     const data = useLocation().state.bookinfo;
