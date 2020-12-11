@@ -16,7 +16,6 @@ export default function BookingInfo() {
   const dispatch = useDispatch();
   const data = useLocation().state.booking;
   const promotionsData = useSelector(state => state.promotions.promotions);
-  const bookingsData = useSelector(state => state.bookings.bookings);
   const [itemErr, setItem] = useState({isErr: false, msg: ''});
   const curUser = useSelector(state => state.user);
   const initItemExecute = {
