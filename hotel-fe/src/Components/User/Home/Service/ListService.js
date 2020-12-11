@@ -42,7 +42,7 @@ export default function ListServices() {
                         <Link to={{ pathname: '/services-detail', state: [row] }}/>
                             <CardMedia
                             className={classes.media}>
-                                <img style={{height: 350,width: 600}} src={row.images!=null?'../images/'+row.images[0].url:null} alt="Admin"/>
+                                <img style={{height: 550,width: 800}} src={row.images!=null?'../images/'+row.images[0].url:null} alt="Admin"/>
                             </CardMedia>
                             <CardContent>
                             <Typography gutterBottom variant="h5" component="h2">

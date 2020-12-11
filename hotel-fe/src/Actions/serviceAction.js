@@ -10,9 +10,27 @@ export const _deleteService = (services) => ({
     services
 })
 
-export function uploadImage(fileData){
+export function deleteImage(images){
     return (dispatch) => {
-        return axios.post(API_URL+'/upload', fileData, {headers: {'Content-Type': 'multipart/form-data'}});
+        return axios.delete(API_URL+'/upload',{data:images});
+    }
+}
+
+export function uploadImage(fileData, item){
+    return (dispatch) => {
+        return axios.post(API_URL+'/upload', fileData, {headers: {'Content-Type': 'multipart/form-data'}})
+        .then(result => {
+            for (let i = 0; i < item.imageEntities.length; i++) {
+                item.imageEntities[i].url = result.data[i];
+            }
+            var request = [item];
+            if(item.serviceName===""){
+            dispatch(getServices());
+            }
+            else{
+            dispatch(addOrUpdateServices(request));
+            }
+        });
     }
 }
 

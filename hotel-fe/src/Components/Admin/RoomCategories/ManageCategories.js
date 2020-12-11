@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCategories, deleteCategories, addOrUpdateCategories, uploadImage} from '../../../Actions/roomCategoryAction';
+import { getCategories, deleteCategories, uploadImage} from '../../../Actions/roomCategoryAction';
 import { getConveniences } from '../../../Actions/convenienceAction';
 import Header from '../Header';
 import SlideBar from '../SlideBar';
 
+import BackspaceIcon from '@material-ui/icons/Backspace';
 import Select from "@material-ui/core/Select";
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
@@ -97,15 +98,8 @@ export default function ManageCategories() {
           convenientEntities : convenientEntities,
           imageEntities : Files
         }
-        
-        var request = [item];
-        if(categoryName===""){
-          dispatch(getCategories());
-        }
-        else{
-          dispatch(addOrUpdateCategories(request));
-          dispatch(uploadImage(fileData));
-        }
+
+        dispatch(uploadImage(fileData,item));
     }
 
     const classes = useStyles();
@@ -270,7 +264,10 @@ export default function ManageCategories() {
                         <StyledTableCell align="left">{row.numberOfRoom}</StyledTableCell>
                         <StyledTableCell align="left">{row.maximumPeopleOfRoom}</StyledTableCell>
                         <StyledTableCell align="left">{((row.convenientEntities) && (row.convenientEntities).length>0) ? (row.convenientEntities).map((name) => (name.convenientName + " / ")):""}</StyledTableCell>
-                        <StyledTableCell align="left">{((row.images) && (row.images).length>0) ? (row.images).map((image) => (<img style={{height: 40,width: 40}} src={'../images/'+image.url} alt="Admin"/>)):""}</StyledTableCell>
+                        <StyledTableCell align="left">{((row.images) && (row.images).length>0) ? (row.images).map((image) => (
+                        [<img style={{height: 40,width: 40}} src={'../images/'+image.url} alt="Admin"/>,
+                        <BackspaceIcon className="delete-image-button"/>]
+                        )):""}</StyledTableCell>
                         <StyledTableCell align="right">
                           <IconButton aria-label="edit" onClick={()=>{setModalIsOpen(true);
                             setCategoryId(row.categoryId);

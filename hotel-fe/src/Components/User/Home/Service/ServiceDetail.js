@@ -34,7 +34,7 @@ export default function ServiceDetail() {
                     <Typography color="textPrimary">Service detail - {row[0].serviceName}</Typography>
                 </Breadcrumbs>
             </div>
-            <div className="page_container">
+            <div className="sv_container">
                 <div className="space"/>
                 <Typography variant="h5" align="left" color="secondary" style={{ maxWidth: 700 }}>
                     {row[0].serviceName}
