@@ -218,19 +218,31 @@ public class CategoryAPI {
                 listConvenients = new ArrayList<>();
                 item.getConvenientEntities().forEach(cv -> {
                 	
-                    ConvenientEntity convenientEntity= convenientService.findById(cv.getId());
+                    ConvenientEntity convenientEntity= convenientService.findById(cv.getConvenientId());
                     
                     if(ObjectUtils.isEmpty(convenientEntity)) {
                        convenientEntity = new ConvenientEntity(); 	 
                        //convenientEntity.setId(cv.getConvenientId());
                        convenientEntity.setConvenientName(cv.getConvenientName()); 
                     }             
-       
+                    
                     listConvenients.add(convenientEntity);
                 });
             } else {
+            	List<ConvenientEntity> list2 = new ArrayList<>();
+                item.getConvenientEntities().forEach(cv -> {
+                	
+                    ConvenientEntity convenientEntity= convenientService.findById(cv.getConvenientId());
+                    
+                    if(ObjectUtils.isEmpty(convenientEntity)) {
+                       convenientEntity = new ConvenientEntity(); 	 
+                       convenientEntity.setId(cv.getConvenientId());
+                       convenientEntity.setConvenientName(cv.getConvenientName()); 
+                    }             
+                    list2.add(convenientEntity);
+                });
             	
-                listConvenients = item.getConvenientEntities();
+                listConvenients = list2;
             }
             
             entity.setConvenientEntities(listConvenients);
