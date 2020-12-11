@@ -1,4 +1,4 @@
-import {LOGIN_ACCOUNT, LOGOUT_ACCOUNT} from "../Constans/userConstants";
+import {END_POINT_REGISTER, LOGIN_ACCOUNT, LOGOUT_ACCOUNT} from "../Constans/userConstants";
 
 
 let user = JSON.parse(localStorage.getItem('user'));
@@ -13,6 +13,10 @@ export default function userReducer(state = initialState, action) {
       if (action.user.authorization.includes("ROLE_ADMIN")){
         newState.isAdmin = true;
       } else newState.isAdmin = false;
+      return newState;
+    }
+    case END_POINT_REGISTER: {
+      let newState = {...state,isSuccess: true};
       return newState;
     }
     default: return state;

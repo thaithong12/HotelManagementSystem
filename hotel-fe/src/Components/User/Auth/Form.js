@@ -5,10 +5,9 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Grid from "@material-ui/core/Grid";
 import React from "react";
 import LoginForm from "./Form/LoginForm";
-import {BrowserRouter,
+import {BrowserRouter as Router,
   Route,Switch} from "react-router-dom";
 import RegisterForm from "./Form/RegisterForm";
-import {history} from './../../../Helper/history'
 
 
 export default function Form() {
@@ -20,12 +19,12 @@ export default function Form() {
           <LockOutlinedIcon />
         </Avatar>
 
-        <BrowserRouter history={history}>
+        <Router>
           <Switch>
             <Route exact path="/Login" component={LoginForm}/>
             <Route exact path="/register" component={RegisterForm}/>
           </Switch>
-        </BrowserRouter>
+        </Router>
 
       </div>
     </Grid>

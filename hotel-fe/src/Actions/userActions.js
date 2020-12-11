@@ -48,7 +48,7 @@ export function register(obj) {
       toast.success('Register Success', () => {
         console.log('closed')
       });
-
+      dispatch(_register(obj))
     }).catch(err => {
       toast.error('Email Exists', () => {
         console.log(err);
