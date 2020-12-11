@@ -42,20 +42,23 @@ export const _addBooking = (booking) => ({
   type: 'add_booking',
   booking
 })
-// export const addBooking = (booking) => {
-//   return async (dispatch) => {
-//     await axios.post(API_URL + 'add_booking', {data: [booking]}).then(res => {
-//       if (res.status === 200) {
-//         dispatch(getAllBookings());
-//         toast.success(SUCCESS_MSG, () => {
-//           console.log('closed')
-//         });
-//       }
-//     }).catch(err => {
-//       console.log(err)
-//       toast.error(ERR_MSG, () => {
-//         console.log('closed')
-//       });
-//     })
-//   }
-// }
+export const addBooking = (booking) => {
+  return async (dispatch) => {
+    await axios.post(API_URL + '/orders', {data: [booking]}).then(res => {
+      if (res.status === 200) {
+        dispatch(getAllBookings());
+        console.log("in AddBooking");
+        console.log(booking);
+        if(booking.status !== 'UNPAID') {
+          toast.success(SUCCESS_MSG, () => {
+            console.log('closed')
+          }); }
+      }
+    }).catch(err => {
+      console.log(err)
+      toast.error(ERR_MSG, () => {
+        console.log('closed')
+      });
+    })
+  }
+}

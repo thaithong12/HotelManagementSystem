@@ -24,6 +24,6 @@ public class CategoryRequestModel {
 	private int maximumPeopleOfRoom;
 	List<ImageRequestModel> imageEntities;
 	//private List<RoomEntity> roomEntities;
-	private List<ConvenientRequestModel> convenientEntities;
+	private List<ConvenientEntity> convenientEntities;
 	List<ReviewRequestModel> reviewEntities;
 }

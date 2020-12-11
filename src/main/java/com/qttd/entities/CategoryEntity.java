@@ -35,7 +35,7 @@ public class CategoryEntity extends BaseEntity {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryEntity", fetch = FetchType.LAZY)
 	private List<RoomEntity> roomEntities;
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
 	@JoinTable(name = "category_convenient_relationship", 
 		joinColumns = @JoinColumn(name = "category_id"), 
 		inverseJoinColumns = @JoinColumn(name = "convenient_id"))

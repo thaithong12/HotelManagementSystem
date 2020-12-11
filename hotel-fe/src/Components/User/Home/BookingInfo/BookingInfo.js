@@ -8,14 +8,33 @@ import {getServices} from "../../../../Actions/serviceAction";
 import {getPromotions} from "../../../../Actions/promotionActions";
 import {useLocation} from 'react-router-dom'
 import {history} from "../../../../Helper/history";
+import {getAllBookings, addBooking} from "../../../../Actions/bookingAction";
 
 export default function BookingInfo() {
   const servicesData = useSelector(state => state.services.services);
   const dispatch = useDispatch();
   const data = useLocation().state.booking;
   const promotionsData = useSelector(state => state.promotions.promotions);
+  const bookingsData = useSelector(state => state.bookings.bookings);
   const [itemErr, setItem] = useState({isErr: false, msg: ''});
-
+  const initItemExecute = {
+    id: 0,
+    address: '',
+    country: '',
+    customerName: '',
+    email: '',
+    gender: '',
+    phoneNumber: '',
+    checkIn: null,
+    checkOut: null,
+    status: 'UNPAID',
+    totalPrice: 0,
+    prePayment: 0,
+    promotionCode: '',
+    roomCode: '', 
+    deleted: false };
+  const [itemExecute, setItemExc] = useState(initItemExecute);
+  
   const [booking, setBooking] = useState({
     roomName: data.roomName,
     checkIn: data.checkIn,
@@ -30,6 +49,7 @@ export default function BookingInfo() {
   useEffect(() => {
     dispatch(getServices());
     dispatch(getPromotions());
+    dispatch(getAllBookings());
   }, []);
 
   const [customer, setCustomer] = useState({
@@ -72,11 +92,34 @@ export default function BookingInfo() {
       check = true;
     }
     if (itemErr.isErr === true || check) return;
+    itemExecute.checkIn = booking.checkIn;
+    itemExecute.checkOut = booking.checkOut;
+    itemExecute.country = customer.country;
+    itemExecute.email = customer.email;
+    itemExecute.gender = customer.gender;
+    itemExecute.phoneNumber = customer.phone;
+    itemExecute.promotionCode = customer.promotion;
+    itemExecute.roomCode = booking.roomName;
+    itemExecute.customerName = customer.fname + ' ' + customer.lname;
+    itemExecute.totalPrice = booking.totalPrice;
+    itemExecute.prePayment = booking.totalPrice;
+    if(promotionsData && promotionsData.filter(item => item.code === customer.promotion) && promotionsData.filter(item => item.code === customer.promotion).length > 0)
+      {
+        if(booking.checkIn >= promotionsData.filter(item => item.code === customer.promotion)[0].sdate &&
+                booking.checkIn <= promotionsData.filter(item => item.code === customer.promotion)[0].edate)
+         itemExecute.totalPrice = booking.totalPrice - booking.totalPrice * promotionsData.filter(item => item.code === customer.promotion)[0].discount / 100;
+      }
+    if(customer.method === 'deposit')
+      itemExecute.totalPrice /=2;
+    console.log("this is in BookingInfo");  
+    console.log(itemExecute);
+    dispatch(addBooking(itemExecute));
     const location = {
       pathname: '/payment',
       state: {
         customer: {...customer},
         booking: {...booking},
+        bookinfo: {...itemExecute}
       }
     }
     history.push(location);
@@ -227,7 +270,11 @@ export default function BookingInfo() {
             <li>Promotion Code:
               {promotionsData && promotionsData.filter(item => item.code === customer.promotion) &&
               promotionsData.filter(item => item.code === customer.promotion).length > 0 ?
-                (<span className={'valid-code'}>abc</span>) : (<span className={'unvalid-code'}>def</span>)}
+              (booking.checkIn >= promotionsData.filter(item => item.code
+                === customer.promotion)[0].sdate &&
+               booking.checkIn <= promotionsData.filter(item => item.code
+                === customer.promotion)[0].edate ?
+                (<span className={'valid-code'}>{customer.promotion}</span>) : (<span className={'unvalid-code'}>expired</span>)) : (<span className={'unvalid-code'}>non</span>)}
             </li>
           </ul>
           <hr/>
@@ -236,7 +283,17 @@ export default function BookingInfo() {
           && promotionsData.filter(item => item.code === customer.promotion) &&
           promotionsData.filter(item => item.code === customer.promotion).length > 0 ?
             (<span>
-              {booking.totalPrice - booking.totalPrice * promotionsData.filter(item => item.code === customer.promotion)[0].discount / 100}
+              { booking.checkIn >= promotionsData.filter(item => item.code
+                 === customer.promotion)[0].sdate &&
+                booking.checkIn <= promotionsData.filter(item => item.code
+                 === customer.promotion)[0].edate ?
+                (customer.method === 'full' ?
+                (booking.totalPrice - booking.totalPrice * promotionsData.filter(item =>
+                   item.code === customer.promotion)[0].discount / 100)
+                 : (booking.totalPrice - booking.totalPrice * promotionsData.filter(item =>
+                   item.code === customer.promotion)[0].discount / 100)/2) :
+                (customer.method === 'full' ? booking.totalPrice : booking.totalPrice/2)
+                }
               <del> {booking.totalPrice}</del>
             </span>) : <span>{booking.totalPrice}</span>}
           </p>

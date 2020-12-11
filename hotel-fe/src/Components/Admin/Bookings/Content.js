@@ -1,11 +1,11 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {getAllBookings, deleteBooking} from "../../../Actions/bookingAction";
+import {getAllBookings, addBooking, deleteBooking} from "../../../Actions/bookingAction";
 import {
     IconButton, Table,
-    TableBody, TableContainer, TableHead, TableRow, TableCell, Button
+    TableBody, TableContainer, TableHead, TableRow, TableCell, Button, Input
   } from "@material-ui/core";
-import '../form.css';
+
 import {StyledTableCell,StyledTableRow,useStyles} from '../css.js';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -15,16 +15,35 @@ import './style.css';
 import AddCircle from "@material-ui/icons/AddCircle";
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-
+import Modal from 'react-modal';
 import Paper from '@material-ui/core/Paper';
+import TextField from '@material-ui/core/TextField';
+
+import './BookingAdmin.css'
+
 
 export default function Content() {
     const bookings = useSelector(state => state.bookings);
     const new_book = bookings && bookings.length > 0 ? bookings.filter(item => item.deleted === false ):[];
     console.log(new_book);
     const dispatch = useDispatch();
-    const initItemExecute ={email: '', roomCode: '', country: '', promotionCode: '', gender: '', customerName: '', phoneNumber: '', address: '', checkIn: null, checkOut: null, totalPrice: 0, status: 'UNPAID', deleted: false };
-    const [itemError, setItemErr] = useState({isErr: false ,msgRoom: '', msgCate: ''})
+    const initItemExecute = {
+      id: 0,
+      address: '',
+      country: '',
+      customerName: '',
+      email: '',
+      gender: '',
+      phoneNumber: '',
+      checkIn: null,
+      checkOut: null,
+      status: 'UNPAID',
+      totalPrice: 0,
+      prePayment: 0,
+      promotionCode: '',
+      roomCode: '', 
+      deleted: false };
+    const [itemErr, setItemErr] = useState({isErr: false, msg: ''})
     const [itemExecute, setItem] = useState(initItemExecute);
     const [modalAddOrUpdate, setModalAddOrUpdate] = useState(false);
     const [modalDelete, setModalDelete] = useState(false);
@@ -32,6 +51,43 @@ export default function Content() {
     useEffect(() => {
       dispatch(getAllBookings());
     }, []);
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      console.log(useCase);
+      let err = {};
+      if(itemExecute.status === '') err.isErr = true;
+      if(itemExecute.checkIn === null) err.isErr = true;
+      if(itemExecute.checkOut === null) err.isErr = true;
+      if(itemExecute.checkOut < itemExecute.checkIn) err.isErr = true;
+      if(itemExecute.country ==='') err.isErr = true;
+      if(itemExecute.customerName === '') err.isErr = true;
+      if(itemExecute.email === '') err.isErr = true;
+      if(itemExecute.phoneNumber === '') err.isErr = true;
+      setItemErr(err);
+      console.log(err.isErr)
+      console.log(itemExecute)
+      if (err.isErr) return;
+      dispatch(addBooking(itemExecute));
+      setModalAddOrUpdate(false);
+      setItem(initItemExecute);
+  
+      }
+      
+    const handleChangeSelect = (e) => {
+      let options = e.target.options;
+      let value = [];
+      for (let i = 0, l = options.length; i < l; i++) {
+        if (options[i].selected) {
+          value.push(options[i].value);
+        }
+      }
+    }
+  
+    function handleChange(e) {
+      console.log(e.target.name);
+      setItem({...itemExecute, [e.target.name]: e.target.value});
+      
+    }
     const handleEdit = (id) => {
         const obj_book = bookings.filter(item => item.id === id)[0];
         setItem({email: obj_book.categoryId,
@@ -63,7 +119,7 @@ export default function Content() {
         
           {/*Table*/}
           <IconButton fontSize={'medium'} onClick={() => {
-            setCase('ADD ROOM');
+            setCase('ADD BOOKING');
             setModalAddOrUpdate(true);
             setItem(initItemExecute);
           }}>
@@ -96,7 +152,7 @@ export default function Content() {
                     <StyledTableCell align="left">{row.totalPrice}</StyledTableCell>
                     <StyledTableCell align="left"><span className={row.status === 'PAID'? 'status-suc': 'status-err'}>{row.status}</span></StyledTableCell>
                     <StyledTableCell align="left">
-                      <IconButton aria-label="delete">
+                      <IconButton aria-label="delete" onClick={(e) => {handleEdit(row.id);setCase('UPDATE BOOKING')}}>
                         <EditIcon fontSize="small"/>
                       </IconButton>
                       <IconButton aria-label="delete" onClick={(e) => {setModalDelete(true); setItem({id: row.id})}}>
@@ -124,8 +180,152 @@ export default function Content() {
             </Button>
             </DialogActions>
         </Dialog>
+         {/*Modal Add or Update*/}
+        <Modal isOpen={modalAddOrUpdate}
+              onRequestClose={() => setModalAddOrUpdate(false)}
+              className="form">
+           
+          <div className="modal-overlay-booking"/>
+          <div className="modal-wrapper-booking">
+            <div className="modal-booking">
+              <div className="modal-header">
+                <button type="button" className="modal-close-button" onClick={() => setModalAddOrUpdate(false)}>
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
 
-      </div>
+              <h2>{useCase}</h2>
+              <div className={'booking-info'}>
+                <div className={'customer-info-admin'}>
+                <form action={'#'}>
+                  <div>
+                    <div className={'customer-name'}>
+                      <select onChange={(e) => handleChange(e)} name={'gender'}>
+                        <option value={'MALE'}>Mr</option>
+                        <option value={'FEMALE'}>Ms</option>
+                      </select>
+                      <Input id="customerName" name={'customerName'} className={'my-input'} placeholder={'Full name'} defaultValue={itemExecute.customerName}
+                            onChange={(e) => handleChange(e)} required/>
+                    </div>
+                    <br/>
+                    <p><strong>Country/Region</strong></p>
+                    <select name={'country'} className={'my-select'}
+                            onChange={(e) => handleChange(e)}>
+                      <option value={'VN'}>VN</option>
+                      <option value={'US'}>US</option>
+                    </select>
+                    <br/>
+                    <br/>
+                    <div className={'email-phone'}>
+                      <div>
+                        <p><strong>Email</strong></p>
+                         <Input name={'email'} defaultValue={itemExecute.email} onChange={(e) => {
+                          handleChange(e)
+                        }} id="email" className={'my-input'} placeholder={'Email Address'} required/> 
+                      </div>
+                      <div style={{paddingLeft: 32}}>
+                        <p><strong>Phone Number</strong></p>
+                        <Input name={'phoneNumber'}
+                              id="phoneNumber" className={'my-input'}
+                              placeholder={'Phone Number'}
+                              onChange={(e) => {
+                                handleChange(e)
+                              }} required
+                              defaultValue={itemExecute.phoneNumber}
+                        />
+                      </div>
+                    </div>
+                    <br/>
+                    <div className={'email-phone'}>
+                       <div>
+                          <p><strong>Form</strong></p>
+                          <TextField
+                          id="date"
+                          type="date"
+                          className = "date"
+                          name={'checkIn'}                
+                          //defaultValue={itemExecute.checkIn === null ? itemExecute.checkIn : itemExecute.checkIn.substring(0,10)}
+                          onChange={e => handleChange(e)}
+                          />
+                       </div>
+                       
+                       <div style={{paddingLeft: 90}}>
+                          <p><strong>To</strong></p>
+                          <TextField
+                                    id="date"
+                                    type="date"
+                                    min={(itemExecute.checkIn)}
+                                    className = "date"
+                                    name={'checkOut'}
+                                    //defaultValue={itemExecute.checkOut === null ? itemExecute.checkOut : itemExecute.checkOut.substring(0,10)}
+                                    onChange={e => handleChange(e)}
+                                  />
+                      </div>                          
+                    </div>
+                    <br/>
+                    <div className={'email-phone'}>
+                      <div>
+                        <p><strong>Promotion Code</strong></p>
+                        <Input defaultValue = {itemExecute.promotionCode} onChange={(e) => {
+                          handleChange(e)
+                        }}
+                              name={'promotionCode'}
+                              id="code" className={'my-input'}
+                              placeholder={'Promotion Code'}/>
+                      </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    {/* <p><strong>Special Requirement</strong></p>
+                    <textarea onChange={(e) => {
+                      handleChange(e)
+                    }}
+                              placeholder={'Special Requirement'} cols={68} rows={5} name={'special'}></textarea>
+                    <br/>
+                    <br/> */}
+                    <p><strong>Payment Method</strong></p>
+                    <div className={'border'} style={{display: "flex", flexDirection: "row"}}>
+                      <div>
+                        <input checked={itemExecute.status === 'PAID'}
+                              className={'my-input-2'}
+                              type={'radio'} id="full"
+                              name={'status'}
+                              value="PAID"
+                              onClick={(e) => {
+                                handleChange(e)
+                              }}/>
+                        <label htmlFor="full">Full</label><br/>
+                      </div>
+                      <div style={{paddingLeft: 300}}>
+                        <input checked={itemExecute.status === 'DEPOSIT'}
+                              className={'my-input-2'}
+                              type={'radio'}
+                              id="deposit"
+                              name={'status'}
+                              onClick={(e) => {
+                                handleChange(e)
+                              }}
+                              value="DEPOSIT"/>
+                        <label htmlFor="deposit">Deposit</label><br/>
+                      </div>
+                    </div>
+                    <br/>
+                    <br/>
+                  </div>
+                </form>
+              </div>
+              <div class="row">
+                <input type="submit" value="Submit" onClick={(e) => handleSubmit(e)}/>
+              </div>
+             </div>
+             
+           </div>                
+       </div>
+    
+        
+        </Modal>
+
+        </div>
     )
   
   }

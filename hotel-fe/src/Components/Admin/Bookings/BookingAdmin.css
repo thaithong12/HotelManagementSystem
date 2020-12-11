@@ -1,0 +1,100 @@
+.booking-info{
+    display: flex;
+    flex-direction: row;
+    max-width: 120%;
+    margin-left: 5%;
+    margin-top: 2%;
+}
+.modal-overlay-booking {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    opacity: .5;
+    
+  }
+  
+  .modal-wrapperr-booking {
+    position: fixed;
+    top: 28px;
+    left: 0;
+    z-index: 5;
+    width: 1000px;
+    height: 150%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    
+  }
+  
+  .modal-booking {
+    z-index: 100;
+    background: white;
+    position: relative;
+    margin: 1.75rem auto;
+    border-radius: 3px;
+    max-width: 700px;
+    max-height: 1000px;
+    padding: 2rem;
+  }
+.customer-info-admin {
+    width: 100%;
+    padding: 5%;
+    border: 1px solid black;
+}
+
+.booking {
+    max-width: 40%;
+    padding: 4%;
+    border: 1px solid;
+    margin-left: 7%;
+    width: 50%;
+    max-height: 300px;
+    position: fixed;
+    right: 40px;
+}
+
+.my-input {
+    width: 250px;
+    padding-left: 1%;
+    padding-right: 1%;
+}
+
+.customer-name {
+    display: flex;
+    flex-direction: row;
+}
+
+.customer-name .my-input {
+    margin-left: 2%;
+}
+
+.my-select {
+    padding: 1%;
+    width: 100%;
+}
+
+.email-phone {
+    display: flex;
+    flex-direction: row;
+}
+
+.services  {
+    width: 252px;
+    padding: 8px;
+}
+
+.my-input-2 {
+    width: 20px;
+}
+
+.border{
+    border: 1px solid red;
+}
+
+/* button {
+    padding: 10px;
+    width: 556px;
+} */

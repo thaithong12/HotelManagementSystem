@@ -9,5 +9,5 @@ import com.qttd.entities.CategoryEntity;
 
 @Repository
 public interface CategoryRepository extends CrudRepository<CategoryEntity, Long> {
-	List<CategoryEntity> findByCategoryName(String name);
+	CategoryEntity findByCategoryName(String name);
 }
