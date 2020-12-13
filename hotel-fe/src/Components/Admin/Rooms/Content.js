@@ -56,6 +56,7 @@ export default function Content() {
     }
     setItemErr(err);
     if (err.isErr) return ;
+    console.log(itemExecute)
     dispatch(addRoom(itemExecute));
     setModalAddOrUpdate(false);
     setItem(initItemExecute);
@@ -71,6 +72,7 @@ export default function Content() {
     const obj = rooms.filter(item => item.roomId === id)[0];
     setItem({categoryId: obj.categoryId, roomId: obj.roomId,
       roomStatus: obj.roomStatus, roomNumber: obj.roomNumber});
+    console.log(itemExecute)
     setModalAddOrUpdate(true);
   }
 
