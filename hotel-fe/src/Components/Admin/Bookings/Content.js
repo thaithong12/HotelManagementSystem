@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getAllBookings, addBooking, deleteBooking} from "../../../Actions/bookingAction";
 import {
     IconButton, Table,
-    TableBody, TableContainer, TableHead, TableRow, Button, Input
+    TableBody, TableContainer, TableHead, TableRow, TableCell, Button, Input
   } from "@material-ui/core";
 
 import {StyledTableCell,StyledTableRow,useStyles} from '../css.js';
@@ -25,7 +25,7 @@ import './BookingAdmin.css'
 export default function Content() {
     const bookings = useSelector(state => state.bookings);
     const new_book = bookings && bookings.length > 0 ? bookings.filter(item => item.deleted === false ):[];
-    
+    console.log(new_book);
     const dispatch = useDispatch();
     const initItemExecute = {
       id: 0,
@@ -53,7 +53,7 @@ export default function Content() {
     }, []);
     const handleSubmit = (e) => {
       e.preventDefault();
-
+      console.log(useCase);
       let err = {};
       if(itemExecute.status === '') err.isErr = true;
       if(itemExecute.checkIn === null) err.isErr = true;
@@ -64,6 +64,8 @@ export default function Content() {
       if(itemExecute.email === '') err.isErr = true;
       if(itemExecute.phoneNumber === '') err.isErr = true;
       setItemErr(err);
+      console.log(err.isErr)
+      console.log(itemExecute)
       if (err.isErr) return;
       dispatch(addBooking(itemExecute));
       setModalAddOrUpdate(false);
@@ -82,6 +84,7 @@ export default function Content() {
     }
   
     function handleChange(e) {
+      console.log(e.target.name);
       setItem({...itemExecute, [e.target.name]: e.target.value});
       
     }
@@ -100,6 +103,7 @@ export default function Content() {
                  totalPrice: obj_book.totalPrice,
                  status: obj_book.status,
                  deleted: obj_book.deleted});
+        console.log(itemExecute)
         setModalAddOrUpdate(true);
       }
     const handleDelete = (e) => {

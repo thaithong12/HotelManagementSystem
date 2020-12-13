@@ -67,7 +67,6 @@ export default function BookingBar() {
     if (itemErr.isErr) {
       return;
     }
-    let  dateIn = (new Date(booking.checkOut)- new Date(booking.checkIn))/ 86400000; 
     let  dateIn = (new Date(booking.checkOut)- new Date(booking.checkIn))/ 86400000;
     booking.totalPrice += categoriesData.price*(dateIn-1);
     booking.unitPrice += categoriesData.price*(dateIn-1);
